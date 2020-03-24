@@ -121,7 +121,7 @@
 
 
 \title{PSD}
-\author{Mohd Afeef Badri}
+\author{Mohd Afeef Badri,~Giuseppe Rastiello}
 \setcounter{tocdepth}{2}
 
 
@@ -139,6 +139,212 @@ PSD is a finite elements-based solid mechanics solver with capabilities of perfo
 
 \section{History}
 Development of PSD started in Feburary 2019 at CEA.  
+
+
+\subsection{Version 2.0}
+\textbf{Added}
+\begin{itemize}
+    \item New preproceeing via C++, PSD\_PreProcess binary.
+    \item New time discretization option `-timediscretization`
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to FreeFEM 4.5.
+\item Moved to C++ for preprocessing.
+\end{itemize}
+
+\subsection{Version 1.8 - 2020-01-21}
+\textbf{Added}
+\begin{itemize}
+ \item New soil dynamic module `-soildynamics`
+ \item New paraxial element support in 2D.
+ \item New timeplotting support `-timepvd`
+ \item New `-postprocess` option for postprocessing `u` , `v`,  `a` , or `uav`. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Moved to FreeFEM 4.4.2.
+ \item Moved to PETSc 13.12.
+ \item New simpler way of ploting `savevtk` in parallel with `append` flag for iterative solutions.
+ \item VTU files get stored with a date and time stamp.
+ \item New way of maintaining a logfile for all simulations (date,time,case,..) in `simulation-log.csv`.
+\end{itemize}
+
+\subsection{Version 1.7 - 2019-11-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New  mesh reordering via Reverse Cuthill-Mackee via `-useRCM`. 
+ \item New quasi-static parallel solver (Extension of B.Masseron \& G.Rastiello sequential version).
+ \item New GFP plugin for Mazar's damage update for 2D/3D problems `GFPMazarsDamageUpdate(...)`.
+ \item New MPI plotting routine `plotJustMeshMPI()`.
+ \item New option `-fastmethod` to switich back to defualt variational formulation.
+- New  make flage for compiling on supercomputer. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Changed variational formulation now using $\epsilon(u):A:\epsilon(v)$.
+ \item Using GFP becomes optional `-useGFP`.
+ \item Better documentation via `.md` and `.html` files.
+ \item Better plotting support for `PlotMPI()`.
+ \item Moved to FreeFEM 4.4.
+\end{itemize}
+
+
+\subsection{Version 1.6 - 2019-06-11}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  parallel/sequential.
+ \item New finite element variable for partition of unity-- for fixing integrals.
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via `.md` and `.html` files.
+ \item Correct quadrature order for faster computations.
+ \item Major changes/splitting of `.script` files.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the `BoundaryAndSourceConditions.script` merged with `ControlParameters.script`.
+\end{itemize}
+
+\textbf{Bugs}
+\begin{itemize}
+ \item Bug in integrals fixed.
+\end{itemize}
+
+
+\subsection{Version 1.5 - 2019-05-29}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  sequential.
+ \item New meshes for dynamics tests `bar-dynamic.msh`.
+ \item Checking modules `make check`.
+ \item Faster sparsity pattern calculations. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via `.md` and `.html` files.
+ \item Major restructuring of the codes. 
+ \item Moved to `automake` for solver installation.
+ \item Mesh building via `make`.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the manufactured solution codes.
+\end{itemize}
+
+\subsection{Version 1.4 - 2019-05-14}
+
+\textbf{Added}
+\begin{itemize}
+ \item Fully vectorial finite element solver for phase-filed `-vectorial`.
+ \item New `-supercomp` for avoiding xterm issues on super computers.
+ \item New `MatViz()` function for matrix sparsity visualization.
+ \item Introduced `GFP` plugin support (Go Fast Plugins). 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Elastic energy decomposition is now optional `-energydecomp`.
+ \item Force calculation using integrals (Thanks to G.Rastiello).
+\end{itemize}
+
+\subsection{Version 1.3 - 2019-04-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New meshes in 2D/3D`Notched-plate` , `square-crack`, etc.
+ \item New fracture mechanics module.
+ \item New `-nonlinear` flag to activate phase-field model for brittle fracture.
+ \item New `-timelog` for time logging the solver.
+ \item New `-pipegnu` for GNUplot piping.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Scripting now performed using `.script` files:
+ \begin{itemize}
+	\item `BoundaryAndSourceConditions.script `
+	\item `LinearFormBuilderAndSolver.script  `
+	\item `Macros.script  ` 
+	\item `Main.script  ` 
+	\item `VariationalFormulation.script  ` 
+	\item ....
+	\end{itemize}
+\item Move to FreeFEM version 4.0.
+\item Move to PETSc version 3.11.
+\end{itemize}
+
+\subsection{Version 1.2 - 2019-03-18}
+
+\textbf{Added}
+\begin{itemize}
+\item Support for Gmsh's `.msh`  or Medit's `.mesh` meshes in folder `Meshes`.
+\item Advance to 3D physics.
+\item New MPI based parallel solver linear elasticity.
+\item New approach for solver generation via scripting (PhD thesis MA Badri) with `scriptGenerator.edp`.
+\item Integrated Domain decomposition macro (PhD thesis MA Badri).
+\item Customized `.vtk` support for ParaView post-processing.
+\item New point boundary condition macro `pointbc(Real[int], fespace, matrix)`.
+\item New flags for communicating with the solver: `-dimension`, `-plot`, `-bodyforce`, `-lagrange`, etc.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item More advance README.MD.
+\item Sequential solver now merged within scripting via flag `-sequential`.
+\item Move to FreeFEM version 3.62.
+\item Moved manufactured solutions to `validation-test` folder.
+\end{itemize}
+
+\subsection{Version 1.1 - 2019-03-04}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files for sequential linear elasticity in 2D (case of constrained bar).
+\item More cases of manufactured solution for linear elasticity in 2D.
+\item Added README.MD for explaining the solver.
+\item ParaView plotting activated.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to Tuleap git hosting from CEA.
+\item Separate folder of manufactured solutions and the linear elastic solver.
+\item Move to FreeFEM version 3.61.
+\end{itemize}
+
+\subsection{Version 1.0 - 2019-02-15}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files  Method of manufactured solution for linear elasticity in 2D.
+\end{itemize}
+
+\subsection{Version git tags}
+\begin{itemize}
+\item | [1.0]      |8a8ecb2746b7da792073358c60df33bae647f788 |
+\item | [1.1]     |a667e6085ba1f92f8dd619bd40e18f85c593bc0a |
+\item | [1.2]        |e48b7b3a30c05ad4c343efa6a17fee386031f437 |
+\item | [1.3]       |39f4324550365849852c5264b8d4535aae05e30d |
+\item | [1.4]        |f51f678630eb9b2fed355e5cedf976ce8b5fa341 |
+\item | [1.5]        |07293ba09a69d3d6a16278220a0b4a7a9f318f96 |
+\item | [1.6]        |f359dd049fb1ddde376e8ad8e5177c663e430418 |
+\item | [1.7]       |aee9bfec868a70b3d9974d7692bc19f9739ab7dc |
+\item | [1.8]       |2f26292636c7248133e31ae912ee58113de2ef71 |
+\end{itemize}
 
 \chapter{Installation}
 
@@ -236,6 +442,14 @@ Note that the copy of PSD installed is not complete. You will have to manually b
 make
 \end{lstlisting}
 
+
+\chapter{Theoretical background}
+
+\section{Quasi-static}
+
+\section{Dynamics}
+
+\section{}
 
 
 
