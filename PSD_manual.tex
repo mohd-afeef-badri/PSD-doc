@@ -31,7 +31,7 @@
 \usepackage{siunitx}
 \usepackage{subcaption}
 \usepackage{textcomp}
-\usepackage{babel}
+\usepackage[english]{babel}
 \usepackage[autostyle=false]{csquotes}
 
 
@@ -1266,8 +1266,8 @@ To showcase the usage of Linear elasticity, we shall discuss here an example of 
 
 \begin{figure}[htbp]
     \centering
-    \includegraphics[align=t,width=.44\textwidth]{2d-bar.png}\hspace{.1\textwidth}
-    \includegraphics[align=t,width=.44\textwidth]{2d-bar-mesh.png}
+    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar.png}\hspace{.1\textwidth}
+    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar-mesh.png}
     \caption{2D bar clamped at left end and bending under own load. Geometry (left) and mesh (right).}
     \label{fig:2Dbar}
 \end{figure} 
@@ -1299,10 +1299,10 @@ PSD allows postprocessing of results in ParaView. After the step 2 mentioned abo
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-partioned.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-partioned.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-results.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-results.png}
     \end{minipage}
     \caption{2D clamped bar results. Partitioned mesh (left) and 1000X warped displacement field (right).}
     \label{fig:2d-bar-results}
@@ -1342,10 +1342,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-partitioned3.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-partitioned3.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-clamped-ends.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-ends.png}
     \end{minipage}
     \caption{2D clamped bar results. Partitioned mesh (left) and 20000X warped displacement field (right).}
     \label{fig:3part}
@@ -1360,10 +1360,10 @@ Imagine, you wish to know how the test would compare if performed on Moon and Ju
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2.5cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-moon.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-moon.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2.5cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-Jupiter.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-Jupiter.png}
     \end{minipage}
     \caption{2D clamped bar 20000X warped displacement fields. On moon (left) and  on Jupiter (right).}
     \label{fig:moon-jupiter}
@@ -1400,10 +1400,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.39\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-clamped-pulled-partioned.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-pulled-partioned.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.5\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{2d-bar-clamped-pulled.png}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-pulled.png}
     \end{minipage}
     \caption{2D bar results. Partitioned mesh (left) and 1.5X warped displacement field (right).}
     \label{fig:2part}
@@ -1447,10 +1447,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.36\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{2d-bar-partitioned5.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-partitioned5.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.5\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{2d-bar-clamped-traction.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-clamped-traction.png}
     \end{minipage}
     \caption{2D bar results. Partitioned mesh (left) and 100X warped displacement field (right).}
     \label{fig:5part}
@@ -1496,10 +1496,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.36\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{2d-bar-partitioned6.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-partitioned6.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.5\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{2d-bar-clamped-traction-point.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-clamped-traction-point.png}
     \end{minipage}
     \caption{2D bar results. Partitioned mesh (left) and 100X warped displacement field (right).}
     \label{fig:6part}
@@ -1547,10 +1547,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.38\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-bar-clamped-ends.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-bar-clamped-ends.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-bar-clamped-pulled-partioned.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-bar-clamped-pulled-partioned.png}
     \end{minipage}
     \caption{3D bar results. Partitioned mesh (left) and 0.5X warped displacement field (right).}
     \label{fig:3Dpart}
@@ -1573,7 +1573,7 @@ Place the generated mesh {\ttfamily piece.msh} in {\ttfamily /PSD/Meshes/3D/piec
 
 \begin{figure}[h]
     \centering
-    \includegraphics[align=b,width=0.5\textwidth]{3d-mechanical.png}
+    \includegraphics[align=b,width=0.5\textwidth]{./Images/3d-mechanical.png}
     \caption{3D mechanical piece.}
     \label{fig:mechanicalpiecegeo}
 \end{figure}
@@ -1601,10 +1601,10 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}[t][2cm][t]{0.36\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-mechanical-part.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-part.png}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-mechanical-result.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result.png}
     \end{minipage}
     \caption{Mechanical piece test results. Partitioned mesh (left) and  warped displacement field (right).}
     \label{fig:mechapieceresult}
@@ -1615,11 +1615,11 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
 \begin{figure}[htbp]
     \centering
     \begin{minipage}{0.42\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-mechanical-result-x.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result-x.png}
     \subcaption{{\ttfamily real  tx0=1.e9, ty0=0, tz0=0.,;}}
     \end{minipage}\hspace{.1\textwidth}
     \begin{minipage}{0.4\textwidth}
-    \includegraphics[align=b,width=1\textwidth]{3d-mechanical-result--x.png}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result--x.png}
     \subcaption{{\ttfamily real  tx0=1.e9, ty0=0, tz0=0.,;}}
     \end{minipage}
     \caption{Mechanical piece test results.}
@@ -1753,37 +1753,37 @@ This chapter showcases some test cases that have been performed with PSD.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{400partmesh3d.png}
+    \includegraphics[width=0.5\textwidth]{./Images/400partmesh3d.png}
     \caption{90 M dof with 400 partitions.}
     \label{fig:90Mdof}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\textwidth]{rainbow-test.png}    \includegraphics[width=0.45\textwidth]{rainbow-test1.png}
+    \includegraphics[width=0.45\textwidth]{./Images/rainbow-test.png}    \includegraphics[width=0.45\textwidth]{./Images/rainbow-test1.png}
     \caption{Perforated concrete bar cracking.}
     \label{fig:rainbow}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.45\textwidth]{dam1.png}    \includegraphics[width=0.45\textwidth]{dam2.png}\\
-    \includegraphics[width=0.45\textwidth]{dam3.png}
-    \includegraphics[width=0.45\textwidth]{dam4.png}
+    \includegraphics[width=0.45\textwidth]{./Images/dam1.png}    \includegraphics[width=0.45\textwidth]{./Images/dam2.png}\\
+    \includegraphics[width=0.45\textwidth]{./Images/dam3.png}
+    \includegraphics[width=0.45\textwidth]{./Images/dam4.png}
     \caption{Full scale dam under seismic load.}
     \label{fig:dam}
 \end{figure}
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.3\textwidth]{t1-large.png}        \includegraphics[width=0.3\textwidth]{t2-large.png}    
-    \includegraphics[width=0.3\textwidth]{t3-large.png}\\
-    \includegraphics[width=0.3\textwidth]{t5-large.png}        \includegraphics[width=0.3\textwidth]{t6-large.png}    
-    \includegraphics[width=0.3\textwidth]{t7-large.png}\\
-    \includegraphics[width=0.3\textwidth]{t8-large.png}        \includegraphics[width=0.3\textwidth]{t9-large.png}    
-    \includegraphics[width=0.3\textwidth]{t10-large.png}\\
-    \includegraphics[width=0.3\textwidth]{t11-large.png}        \includegraphics[width=0.3\textwidth]{t12-large.png}    
-    \includegraphics[width=0.3\textwidth]{t13-large.png}
+    \includegraphics[width=0.3\textwidth]{./Images/t1-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t2-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t3-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t5-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t6-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t7-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t8-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t9-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t10-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t11-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t12-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t13-large.png}
     \caption{Seismic signal dispersion in soil.}
     \label{fig:soilsemi}
 \end{figure}
@@ -1791,9 +1791,9 @@ This chapter showcases some test cases that have been performed with PSD.
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.65\textwidth]{t001.png}        
-    \includegraphics[width=0.65\textwidth]{t100.png}    
-    \includegraphics[width=0.65\textwidth]{t199.png} 
+    \includegraphics[width=0.65\textwidth]{./Images/t001.png}        
+    \includegraphics[width=0.65\textwidth]{./Images/t100.png}    
+    \includegraphics[width=0.65\textwidth]{./Images/t199.png} 
     \caption{Seismic signal on nuclear site.}
     \label{fig:nuclearplant}
 \end{figure}
