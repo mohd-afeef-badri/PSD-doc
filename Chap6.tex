@@ -30,14 +30,13 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   -postprocess & Indicate postprocessing quantity. Use \ttfamily u | v | a | phi | uphi | uva.\\
 
-
-    -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force-based | displacement-based.\\
+  -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force-based | displacement-based.\\
   
-   -reactionforce      &  Reaction force calculation method. Use \ttfamily stress-based | variational-based.\\
+  -reactionforce  &  Reaction force calculation method. Use \ttfamily stress-based | variational-based.\\
   
   -problem     & Interested problem. Use \ttfamily linear-elasticity | damage | elastodynamics | soildynamics.\\
 
-  -model       & Interested model. Use \ttfamily hybrid-phase-field | Mazar.	\\		
+  -model       & Interested model. Use \ttfamily hybrid-phase-field | Mazar | pseudo-nonlinear.	\\		
 
 \end{conditions*}
 \subsection{Bool type flags used for  PSD\_PreProcess}
@@ -52,11 +51,7 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   -useRCM       & 	  Mesh level renumbering via Reverse Cuthill Mckee.\\   
   
-  -pipegnu      & 	  Realtime pipe plotting using GnuPlot. \\
-  
   -vectorial    & 	  Generate vectorial space solver for non-linear.  \\ 
-
-  -bodyforce    &     Use volumetric source term (body force). \\
   
   -sequential   & 	  To generate a sequential PSD solver. \\
   
@@ -77,7 +72,179 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   
 \end{conditions*}
+\section{Flags as per physics}
+\begin{small}
 
+\fbox{
+\begin{minipage}[t][11cm]{0.2\textwidth}
+  \centering \textbf{Linear Elasticity}
+  \begin{scriptsize}
+  \begin{conditions*}
+
+  	INT TYPE &   \\ &   \\
+  	-dirichletpointconditions &   \\
+    -dirichletconditions      &   \\
+    -bodyforceconditions      &   \\  
+    -tractionconditions       &   \\
+    -parmetis\_worker         &   \\
+  	-dimension                &   \\    
+    -lagrange                 &   \\
+     &   \\
+     &   \\
+
+ 
+   STRING TYPE &   \\ &   \\ 
+   -partitioner               &   \\
+   -postprocess               &   \\
+   -problem                   &   \\   		    
+     &   \\
+     &   \\
+     &   \\
+     &   \\
+     &   \\    
+       
+
+   BOOL TYPE &   \\ &   \\
+   -sequential                &   \\
+   -fastmethod                &   \\
+   -timelog                   &   \\
+   -useGFP                    &   \\ 
+   -useRCM                    &   \\         
+   -debug                     &   \\
+   -help                      &   \\
+       		
+  \end{conditions*}
+  \end{scriptsize}
+\end{minipage}
+}\hfill\fbox{
+\begin{minipage}[t][11cm]{0.2\textwidth}
+  \centering \textbf{Damage Mechanics}
+  \begin{scriptsize}
+	\begin{conditions*}
+		
+		INT TYPE &   \\ &   \\
+		-dirichletpointconditions &   \\
+		-dirichletconditions      &   \\
+		-bodyforceconditions      &   \\  
+		-tractionconditions       &   \\
+		-parmetis\_worker         &   \\
+		-dimension                &   \\    
+		-lagrange                 &   \\
+		&   \\
+		&   \\
+		
+		
+		STRING TYPE &   \\ &   \\ 
+		-nonlinearmethod           &   \\
+		-reactionforce             &   \\
+		-partitioner               &   \\
+		-postprocess               &   \\
+		-problem                   &   \\   		    
+		-model                     &   \\
+		&   \\
+		&   \\
+		
+		BOOL TYPE &   \\ &   \\
+    -plotreactionforce         &   \\		
+    -getreactionforce          &   \\ 
+		-energydecomp              &   \\				
+		-sequential                &   \\
+		-vectorial                 &   \\
+		-timelog                   &   \\
+		-useGFP                    &   \\
+        -useRCM                    &   \\ 				   		
+		-debug                     &   \\
+		-help                      &   \\		
+
+
+      		
+	\end{conditions*}
+\end{scriptsize}
+\end{minipage}
+}\hfill\fbox{
+\begin{minipage}[t][11cm]{0.2\textwidth}
+ \centering  \textbf{Elastodynamics}
+  \begin{scriptsize}
+	\begin{conditions*}
+		
+		INT TYPE &   \\ &   \\
+		-dirichletpointconditions &   \\
+		-dirichletconditions      &   \\
+		-bodyforceconditions      &   \\  
+		-tractionconditions       &   \\
+		-parmetis\_worker         &   \\
+		-dimension                &   \\    
+		-lagrange                 &   \\
+		 &   \\
+		 &   \\
+		
+		
+		STRING TYPE &   \\ &   \\
+		-timediscretization        &   \\		 
+		-partitioner               &   \\
+		-postprocess               &   \\
+		-problem                   &   \\   		    
+		-model                     &   \\
+		&   \\
+		&   \\
+		&   \\				
+		BOOL TYPE &   \\ &   \\				
+		-sequential                &   \\
+		-timelog                   &   \\
+		-useGFP                    &   \\
+		-useRCM                    &   \\ 				   		
+		-debug                     &   \\
+		-help                      &   \\		
+
+		
+		
+	\end{conditions*}
+\end{scriptsize}
+\end{minipage}
+}\hfill\fbox{
+\begin{minipage}[t][11cm]{0.2\textwidth}
+  \centering \textbf{Soildynamics}
+  \begin{scriptsize}
+	\begin{conditions*}
+		
+		INT TYPE &   \\ &   \\
+		-dirichletpointconditions &   \\
+		-dirichletconditions      &   \\
+		-bodyforceconditions      &   \\  
+		-tractionconditions       &   \\
+		-parmetis\_worker         &   \\
+		-dimension                &   \\    
+		-lagrange                 &   \\
+		 &   \\
+		 &   \\
+		
+		
+		STRING TYPE &   \\ &   \\
+		-doublecouple              &   \\
+		-postprocess               &   \\				 
+		-partitioner               &   \\
+		-postprocess               &   \\
+		-problem                   &   \\   		    
+		-model                     &   \\
+		 &   \\
+		 &   \\
+		
+		BOOL TYPE &   \\ &   \\	
+		-top2vol-meshing           &   \\					
+		-sequential                &   \\
+		-timelog                   &   \\
+		-useGFP                    &   \\
+		-useRCM                    &   \\ 				   		
+		-debug                     &   \\
+		-help                      &   \\		
+		
+		
+		
+	\end{conditions*}
+\end{scriptsize} 
+\end{minipage}
+}
+\end{small}
 \section{Functions in gofastplugins.cpp}
 
 \subsection{GFPeigen}

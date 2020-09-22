@@ -293,20 +293,40 @@ h				L2u1				L2u2				Linfu1			Linfu2
 
 \DeclareLanguageMapping{nil}{english}
 
+
+\includeonly{
+              Chap1,
+              Chap2,
+              Chap3,
+              Chap4,
+              Chap5,
+              Chap6,
+              Chap7
+             }
+    
 \begin{document}
     \maketitle
     
     \pagebreak
     \tableofcontents
     \pagebreak
-    
-    \input{Chap1.tex}
-    \input{Chap2.tex}
-    \input{Chap3.tex}
-    \input{Chap4.tex}
-    \input{Chap5.tex}
-    \input{Chap6.tex}
-    \input{Chap7.tex}
+
+
+    \include{Chap1}
+    \include{Chap2}
+    \include{Chap3}
+    \include{Chap4}
+    \include{Chap5}
+    \include{Chap6}
+    \include{Chap7}
+        
+    %\input{Chap1.tex}
+    %\input{Chap2.tex}
+    %\input{Chap3.tex}
+    %\input{Chap4.tex}
+    %\input{Chap5.tex}
+    %\input{Chap6.tex}
+    %\input{Chap7.tex}
     
     \pagebreak
     \printbibliography
