@@ -1,0 +1,681 @@
+\chapter{Theoretical background}
+
+\section{Elastostatics}
+
+Let us consider $d$-dimensional domain $\Omega\in\mathbb{R}^{d}$ in a Euclidean referential $R(O,\be_{i})$ (with $i=1,\dots,d)$ submitted to a system of body forces $\bb$. We denote $\partial\Omega$ the boundary of $\Omega$ and indicate with $\bn=\bn(\bx)=n_{i}(\bx)\be_{i}$
+its outer normal in any point $\bx=x_{i}\be_{i}\in\partial\Omega$.
+
+The problem to solve in order to characterize the dynamics equilibrium thus consists in finding a vector-valued displacement field $\bu=\bu(\bx,t):\Omega\times[0,T]\to\mathbb{R}^{d}$
+regular ``enough'' and such that: 
+\begin{equation}
+\begin{cases}
+\mathrm{\mathrm{div}}\bsigma+\bb=0 & (\bx,t)\in\Omega\times[0,T]\\
+\bsigma=\bsigma(\bu) & (\bx,t)\in\Omega\times[0,T]\\
+\bu=\bu^{*} & (\bx,t)\in\partial_{u}\Omega\times[0,T]\\
+\bsigma\cdot\bn=\bt & (\bx,t)\in\partial_{t}\Omega\times[0,T]
+\end{cases}
+\end{equation}
+where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
+expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
+boundary condition) and 
+$\bt=\bt(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$
+is the imposed traction vector on $\partial_{t}\Omega$ (Neumann boundary condition). The split of $\partial\Omega$ is such that $\partial\Omega=\overline{\partial_{u}\Omega\cup\partial_{t}\Omega}$ and $\partial_{u}\Omega\cap\partial_{t}\Omega=\emptyset$, with overline $\overline{\bullet}$ denoting the closure of set $\bullet$.
+
+Let us now introduce the spaces of the admissible displacements fields ($\mathcal{U}$) and test functions ($\mathcal{V}$):
+%
+\begin{equation}
+\begin{aligned}\mathcal{U} & =\left\{ \bu=\bu(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bu\in H^{1}(\Omega),\,\bu=\bu^{*}\,\partial_{u}\Omega\times[0,T]\right\} \\
+\mathcal{V} & =\left\{ \bv=\bv(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bv\in H^{1}(\Omega),\,\bv=0\,\partial_{u}\Omega\times[0,T],\right\} 
+\end{aligned}
+\end{equation}
+%
+The weak form of previous boundary value problem can be easily obtained
+by integrating by part the linear momentum balance equation using
+a test function $\bv\in\mathcal{V}$, and imposing the Neumann boundary
+condition:
+%
+\begin{equation}
+%
+\underbrace{\int_{\Omega}\bsigma(\bu):\bepsilon(\bv)\,{\rm d}V}_{:=K(\bu,\bv)}=\underbrace{\int_{\Omega}\bb\cdot\bv\,{\rm d}V+\int_{\partial_{t}\Omega}\bt\cdot\bv\,{\rm d}S}_{:=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}}\quad\forall\,\bv\in\mathcal{V}
+%
+\end{equation}
+
+where symbol ``$:$'' is the double contraction operation between
+tensors, $K(\bu,\bv)$
+is the bi-linear symmetric form associated with the stiffness matrix
+and $b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}$ are the linear forms
+associated with the external loading.\footnote{In the following of this document, given a known field $\ba$, symbol
+$b(\bv;\ba)$ will be used to denote the linear form $\int_{\Omega}\ba\cdot\bv\,{\rm d}V$,
+whereas $b(\bv;\ba)_{Surf}$ will denote the linear form obtained
+form the surface integral $\int_{Surf}\ba\cdot\bv\,{\rm d}S$. Any
+linear form without down-script has to be interpreted as an integral
+over $\Omega$. Only surface integrals will be defined
+explicitly.}
+
+The problem to solve can be finally written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+\section{Elastodynamics}
+
+The problem to solve in order to characterize the dynamics equilibrium thus consists in finding a vector-valued displacement field $\bu=\bu(\bx,t):\Omega\times[0,T]\to\mathbb{R}^{d}$
+regular ``enough'' and such that: 
+\begin{equation}
+\begin{cases}
+\mathrm{\mathrm{div}}\bsigma+\bb=\rho\ddot{\bu} & (\bx,t)\in\Omega\times[0,T]\\
+\bsigma=\bsigma(\bu) & (\bx,t)\in\Omega\times[0,T]\\
+\bu=\bu^{*} & (\bx,t)\in\partial_{u}\Omega\times[0,T]\\
+\bsigma\cdot\bn=\bt & (\bx,t)\in\partial_{t}\Omega\times[0,T]\\
+\bu=\bu_{0} & \bx\in\Omega,\,t=0\\
+\dot{\bu}=\dot{\bu}_{0} & \bx\in\Omega,\,t=0
+\end{cases}
+\end{equation}
+where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density,
+$\ddot{\bu}=\ddot{\bu}(\bx,t)=\bu_{tt}:\Omega\times[0,T]\to\mathbb{R}^{d}$ is the acceleration field (i.e., the second time derivative of the field $\bu$) and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
+expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
+boundary condition) and 
+$\bt=\bt(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$
+is the imposed traction vector on $\partial_{t}\Omega$ (Neumann boundary condition). The split of $\partial\Omega$ is such that $\partial\Omega=\overline{\partial_{u}\Omega\cup\partial_{t}\Omega}$ and $\partial_{u}\Omega\cap\partial_{t}\Omega=\emptyset$, with overline $\overline{\bullet}$ denoting the closure of set $\bullet$. Finally,
+$\bu_{0}=\bu_{0}(\bx,0):\Omega\to\mathbb{R}^{d}$ and $\dot{\bu}_{0}=\dot{\bu}_{0}(\bx,0):\Omega\to\mathbb{R}^{d}$
+are the displacement and velocity fields at time $t=0$ (initial conditions).
+
+Let us now introduce the spaces of the admissible displacements fields ($\mathcal{U}$) and test functions ($\mathcal{V}$):
+%
+\begin{equation}
+\begin{aligned}\mathcal{U} & =\left\{ \bu=\bu(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bu\in H^{1}(\Omega),\,\bu=\bu^{*}\,\partial_{u}\Omega\times[0,T],\,\bu(\bx,0)=0,\:\dot{\bu(\bx,0)}=\dot{\bu}_{0}\right\} \\
+\mathcal{V} & =\left\{ \bv=\bv(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bv\in H^{1}(\Omega),\,\bv=0\,\partial_{u}\Omega\times[0,T],\right\} 
+\end{aligned}
+\end{equation}
+%
+The weak form of previous boundary value problem can be easily obtained
+by integrating by part the linear momentum balance equation using
+a test function $\bv\in\mathcal{V}$, and imposing the Neumann boundary
+condition:
+%
+\begin{equation}
+%
+\underbrace{\int_{\Omega}\rho\ddot{\bu}\cdot\bv\,{\rm d}V}_{:=M(\ddot{\bu},\bv)}+\underbrace{\int_{\Omega}\bsigma(\bu):\bepsilon(\bv)\,{\rm d}V}_{:=K(\bu,\bv)}=\underbrace{\int_{\Omega}\bb\cdot\bv\,{\rm d}V+\int_{\partial_{t}\Omega}\bt\cdot\bv\,{\rm d}S}_{:=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}}\quad\forall\,\bv\in\mathcal{V}
+%
+\end{equation}
+
+where symbol ``$:$'' is the double contraction operation between
+tensors, $M(\ddot{\bu},\bv)$ is the bi-linear symmetric form associated
+with inertial terms (i.e., dependent on the mass matrix), $K(\bu,\bv)$
+is the bi-linear symmetric form associated with the stiffness matrix
+and $b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}$ are the linear forms
+associated with the external loading.\footnote{In the following of this document, given a known field $\ba$, symbol
+$b(\bv;\ba)$ will be used to denote the linear form $\int_{\Omega}\ba\cdot\bv\,{\rm d}V$,
+whereas $b(\bv;\ba)_{Surf}$ will denote the linear form obtained
+form the surface integral $\int_{Surf}\ba\cdot\bv\,{\rm d}S$. Any
+linear form without down-script has to be interpreted as an integral
+over $\Omega$. Only surface integrals will be defined
+explicitly.}
+
+The problem to solve can be finally written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+The only way for accounting form dumping effects in this formulation
+is through a proper definition of a constitutive law $\bsigma=\bsigma(\bu)$
+modeling dissipative processes occurring at the material level. In
+some cases, however, it can be useful to account for damping effects
+in a more global way. This can be done by modifying the variational
+problem as follows:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $C(\dot{\bu},\bv)$ is an additional bi-linear symmetric form
+associated with damping/viscous effects.
+
+\section{Time discretization}
+
+Time discretized variational formulations are illustrate in this subsection,
+considering several implicit time integration schemes. Representative
+members of these algorithms are, among others, the N\textminus $\beta$
+method \cite{newmark1959method}, the HHT\textminus $\alpha$ method \cite{hilber1977improved}, the WBZ\textminus $\alpha$ method \cite{wood1980alpha}, the HP\textminus $\theta_{1}$ method \cite{hoff1988development} and the CH\textminus $\alpha$ method \cite{chung1993time}. These methods exhibit second order accuracy
+in linear dynamics and permit efficient variable step size techniques,
+being one-step methods. The CH\textminus $\alpha$, the HHT\textminus $\alpha$
+and the WBZ\textminus \textgreek{a} methods, the so called $\alpha-$methods,
+are one-parameter schemes which can be considered as particular cases
+of a more general class of methods named generalized \textminus{}
+$\alpha$ (G \textminus{} $\alpha$). This class
+of methods corresponds to the CH\textminus \textgreek{a} scheme \cite{chung1993time}, where the algorithmic parameters $\alpha_{m}$,
+$\alpha_{f}$, $\beta$ and $\gamma$ are assumed to be independent
+of each other.
+
+\subsection{Generalized-\texorpdfstring{$\alpha$}{a} method}
+
+The Generalized \textminus{} $\alpha$ (G \textminus{} $\alpha$)
+is an implicit method that allows for high frequency energy dissipation,
+reduced unwanted low-frequency dissipation, and second order accuracy
+(i.e., $\Delta t^{2}$), both in linear and nonlinear regimes. Depending
+on choices of input parameters, unconditionally stability can be achieved
+for linear problems (as for all implicit schemes). Stability properties
+for nonlinear problem were studied in \cite{erlicher2002analysis}. In
+the latter work, the second-order accuracy of this class of algorithms
+was proved also in the non-linear regime, independently of the quadrature
+rule for non-linear internal forces. Conversely, the G-stability notion
+which is suitable for linear multi-step schemes devoted to non-linear
+dynamic problems cannot be applied, as the non-linear structural dynamics
+equations are not contractive. Nonetheless, \cite{erlicher2002analysis}
+proved that the G \textminus{} $\alpha$ methods are stable in an
+energy sense, and guarantee energy decay for high-frequencies and
+asymptotic cancellation. However, overshoot and heavy energy oscillations
+in the intermediate-frequency range are exhibited.
+
+\subsubsection{Problem setting}
+
+Let introduce a time discretization of the time interval $[0,T]$
+in an ordered sequence of $N+1$ time increments $(0,\dots,t_{i},t_{i+1},\dots,T$)
+such that $t_{i+1}=t_{i}+\Delta t$, with $\Delta t=T/N$ denoting
+the time step (here supposed constant). According to the (G \textminus{}
+$\alpha$) method, the dynamic evolution equation is solved at intermediate
+time $t_{n+1-\alpha}\in[t_{n},t_{n+1}]$. The following notation is
+used to denote the value of a generic variable $z$ at time $t_{n+1-\alpha}$:
+\begin{equation}
+z_{n+1\text{\textminus}\alpha}=(1\text{\textminus}\alpha)z_{n+1}+\alpha z_{n}\quad \text{with} \quad \alpha \in [0,1]\label{eq:Xn1alpha}
+\end{equation}
+Furthermore, the following approximations (standard for Newmark schemes)
+for the displacement and velocity fields at time $t_{n+1}$ are used \cite{newmark1959method}:
+\begin{equation}
+\begin{aligned}{\bu_{n+1}} & =\overline{\bu}_{n+1}+\beta\,\Delta t^{2}\,\ddot{\bu}_{n+1}\\
+\dot{\bu}_{n+1} & =\dot{\overline{\bu}}_{n+1}+\gamma\,\text{\textgreek{D}}t\,\ddot{\bu}_{n+1}
+\end{aligned}
+\label{eq:newmmark_approximations-corr-1}
+\end{equation}
+where $\overline{\bu}_{n+1}$ and $\dot{\overline{\bu}}_{n+1}$ are
+the following known contributions (predictions in predictor-corrector
+schemes):
+\begin{equation}
+\begin{aligned}\overline{\bu}_{n+1} & ={\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\\
+\dot{\overline{\bu}}_{n+1} & =\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}
+\end{aligned}
+\label{eq:newmmark_approximations-pred-1}
+\end{equation}
+
+and $(\beta,\gamma)$ are algorithmic parameters.
+By inverting the
+first equation of (\ref{eq:newmmark_approximations-corr-1}), one
+can express $\ddot{\bu}_{n+1}$ as a function of $\bu_{n+1}$ as:
+\begin{equation}
+\ddot{\bu}_{n+1}=\frac{1}{\beta\,\Delta t^{2}}\left(\bu_{n+1}-\overline{\bu}_{n+1}\right)\label{eq:accn1fdispn1}
+\end{equation}
+
+
+\subsection{Time discretized variational problem (no damping)}
+
+Neglecting damping effects, the problem to solve is written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\ddot{\bu}_{n+1-\alpha_{m}}$ and $\bu_{n+1-\alpha_{f}}$ can
+be written according to (\ref{eq:Xn1alpha}):
+\begin{equation}
+\begin{aligned}\ddot{\bu}_{n+1-\alpha_{m}} & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}\left(\bu_{n+1}-\overline{\bu}_{n+1}\right)+\alpha_{m}\ddot{\bu}_{n}\\
+\bu_{n+1-\alpha_{f}} & =(1-\alpha_{f})\bu_{n+1}+\alpha_{f}\bu_{n}
+\end{aligned}
+\label{eq:accn1fdispn1-1}
+\end{equation}
+Furthermore, parameters $\beta$ and $\gamma$ read:
+\begin{equation}
+    \gamma = \frac{1}{2}+ \alpha_f - \alpha_m \qquad \beta = \frac{1}{4} \left( \gamma + \frac{1}{2}\right)^2
+\end{equation}
+
+\paragraph{Bilinear and linear operators.}
+
+Using equation (\ref{eq:accn1fdispn1}), one can easily write the
+bi-linear part associated with the mass matrix in terms of the unknown
+displacement $\bu_{n+1}$ as follows:
+\begin{equation}
+\begin{aligned}M(\ddot{\bu}_{n+1-\alpha_{m}},\bv) & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)-\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv;\overline{\bu}_{n+1})+\alpha_{m}m(\bv;\ddot{\bu}_{n})\end{aligned}
+\label{eq:M_1}
+\end{equation}
+where linear forms $m(\bv;\overline{\bu}_{n+1})$ and $m(\bv;\ddot{\bu}_{n})$
+read:\footnote{More in general, given a field $\ba=\ba(\bx):\Omega\to\mathbb{R}^{d}$,
+$m(\bv;\ba)$ denotes the linear form:
+\begin{equation}
+m(\bv;\ba)=\int_{\Omega}\rho\ba\cdot\bv\,{\rm d}V
+\end{equation}}
+\begin{equation}
+m(\bv;\overline{\bu}_{n+1})=\int_{\Omega}\rho\overline{\bu}_{n+1}\cdot\bv\,{\rm d}V\qquad m(\bv;\ddot{\bu}_{n})=\int_{\Omega}\rho\ddot{\bu}_{n}\cdot\bv\,{\rm d}V
+\end{equation}
+
+Term $m(\bv;\overline{\bu}_{n+1})$ figuring in equation (\ref{eq:M_1})
+can also be expanded as:
+\begin{equation}
+m(\bv;\overline{\bu}_{n+1})=m(\bv;{\bu_{n}})+\text{\textgreek{D}}t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)m(\bv;\ddot{\bu}_{n})
+\end{equation}
+As a consequence (\ref{eq:M_1}) can be rewritten as:\footnote{When summing up the terms depending on $\ddot{\bu}_{n}$, coming from
+the definition of $\overline{\bu}_{n+1}$ and from equation (\ref{eq:M_1}),
+we have:
+\begin{equation}
+-\left[(1-\alpha_{m})\left(\frac{1-2\beta}{2\beta}\right)-\alpha_{m}\right]=-\frac{(1-\alpha_{m})(1-2\beta)-2\beta\alpha_{m}}{2\beta}=-\frac{1-2\beta-\alpha_{m}+2\beta\alpha_{m}-2\beta\alpha_{m}}{2\beta}=1-\frac{1-\alpha_{m}}{2\beta}
+\end{equation}
+}
+\begin{equation}
+M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)=\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)-\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv;\bu_{n})-\frac{1-\alpha_{m}}{\beta\,\Delta t}m(\bv;\dot{\bu}_{n})+\left(1-\frac{1-\alpha_{m}}{2\beta}\right)m(\bv;\ddot{\bu}_{n})
+\end{equation}
+
+In a similar way, we can rewrite the bi-linear form associated with
+the stiffness matrix as:
+\begin{equation}
+\begin{aligned}K(\bu_{n+1-\alpha_{f}},\bv) & =(1-\alpha_{f})K(\bu_{n+1},\bv)+\alpha_{f}k(\bv;\bu_{n})\end{aligned}
+\end{equation}
+
+where $k(\bv;\bu_{n})$ is the linear form:\footnote{More in general, given a field $\ba=\ba(\bx):\Omega\to\mathbb{R}^{d}$,
+$k(\bv;\ba)$ denotes the linear form:
+\begin{equation}
+k(\bv;\ba)=\int_{\Omega}\bsigma\left(\ba\right):\bepsilon(\bv)\,{\rm d}V
+\end{equation}}
+\begin{equation}
+k(\bv;\bu_{n})=\int_{\Omega}\bsigma\left(\bu_{n}\right):\bepsilon(\bv)\,{\rm d}V
+\end{equation}
+Finally, the linear form $b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}$
+becomes:
+\begin{equation}
+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}=(1-\alpha_{f})b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\alpha_{f}b(\bv;\bt_{n})_{\partial_{t}\Omega}
+\end{equation}
+
+
+\paragraph{Final variational problem.}
+
+The time discretized variational formulation to solve becomes:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & \widetilde{K}({\bu_{n+1}},\bv)=\widetilde{l}(\bv)
+\end{aligned}
+}
+\end{equation}
+where $ \widetilde{K}({\bu_{n+1}},\bv)$ is the bi-linear form associated with
+the effective/equivalent stiffness matrix:
+\begin{equation}
+\begin{aligned}\widetilde{K}({\bu_{n+1}},\bv) & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)+(1-\alpha_{f})K(\bu_{n+1},\bv)\end{aligned}
+\end{equation}
+and $\widetilde{l}(\bv)=\widetilde{l}(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} )$
+is the following linear form:
+\begin{equation}
+\begin{aligned}\widetilde{l}(\bv) & =b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv,\bu_{n})+\frac{1-\alpha_{m}}{\beta\,\Delta t}m(\bv;\dot{\bu}_{n})\\
+ & \qquad\cdots+\left(1-\frac{1-\alpha_{m}}{2\beta}\right)m(\bv;\ddot{\bu}_{n})-\alpha_{f}k(\bv;{\bu_{n}})
+\end{aligned}
+\end{equation}
+
+
+\subsection{Time discretized variational problem (Rayleigh damping)}
+
+The problem to solve is now:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}\label{eq:variational_pb_damping_1}
+\end{equation}
+where, following a simple Rayleigh formulation, the bi-linear form associated with the damping matrix can be written as:
+\begin{equation}
+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)=\eta_{M}M(\dot{\bu}_{n+1-\alpha_{f}},\bv)+\eta_{K}K(\dot{\bu}_{n+1-\alpha_{f}},\bv)
+\end{equation}
+with ($\eta_{M},\eta_{K}$) denoting two positive model parameters.
+
+Now, using definitions \eqref{eq:Xn1alpha}, \eqref{eq:newmmark_approximations-corr-1}
+and \eqref{eq:newmmark_approximations-pred-1}, $\dot{\bu}_{n+1-\alpha_{f}}$ can be written as:\footnote{Using definitions \eqref{eq:Xn1alpha}, \eqref{eq:newmmark_approximations-corr-1}
+and \eqref{eq:newmmark_approximations-pred-1}, the velocity field at time $t_{n+1-\alpha_{f}}$ reads:
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =(1-\alpha_{f})\dot{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}\\
+ & =(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\dot{\bu}_{n}+\gamma\,\text{\textgreek{D}}t\,(1-\alpha_{f})\ddot{\bu}_{n+1}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\overline{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}
+\end{aligned}
+\end{equation}
+}
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\overline{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}\end{aligned}
+\end{equation}
+or, using definitions (\ref{eq:newmmark_approximations-pred-1}),
+as:\footnote{Using definitions (\ref{eq:newmmark_approximations-pred-1}) one obtains:
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\left[\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}\right]-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\left[{\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\right]+\alpha_{f}\dot{\bu}_{n}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+\left[1-\frac{\gamma(1-\alpha_{f})}{\beta}\right]\dot{\bu}_{n}+(1-\alpha_{f})\text{\textgreek{D}}t\left\{ 1\text{\textminus}\gamma\left[1+\left(\frac{1-2\beta}{2\beta}\right)\right]\right\} \ddot{\bu}_{n}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}
+\end{aligned}
+\end{equation}
+}
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}\end{aligned}
+\end{equation}
+
+
+\paragraph{Bilinear and linear operators.}
+
+Operator $M(\dot{\bu}_{n+1-\alpha_{f}},\bv)$ reads:
+\begin{equation}
+\begin{aligned}M(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}M(\bu_{n+1},\bv)-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}m(\bv;{\bu_{n}})\\
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]m(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)m(\bv;\ddot{\bu}_{n})
+\end{aligned}
+\end{equation}
+Similarly, the stiffness contribution becomes:
+\begin{equation}
+\begin{aligned}K(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}K(\bu_{n+1},\bv)-\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}k(\bv;\bu_{n})\\
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]k(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)k(\bv;\ddot{\bu}_{n})
+\end{aligned}
+\end{equation}
+
+
+\paragraph{Final variational problem.}
+
+Finally, the variational problem to solve reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)$ is the bi-linear form associated with the effective stiffness matrix:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{K}}({\bu_{n+1}},\bv) & =\widetilde{K}({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)\\
+ & =\frac{1-\alpha_{m}}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+\left(1-\alpha_{f}\right)K({\bu_{n+1}},\bv)
+\end{aligned}
+\label{eq:final_varational_discr_dumping}
+\end{equation}
+%
+with $C({\bu_{n+1}},\bv)$ denoting  the Rayleigh damping operator:
+%
+\begin{equation}
+C({\bu_{n+1}},\bv)=\eta_{M}M({\bu_{n+1}},\bv)+\eta_{K}K({\bu_{n+1}},\bv)
+\end{equation}
+%
+and $\widetilde{\widetilde{l}}(\bv) =\widetilde{\widetilde{l}}(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} )$ being the following linear form:
+%
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})\\
+ & \quad\cdots+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]c(\bv;\dot{\bu}_{n})+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}c(\bv;{\bu_{n}})
+\end{aligned}
+\end{equation}
+In previous equation we introduced the following notation:
+\begin{equation}
+c(\bv;\ba)=\eta_{M}m(\bv;\ba)+\eta_{K}k(\bv;\ba)
+\end{equation}
+
+\subsection{Implicit N\textminus \texorpdfstring{$\beta$}{b} and HHT\textminus \texorpdfstring{$\alpha$}{a} method
+as special cases}
+
+\paragraph{Newmark.}
+
+One can easily show that, the Newmark scheme is obtained by choosing
+$\alpha_{m}=\alpha_{f}=0$.
+
+Without damping, the stiffness matrix becomes:
+\begin{equation}
+\widetilde{K}({\bu_{n+1}},\bv)=\frac{1}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+K({\bu_{n+1}},\bv)
+\end{equation}
+whereas the linear form simplifies as follows:
+\begin{equation}
+\begin{aligned}\widetilde{l}(\bv) & =b(\bv;\bb)+b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\frac{1}{\beta\,\Delta t^{2}}m(\bv;\overline{\bu}_{n+1})\\
+ & =b(\bv;\bb)+b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\frac{1}{\beta\,\Delta t^{2}}\left[m(\bv;\bu_{n})+\Delta t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}-\beta\right)m(\bv;\ddot{\bu}_{n})\right]
+\end{aligned}
+\end{equation}
+When Rayleigh damping is considered, the bi-linear operator $\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)$
+becomes:
+\begin{equation}
+\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\frac{1}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+K({\bu_{n+1}},\bv)
+\end{equation}
+whereas the linear form simplifies as follows:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})+\left(\frac{\gamma}{\beta}-1\right)c(\bv;\dot{\bu}_{n})+\frac{\gamma}{\beta\,\Delta t}c(\bv;{\bu_{n}})\end{aligned}
+\end{equation}
+
+
+\paragraph{HHT.}
+
+One can also show that HHT\textminus $\alpha$ \cite{hilber1977improved} method is recovered for $\alpha_{m}=0$. Such formulation is not detailed in the following of this document, since it is less used than the classic Newmark approach.
+
+\subsection{Considerations on methods based upon operator splitting}
+
+In order to introduce predictor-correction, implicit-explicit and
+more in general schemes based upon operator splitting, one can rewrite
+displacement and velocity in a predictor-correction fashion as in
+(\ref{eq:newmmark_approximations-corr-1}) and (\ref{eq:newmmark_approximations-pred-1}),
+where (\ref{eq:newmmark_approximations-pred-1}) now defines predictors
+and (\ref{eq:newmmark_approximations-corr-1}) correctors (for more general information, the interested reader can refer to \cite{hughes2012finite,zienkiewicz1994finite}). For
+instance, a simple explicit predictor-corrector method can be obtained
+through solving problem (\ref{eq:variational_pb_damping_1}) with
+$K(\bar{\bu}_{n+1},\bv$) and $C((1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\bu_{n})$.
+Mixed implicit-explicit predictor-corrector methods can also be obtained
+through splitting $\Omega$ into two subdomains and using different
+time-integration schemes for solving the dynamic equilibrium problem
+on each of them.
+
+\section{Space discretization}
+
+Space discretization is performed according to the standard finite
+element method. The computational domain $\Omega$ is thus discretized
+into a mesh $\Omega^{h}$ comprising a finite number ($n_{el}$) of
+subdomains, the finite element $\Omega_{e}^{h}$, such that $\Omega\approx\Omega^{h}=\cup_{e=1}^{n_{el}}\Omega_{e}^{h}$.
+Inside each element, the displacement field is interpolated based
+on nodal displacements ($\bd$) through the shape functions matrix
+($\bN$), i.e., $\bu\approx\bu^{h}=\bN(\bx)\bd$. As usual, gradient
+terms are interpolated using the derivatives of the shape functions,
+i.e., $\bepsilon\approx\bepsilon^{h}=\bB(\bx)\bd$.
+
+In a standard matrix format, after spatial discretization of the displacement
+field, the problem to solve can be written in the standard form as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+ & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
+ & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}
+\end{aligned}
+}
+\end{equation}
+where $\bM$ and $\bK$ are now the mass and stiffness matrices. They
+are obtained through assembling (operator $\assemble$) the corresponding
+elemental operators over the finite element mesh as:
+\begin{equation}
+\begin{aligned}\bM & =\assemble_{e=1}^{n_{el}}\int_{\Omega_{e}}\rho\bN^{\top}\bN\mathrm{d}V\\
+\bK & =\assemble_{e=1}^{n_{el}}\int_{\Omega_{e}}\bB^{\top}\bD\bB\mathrm{d}V
+\end{aligned}
+\end{equation}
+where $\bD$ is the material stiffness matrix defining the link between
+the stress and strain tensors (or between theirs rates of variation
+-- more details are given in the next section). 
+
+When Rayleigh damping is considered the problem to solve is written
+as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+ & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bC+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
+ & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}\\
+ & +\bC\left\{ \text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bd}_{n}+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bd}_{n}+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bd_{n}\right\} 
+\end{aligned}
+}
+\end{equation}
+
+where matrix $\bC$ is now defined as:
+\begin{equation}
+\bC=\eta_{M}\bM+\eta_{K}\bK
+\end{equation}
+
+
+\section{Linear and nonlinear dynamic solvers}
+
+Elastodynamics is the simplest case one can encounter in structural mechanics. In that case, the space-time discretized linear system of equations is linear and finding the solution at any time $t_{n+1}$ is straightforward. In most applications, however, material behavior is nonlinear since structural materials often dissipate energy and exhibit
+damage, permanent strains, etc. In that case, the resulting discretized problem to solve is nonlinear, and Newton--Raphson procedures can be used. In that case, the solution is found iteratively through solving a series of linearized problems.
+
+\subsection{Linear case - linear elastic material behavior}
+
+Let us start from the linear case first. Under small strains conditions, if the material is assumed isotropic linear elastic, the Cauchy's stress tensor reads $\bsigma=\lambda\text{tr}(\bepsilon)\bI+2\mu\bepsilon$,
+where $\bepsilon=(\nabla\bu+\nabla^{\top}\bu)/2$ is the small strain tensor (i.e., the symmetric part of the displacement gradient $\nabla\bu$), $\lambda=\lambda(\bx$) and $\mu=\mu(\bx)$ are the Lame's parameters and $\bI=\delta_{ij}\be_{i}\otimes\be_{j}$ denotes the second order identity tensor. As a consequence, the bi-linear form $K({\bu_{n+1}},\bv)$ and the corresponding linear form $k(\bv;{\bu_{n}})$ can be rewritten in a more explicit form as:
+\begin{equation}
+\begin{aligned}K({\bu_{n+1}},\bv)=\int_{\Omega}\bsigma\left({\bu_{n+1}}\right):\bepsilon(\bv)\,{\rm d}V & =\int_{\Omega}\left[\lambda\tr\bepsilon(\bu_{n+1})\bI+2\mu\bepsilon(\bu_{n+1})\right]:\bepsilon(\bv)\,{\rm d}V=\int_{\Omega}\bepsilon(\bu_{n+1}):\mathbb{E}:\bepsilon(\bv)\,{\rm d}V\\
+k(\bv;{\bu_{n}})=\int_{\Omega}\bsigma\left({\bu_{n}}\right):\bepsilon(\bv)\,{\rm d}V & =\int_{\Omega}\left[\lambda\tr\bepsilon(\bu_{n})\bI+2\mu\bepsilon(\bu_{n})\right]:\bepsilon(\bv)\,{\rm d}V=\int_{\Omega}\bepsilon(\bu_{n}):\mathbb{E}:\bepsilon(\bv)\,{\rm d}V
+\end{aligned}
+\end{equation}
+where $\mathbb{E}$ is the fourth-order elastic stiffness tensor. 
+
+\subsection{Nonlinear case - inelastic material behaviors (under implementation)}
+
+An iterative Newton--Raphson procedure is used to solve the nonlinear
+problem. The unknown displacement ${\bu_{n+1}}$ at global iteration
+$k+1$ is written as ${\bu_{n+1}^{k+1}}={\bu_{n+1}^{k}}+\delta{\bu_{n+1}^{k+1}}$,
+where ${\bu_{n+1}^{k}}$ is the solution at iteration $k$, and $\delta{\bu_{n+1}^{k+1}}$
+is the solution variation at iteration $k+1$. The latter is computed
+from the resolution of a linearized system of equations. 
+
+For this purpose, the variational formulation (\ref{eq:final_varational_discr_dumping}) is first written in residual form as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{{\bu_{n+1}^{k+1}}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+The residual(i.e., the out-of-balance force) is then linearized around solution ${\bu_{n+1}^{k}}$
+as follows:
+\begin{equation}
+R({\bu_{n+1}^{k+1}},\bv)=r(\bv;\bu_{n+1}^{k})+R'(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})\label{eq:linearization_1-1}
+\end{equation}
+where $r(\bv;\bu_{n+1}^{k})=r(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} ,\bu_{n+1}^{k})$
+is the linear form corresponding to the out-of-balance forces at iteration
+$k$:
+\begin{equation}
+r(\bv;\bu_{n+1}^{k})=\frac{1-\alpha_{m}}{\beta\Delta t^{2}}m(\bv;\bu_{n+1}^{k})+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}c(\bv;\bu_{n+1}^{k})+\left(1-\alpha_{f}\right)k(\bv;\bu_{n+1}^{k})-\widetilde{\widetilde{l}}(\bv)\label{eq:nl_residual}
+\end{equation}
+and:
+\begin{multline}
+R'(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})= \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) \\ + (1-\alpha_{f})\left(1+\frac{\gamma\eta_{K}}{\beta\,\Delta t}\right)K_{t}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})\label{eq:linearization_1}
+\end{multline}
+with:
+\begin{equation}
+K_{t}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})=\int_{\Omega}\bepsilon(\delta{\bu_{n+1}^{k+1}}):\mathbb{D}^{k}:\bepsilon(\bv)\,{\rm d}V
+\end{equation}
+The fourth order stiffness tensor $\mathbb{D}^{k}=D_{ijkl}(\be_{i}\otimes\be_{j}\otimes\be_{k}\otimes\be_{l})$
+can be defined differently according to the chosen algorithm. For
+instance, if a standard Newton--Raphson formulation is chosen, $\mathbb{D}^{k}=\partial_{\bepsilon}\bsigma({\bu_{n+1}^{k}})$
+is the tangent stiffness operator at iteration $k$.
+
+Finally, the discretized variational formulation to solve becomes:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\delta{\bu_{n+1}^{k+1}}}\ensuremath{\in\mathcal{U}_{\delta}} such that : }\\
+ & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\mathcal{U}_{\delta}$ is the admissibility space of the displacement
+variations, and $-r(\bv;\bu_{n+1}^{k})$ can now be interpreted as
+the difference between the pseudo-external forces (represented by the linear form $\widetilde{\widetilde{l}}(\bv)$)
+and the internal forces (first three terms of equation (\ref{eq:nl_residual})).
+
+\section{Paraxial formulation for absorbing layers}
+
+When spatially unbounded (infinite) domains are represented through bounded computational domains, spurious wave reflections can be observed boundaries.
+Several techniques have been proposed in the literature to introduce proper treatments of the boundary conditions allowing to reproduce propagation processes in infinite one-phase and two-phase media artificially. Among the available formulations, one can cite the ones based upon using lumped dumpers \cite{lysmer1969finite}, Perfectly Matched Layers
+(PML) \cite{berenger1994perfectly} and paraxial boundaries \cite{engquist1977absorbing,clayton1977absorbing,aubry1985local,MODARESSI1994117}.
+
+\subsection{Standard formulation}
+
+Paraxial approximation constitutes a local boundary condition which permits diffracting waves to be evacuated from the computational domain. To introduce the formulation, let us consider a split of the total domain $\Omega^{\infty}$ into two subdomains $\Omega$ and $\Omega^{E}$ separated by a surface $\Sigma\in\mathbb{R}^{d}$ of outer normal $\bm{}$ (pointing from $\Omega$ to $\Omega^{E}$). On surface $\Sigma$, the continuity condition of the displacement field read:
+\begin{equation}
+[|\bu|]=\bu-\bu^{E}=0\qquad\Sigma\times[0,T]
+\end{equation}
+%
+whereas the continuity of the traction vector reads:
+%
+\begin{equation}
+[|\bsigma|]\cdot\bm{}=\left(\bsigma-\bsigma^{E}\right)\cdot\bm{}=\bsigma\cdot\bm{}+\bsigma^{E}\cdot(-\bm{})=\bt+\bt^{E}=0\qquad\Sigma\times[0,T]\label{eq:paraxial_continuity_t}
+\end{equation}
+
+In previous equations, symbol $[|\bullet|]$ is used to denote the jump of function $\bullet$ across surface $\Sigma$, $\bu^{E}=\bu^{E}(\bx,t):\Omega^{E}\times[0,T]\to\mathbb{R}^{d}$ is the vector-valued displacement field on $\Omega^{E}$, and $\bsigma^{E}=\bsigma^{E}(\bu^{E}):\Omega^{E}\times[0,T]\to\mathbb{R}^{d\times d}$ is the corresponding stress tensor.
+
+\subsubsection{Variational formulation}
+
+Given the traction continuity condition (\ref{eq:paraxial_continuity_t}),
+the variational problem to solve on $\Omega$ reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu} \ensuremath{\in} \ensuremath{\mathcal{U}} such that: }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;\bt^{E})_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}\label{eq:paraxial_varf_1}
+\end{equation}
+Using a zeroth-order paraxial approximation, the traction vector $\bt^{E}$ can be written as:
+\begin{equation}
+\bt^{E}=A_{0}(\dot{\bu}) = \rho c_p \dot{u}_m \bm + \rho c_s \dot{\bu}_s
+\label{eq:paraxial_lin_form}
+\end{equation}
+where $(c_p,c_s)$ are the the propagation velocities of compressional and shear waves, $\dot{u}_m = \dot{\bu} \cdot \bm$ is the velocity normal to $\Sigma$ and  $\dot{\bu}_s = \dot{\bu} - \dot{u}_m \bm$ its tangent counterpart.
+
+More in general, given a vector-valued field $\ba$ (e.g., the displacement, velocity and acceleration fields), we write:\footnote{We recall that given three Euclidean vectors $\bv \in \mathbb{R}^d$, $\bw\in \mathbb{R}^d$ and $\bz\in \mathbb{R}^d$, the dyadic product $\bv \otimes \bw \in \mathbb{R}^{d\times d}$ is the second order tensor defined by: $(\bv \otimes \bw)\cdot \bz = (\bw\cdot \bz) \bv $. In components: $(\bv \otimes \bw)_{ij}=v_i\,w_j$.}
+\begin{equation}
+    A_{0}(\ba) = \rho c_p \, (\bm \otimes \bm) \cdot \ba + \rho c_s ({\bI} - \bm \otimes \bm) \cdot \ba = \rho \left[ (c_p - c_s)\, m_i m_j + c_s \delta_{ij} \right] a_j \be_i
+\end{equation}
+where symbol $\otimes$ denotes the dyadic product between first order tensors (vectors).\footnote{Denoting $(m_x,m_y,m_z)$ the components of vector $\bm$ in the reference system $R(O,\be_x,\be_y,\be_z)$, the components of $A_{0}(\ba)$ read:
+\begin{align}
+    (A_{0}(\ba))_x & = \rho \left[(c_p-c_s) m_x (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_x \right] \\
+    (A_{0}(\ba))_y & =  \rho \left[(c_p-c_s) m_y (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_y \right] \\
+    (A_{0}(\ba))_z & =  \rho \left[(c_p-c_s) m_z (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_z \right]
+\end{align}}
+
+\subsubsection{Time-discretization}
+After time discretization, equation \eqref{eq:paraxial_lin_form} becomes:
+\begin{equation}
+\begin{aligned}b(\bv;\bt^{E})_{\Sigma} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
+ & \quad\cdots-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+\end{aligned}
+\end{equation}
+The variational problem to solve thus reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}} such that : }\\
+ & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)$ is:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv) & =\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}\\
+ & =\frac{1-\alpha_{m}}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+\left(1-\alpha_{f}\right)K({\bu_{n+1}},\bv)\\
+ & \quad\cdots+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}
+\end{aligned}
+\end{equation}
+and $\widetilde{\widetilde{\widetilde{l}}}(\bv)$ is:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{\widetilde{l}}}(\bv) & =\widetilde{\widetilde{l}}(\bv)+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
+ & \quad\cdots+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\text{}\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+\end{aligned}
+\end{equation}
+
+\subsection{Accounting for incident waves}
+%
+Let us now split the total displacement vector at $\Sigma$ into its incident $\bu_{in}$ and radiant $\bu_{r}$ components:
+%
+\begin{equation}
+\bu=\bu^{E}=\bu_{in}+\bu_{r}
+\end{equation}
+%
+and use the zeroth-order paraxial approximation for expressing the traction contribution to the traction vector $\bt^{E}$ due to the radiant field. The traction continuity condition (\ref{eq:paraxial_continuity_t}),
+together with the linearity hypotheses at the vicinity of $\Sigma$, enables us to write:
+%
+\begin{equation}
+\bt=-\bt^{E}(\bu^{E})=-\bt^{E}(\bu_{in})-\bt^{E}(\bu_{r})=-\bt^{E}(\bu_{in})-A_{0}(\dot{\bu}_{r})=-\bt^{E}(\dot{\bu}_{in})-A_{0}(\dot{\bu})+A_{0}(\dot{\bu}_{in})
+\end{equation}
+%
+here $\dot{\bu}_{in}$ is known, whereas $\dot{\bu}$ is the unknown velocity field. 
+
+The variational equation to solve now reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;A_{0}(\dot{\bu}))_{\Sigma}\\
+ & \quad\cdots-b(\bv;\bt_{E}(\dot{\bu}_{in}))_{\Sigma}+b(\bv;A_{0}(\dot{\bu}_{in}))_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+%
+where the last two terms are the only novelty with respect to equation \eqref{eq:paraxial_varf_1}.

@@ -1,0 +1,122 @@
+\chapter{Functions and descriptions}
+\section{Flags for PSD\_PreProcess}
+
+The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user interaction. These flags become a medium of communication between the user and the PSD solver. Three types of flags can be used i)  {\ttfamily int} type : these are integer type flags which expect an integer argument, ii) {\ttfamily string} type : these flags expect a string argument, and iii) {\ttfamily bool} type : these are boolean type flags with no argument. 
+
+\subsection{Integer type flags used for  PSD\_PreProcess}
+\begin{conditions*}
+  -dirichletpointconditions &  Number of Dirichlet points.  Default \ttfamily 0.\\
+
+  -dirichletconditions      &   Number of Dirichlet boundaries.  Default \ttfamily 0.\\
+  
+  -bodyforceconditions      &   Number of regions to which body force is applied.  Default \ttfamily 0.\\  
+
+  -tractionconditions       &   Number of Neumann/traction boundaries.  Default \ttfamily 0.\\
+
+  -parmetis\_worker          &   Active when mesh partitioner is parmetis.\\
+
+  -dimension                &  Dimension of problem. 2 for 2D 3 for 3D. Default 2.\\
+  
+  -lagrange                 &   Lagrange order used for building FE space. Default \ttfamily 1 for P1. \\
+\end{conditions*} 
+
+\subsection{String type flags used for  PSD\_PreProcess}
+\begin{conditions*} 
+  -timediscretization & Time discretization type. Use \ttfamily generalized-alpha | \ttfamily newmark-beta | \ttfamily hht-alpha | \ttfamily central-difference. \\	
+  
+  -nonlinearmethod & Nonlinear method type. Use \ttfamily Picard | \ttfamily Newton-Raphsons. \\ 			
+
+  -partitioner & Mesh partitioner. Use \ttfamily metis | scotch | parmetis.\\
+
+  -postprocess & Indicate postprocessing quantity. Use \ttfamily u | v | a | phi | uphi | uva.\\
+
+
+    -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force-based | displacement-based.\\
+  
+   -reactionforce      &  Reaction force calculation method. Use \ttfamily stress-based | variational-based.\\
+  
+  -problem     & Interested problem. Use \ttfamily linear-elasticity | damage | elastodynamics | soildynamics.\\
+
+  -model       & Interested model. Use \ttfamily hybrid-phase-field | Mazar.	\\		
+
+\end{conditions*}
+\subsection{Bool type flags used for  PSD\_PreProcess}
+\begin{conditions*} 
+  -help         &      Helping message on the terminal.  \\
+  			  
+  -debug        &      OpenGL plotting routine for displaying solution. \\
+  
+  -useGFP       & 	  Activate use of GoFastPlugins. A suite of C++ plugins.\\
+  
+  -timelog      & 	  To setup time logging for various phases of the solver. \\ 
+
+  -useRCM       & 	  Mesh level renumbering via Reverse Cuthill Mckee.\\   
+  
+  -pipegnu      & 	  Realtime pipe plotting using GnuPlot. \\
+  
+  -vectorial    & 	  Generate vectorial space solver for non-linear.  \\ 
+
+  -bodyforce    &     Use volumetric source term (body force). \\
+  
+  -sequential   & 	  To generate a sequential PSD solver. \\
+  
+  -fastmethod    & 	  Produce a fast solver (more optimized).   \\ 
+  
+  -pointprobe    & 	  Setup a point probe to record variables.   \\ 
+
+  -energydecomp &     Hybrid phase-field energy decomposition. \\ 
+
+  -top2vol-meshing &  top-ii-vol point source meshing for soil-dynamics. \\
+  
+  -getreactionforce &  Extraction reactions at surface. \\ 
+
+  -plotreactionforce &  Live pipe plotting using GnuPlot.
+  
+    
+
+
+  
+\end{conditions*}
+
+\section{Functions in gofastplugins.cpp}
+
+\subsection{GFPeigen}
+
+\begin{conditions*}
+GFPeigen(A,Eval,Evec); & {\ttfamily A} is a matrix, {\ttfamily Eval} is vector returning eigenvalues, {\ttfamily Evec} is the matrix returning eigenvectors.
+\end{conditions*}
+This is a call by reference pointer-based function of GFP library. It is used for computation of the eigenvalues and eigenvectors of a real symmetric matrix (upper triangular). This function inturn uses LAPACK libraries {\ttfamily dsyev\_} for calculation of eigenvalues and eigenvectors. 
+
+The function {\ttfamily GFPeigen} which can be called from PSD is coded as {\ttfamily lapack\_dsyevIn} function within the gofastplugins.cpp.  this function argument 1: {\ttfamily A} is the supplied symmetric matrix, argument 2: {\ttfamily vp}  are the output eigenvalues and argument 3: {\ttfamily vectp}  are the output eigenvectors.
+\begin{lstlisting}[language=PSD]
+long lapack_dsyev (KNM<double> *const &A, KN<double> *const &vp, KNM<double> *const &vectp) 
+{
+	intblas n = A->N();
+	KNM<double> mat(*A);
+	
+    .
+    .
+    dsyev_(&JOBZ, &UPLO, &n, mat, &n, *vp, w, &lw, &info);
+    .
+    .
+    *vectp = mat;
+}
+\end{lstlisting}
+
+
+\subsection{GFPeigenAlone}
+
+\begin{conditions*}
+GFPeigen(A,Eval,Evec); & {\ttfamily A} is a matrix, {\ttfamily Eval} is vector returning eigenvalues.
+\end{conditions*}
+
+This is a call by reference pointer based function of GFP library. It is used for computation of the eigenvalues of a real symmetric matrix (upper triangular). This function inturn uses LAPACK library for calculation of eigenvalues. The function {\ttfamily GFPeigenAlone} which can be called from PSD is coded as {\ttfamily lapack\_dsyevAlone} function within the gofastplugins.cpp. In this function argument 1: {\ttfamily A} is the supplied symmetric matrix and argument 2: {\ttfamily vp}  is the output eigenvalues of matrix {\ttfamily A} .
+\begin{lstlisting}[language=PSD]
+long lapack_dsyevAlone (KNM<double> *const &A, KN<double> *const &vp)
+\end{lstlisting}
+
+\subsection{GFPmaxintwoFEfields}
+This is a call by reference pointer based function of GFP library. It is used to find out max between two real numbers {\ttfamily f} and {\ttfamily f1} (two 1D arrays). The max is stored in array {\ttfamily f}.
+\begin{lstlisting}[language=PSD]
+double GFPmaxintwoP1(KN<double> *const & f, KN<double> *const & f1)
+\end{lstlisting}

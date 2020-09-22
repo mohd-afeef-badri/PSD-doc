@@ -1,0 +1,94 @@
+\chapter{Installation}
+
+
+PSD is cross-platform solver built to work with Linux, MacOs, and Windows platforms. 
+
+\section{Dependencies}
+
+To install and work with PSD first check that you have installed all the dependencies. PSD depends on the following:   
+
+\begin{itemize}
+\item  {\ttfamily C++}    (g++ version 4.8 or greater) (or Intel compiler)
+\item  {\ttfamily automake}
+\item  {\ttfamily FreeFEM}
+\item  {\ttfamily PETSc}      (optional)
+\item  {\ttfamily Gmsh}
+\item  {\ttfamily gnuplot}	(optional)
+\item  {\ttfamily git}   
+\end{itemize}
+
+
+\section{PSD installation steps \label{sec:psd-install}}
+Now that I have all the dependencies what next ?  
+
+\begin{itemize}
+\item  Go ahead and grab the latest copy of PSD. The code is hosted on CEA's internal git repository.
+
+\begin{lstlisting}[style=Linux]
+git clone https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem.git  PSD-Sources
+\end{lstlisting}
+
+\item  Now goto the {\ttfamily PSD-Sources} folder and autoconf PSD within the  cloned folder
+
+\begin{lstlisting}[style=Linux]
+autoreconf -i
+\end{lstlisting}
+
+\item Configure  PSD within the  cloned folder
+\begin{lstlisting}[style=Linux]
+./configure
+\end{lstlisting}
+\textbf{Note}:   {\ttfamily ./configure will} install PSD in {\ttfamily  \$HOME/PSD } to change this directory use {\ttfamily  --prefix=Your/Own/Path } with {\ttfamily ./configure}. 
+
+\textbf{Note}:   {\ttfamily ./configure} will try to look for installation of {\ttfamily FreeFEM} and {\ttfamily Gmsh} in {\ttfamily usr/bin/} or {\ttfamily usr/local/bin/} directories. If you have these packages installed in some other directory this should be specified during {\ttfamily ./configure} by using flags {\ttfamily --with-FreeFEM=} and {\ttfamily --with-Gmsh=}. For example, if {\ttfamily FreeFEM} is installed at {\ttfamily home/FreeFem/bin} and {\ttfamily Gmsh} in {\ttfamily home/Gmsh/bin} then one should use
+
+\textbf{Note}: Please use the new version of {\ttfamily Gmsh} (greater than version 4.3.0) from their official website.
+
+\begin{lstlisting}[style=Linux]
+./configure --with-FreeFEM=home/FreeFem/bin  --with-Gmsh=home/Gmsh/bin
+\end{lstlisting}
+
+\item Make PSD directives
+\begin{lstlisting}[style=Linux]
+make 
+\end{lstlisting}
+
+
+\item Install PSD
+\begin{lstlisting}[style=Linux]
+make install
+\end{lstlisting}
+
+\textbf{Note:} To install a copy of PSD for developers use {\ttfamily make install-devl} instead of{\ttfamily make install} 
+
+
+\item Check if installation is correct 
+\begin{lstlisting}[style=Linux]
+make check
+\end{lstlisting}
+
+Now you should have the solver at {\ttfamily \$HOME/PSD}. To use the solver please go to {\ttfamily \$HOME/PSD}.
+
+\end{itemize}
+
+\section{Update PSD to the latest version}
+
+If you are a PSD user and would like to update your old PSD source to a new one. Go to your {\ttfamily PSD-Sources} folder and
+
+\begin{lstlisting}[style=Linux]
+git pull origin master
+\end{lstlisting}
+
+After this step simply
+
+\begin{lstlisting}[style=Linux]
+./reconfigure;  make;  make install;  make check
+\end{lstlisting}
+
+\section{PSD developers version}
+
+If you would like to install  a developers copy  of PSD use:
+
+\begin{lstlisting}[style=Linux]
+make install-devel;
+\end{lstlisting}

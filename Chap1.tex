@@ -1,0 +1,266 @@
+\chapter{Introduction} 
+
+\section{Introduction} 
+PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements-based solid mechanics solver with capabilities of performing High Performance Computing (HPC) simulations with billions of unknowns. The kernel of PSD is wrapped around FreeFEM for finite element discretization, and PETSc for linear algebra/Preconditioning. PSD solver contains straightforward supports for static or dynamic simulations with linear  and nonlinear solid mechanics problems. Besides these hybrid-phase field fracture mechanics models have also been incorporated within PSD. For dynamics the generalized-$\alpha$ model  for time discretization is used, this models enable straightforward use of Newmark-$\beta$, central difference, or HHT as time discretization. PSD uses sate-of-the art domain-decomposition paradigm via vectorial finite elements for parallel computing and all solvers are  proven to scale quasi-optimally. PSD has proven scalabilty uptill 13,000 cores with largest problem solved containing over 5 Billion unknowns.
+
+\section{PSD evolution}
+PSD has been maturing and evolving with time, following subsections present the highlights of  some key changes made to each PSD version. 
+
+\subsection{Version 2.1 (currently under development)}
+\textbf{Added}
+\begin{itemize}
+    \item New accurate force calculations via matrix-vector product: new flag {\ttfamily -getreactionforce}.
+    \item New flag {\ttfamily -reactionforce} variational-based | stress-based to get reaction force on a surface.
+    \item New flag {\ttfamily -plotreactionforce} to activate real time pipe plotting using GnuPlot. 
+\end{itemize}
+\textbf{Removed}
+\begin{itemize}
+    \item Flag {\ttfamily-pipegnu} not supported for damage mechanics (to be further deprecated from elsto/soildynamics) 
+\end{itemize}
+\subsection{Version 2.0 - 2020-08-18}
+\textbf{Added}
+\begin{itemize}
+    \item New preprocessing via C++, {\ttfamily PSD\_PreProcess} binary.
+    \item New solving via shell wrapper {\ttfamily PSD\_Solve} instead of {\ttfamily FreeFem++} or {\ttfamily FreeFem++-mpi}.    
+    \item Scripting is now handled in {\ttfamily .hpp} files.
+    \item New time discretization option {\ttfamily -timediscretization [string]} for dynamic simulation, with {\ttfamily [string]} choose between the following options {\ttfamily generalized-alpha}, {\ttfamily newmark-beta}, and {\ttfamily hht}.
+    \item New Dirichlet point boundary conditions  by {\ttfamily -dirichletpointconditions [int]} flag, with {\ttfamily  [int]} number of Dirichlet point conditions.
+    \item Paraxial element support for solidyanmics extended to 3D.
+    \item New point boundary conditions.
+    \item New dummy city mesh and analysis 2D for soil dynamics. 
+    \item Automatic identification of FreeFEM and Gmsh during {\ttfamily./configure}.
+     \item New flags for {\ttfamily --with-FreeFEM=} and {\ttfamily--with-Gmsh=} during {\ttfamily./configure}.
+     \item New flag {\ttfamily -problem linear-elasticity|damage|elastodynamics|soildynamics} to define physics.
+     \item New flag {\ttfamily -model} to set approximation for damage mechanics {\ttfamily hybrid-phase-field|Mazar}.
+    \item Better energy splitting included Hybrid phase-field compressibility vs tensile energy condition.
+    \item Introduce boundary conditions via {\ttfamily -dirichletconditions [int]} flag. 
+    \item Introduce point boundary conditions via {\ttfamily -dirichletpointcondition [int]} flag. 
+    \item Introduce traction boundary conditions via  {\ttfamily -tractionconditions [int]} flag.
+    \item New folder {\ttfamily tests} containing unit-tests for modules.
+    \item New Hujeux law (nonlinear soil law) coupling using C++ class (Thanks to Evelyne Foerster).
+    \item New pseudo-nonlinear model for solving elastodynamics and soildynamics with nonlinear Newton-Raphsons.
+    \item New option {\ttfamily -nonlinearmethod Picard | Newton-Raphsons | pseudo-nonlinear}.
+    \item Introduced double couple earthquake source boundary condition for soildynamics.
+    \item New flag {\ttfamily -doublecouple force-based | displacement-based }  to use double couple source for soildynamics.
+    \item New top-ii-vol parallel meshing via {\ttfamily -top2vol-meshing} flag (compatible with soildynamics).    
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to FreeFEM 4.6.
+\item Moved to PETSc 13.13.
+\item Moved to C++ for preprocessing.
+\item Dirichlet conditions handled now by {\ttfamily -dirichletconditions [int]} flag, with {\ttfamily  [int]} number of Dirichlet conditions.
+\item Traction conditions handled now by {\ttfamily -tractionconditions [int]} flag, with {\ttfamily  [int]} number of traction conditions.
+\item Body force conditions handled now by {\ttfamily -bodyforceconditions [int]} flag, with {\ttfamily  [int]} regions under bodyforce.
+\item Changes to GFP energydecopostion plugin {\ttfamily DecompEnergy\_Op}, now includes compressibility history.
+\item Replaced GFPDecompEnergy2D/GFPDecompEnergy3D by a generic 2D/3D function {\ttfamily GFPSplitEnergy}.
+\item Postprocessing flag {\ttfamily -postprocess} options now support  {\ttfamily u} , {\ttfamily v},  {\ttfamily a} , {\ttfamily uv}, {\ttfamily ua}, {\ttfamily av}, {\ttfamily uav}, {\ttfamily d} or {\ttfamily ud}.
+
+\end{itemize}
+
+
+\textbf{Removed}
+\begin{itemize}
+\item No more {\ttfamily FFINSTALLDIR} and {\ttfamily GMSH} variables during {\ttfamily make} and {\ttfamily make check}.
+\item Deprecated PSD flag  {\ttfamily plot} flag now handled by {\ttfamily postprocess}.
+\item Deprecated PSD flag {\ttfamily nonlinear} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily bodyforce} flag now handled by an {\ttfamily int} valued {\ttfamily bodyforceconditions}.
+\item Deprecated PSD flag {\ttfamily dynamic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily soildynamic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily quasistatic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily dirichletbc} flag now handled by {\ttfamily dirichletconditions}.
+\end{itemize}
+
+\subsection{Version 1.8 - 2020-01-21}
+\textbf{Added}
+\begin{itemize}
+ \item New soil dynamic module {\ttfamily -soildynamics}
+ \item New paraxial element support in 2D.
+ \item New timeplotting support {\ttfamily timepvd}
+ \item New {\ttfamily -postprocess} option for postprocessing {\ttfamily u} , {\ttfamily v},  {\ttfamily a} , or {\ttfamily uav}. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Moved to FreeFEM 4.4.2.
+ \item Moved to PETSc 13.12.
+ \item New simpler way of plotting {\ttfamily savevtk} in parallel with {\ttfamily append} flag for iterative solutions.
+ \item VTU files get stored with a date and time stamp.
+ \item New way of maintaining a logfile for all simulations (date,time,case,..) in {\ttfamily simulation-log.csv}.
+\end{itemize}
+
+\subsection{Version 1.7 - 2019-11-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New  mesh reordering via Reverse Cuthill-Mackee via {\ttfamily -useRCM}. 
+ \item New quasi-static parallel solver (Extension of B.Masseron \& G.Rastiello sequential version).
+ \item New GFP plugin for Mazar's damage update for 2D/3D problems {\ttfamily GFPMazarsDamageUpdate(...)}.
+ \item New MPI plotting routine {\ttfamily plotJustMeshMPI()}.
+ \item New option {\ttfamily -fastmethod} to switch back to default variational formulation.
+ \item New  make flag for compiling on supercomputer. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Changed variational formulation now using $\epsilon(u):A:\epsilon(v)$.
+ \item Using GFP becomes optional {\ttfamily -useGFP}.
+ \item Better documentation via {\ttfamily .md} and {\ttfamily .html} files.
+ \item Better plotting support for {\ttfamily PlotMPI()}.
+ \item Moved to FreeFEM 4.4.
+\end{itemize}
+
+
+\subsection{Version 1.6 - 2019-06-11}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  parallel/sequential.
+ \item New finite element variable for partition of unity for fixing integrals.
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via {\ttfamily.md} and {\ttfamily.html} files.
+ \item Correct quadrature order for faster computations.
+ \item Major changes/splitting of {\ttfamily.script} files.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the {\ttfamily BoundaryAndSourceConditions.script} merged with {\ttfamily ControlParameters.script}.
+\end{itemize}
+
+\textbf{Bugs}
+\begin{itemize}
+ \item Bug in integrals fixed.
+\end{itemize}
+
+
+\subsection{Version 1.5 - 2019-05-29}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  sequential.
+ \item New meshes for dynamics tests {\ttfamily bar-dynamic.msh}.
+ \item Checking modules {\ttfamily make check}.
+ \item Faster sparsity pattern calculations. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via {\ttfamily.md} and {\ttfamily.html} files.
+ \item Major restructuring of the codes. 
+ \item Moved to {\ttfamily automake} for solver installation.
+ \item Mesh building via {\ttfamily make}.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the manufactured solution codes.
+\end{itemize}
+
+\subsection{Version 1.4 - 2019-05-14}
+
+\textbf{Added}
+\begin{itemize}
+ \item Fully vectorial finite element solver for phase-filed {\ttfamily-vectorial}.
+ \item New {\ttfamily-supercomp} for avoiding xterm issues on super computers.
+ \item New {\ttfamily MatViz()} function for matrix sparsity visualization.
+ \item Introduced  {\ttfamily GFP} plugin support (Go Fast Plugins). 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Elastic energy decomposition is now optional {\ttfamily -energydecomp}.
+ \item Force calculation using integrals (Thanks to G.Rastiello).
+\end{itemize}
+
+\subsection{Version 1.3 - 2019-04-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New meshes in 2D/3D {\ttfamily Notched-plate} , {\ttfamily square-crack}, etc.
+ \item New fracture mechanics module.
+ \item New {\ttfamily -nonlinear} flag to activate phase-field model for brittle fracture.
+ \item New {\ttfamily -timelog} for time logging the solver.
+ \item New {\ttfamily -pipegnu} for GNUplot piping.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Scripting now performed using {\ttfamily .script} files:
+ \begin{itemize}
+	\item {\ttfamily BoundaryAndSourceConditions.script}
+	\item {\ttfamily LinearFormBuilderAndSolver.script}
+	\item {\ttfamily Macros.script} 
+	\item {\ttfamily Main.script} 
+	\item {\ttfamily VariationalFormulation.script} 
+	\item ....
+	\end{itemize}
+\item Move to FreeFEM version 4.0.
+\item Move to PETSc version 3.11.
+\end{itemize}
+
+\subsection{Version 1.2 - 2019-03-18}
+
+\textbf{Added}
+\begin{itemize}
+\item Support for Gmsh's {\ttfamily .msh}  or Medit's {\ttfamily .mesh} meshes in folder {\ttfamily Meshes}.
+\item Advance to 3D physics.
+\item New MPI based parallel solver linear elasticity.
+\item New approach for solver generation via scripting (PhD thesis MA Badri) with {\ttfamily scriptGenerator.edp}.
+\item Integrated Domain decomposition macro (PhD thesis MA Badri).
+\item Customized {\ttfamily .vtk} support for ParaView post-processing.
+\item New point boundary condition macro {\ttfamily pointbc(Real[int], fespace, matrix)}.
+\item New flags for communicating with the solver: {\ttfamily -dimension}, {\ttfamily -plot}, {\ttfamily -bodyforce}, {\ttfamily -lagrange}, etc.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item More advance README.MD.
+\item Sequential solver now merged within scripting via flag {\ttfamily -sequential}.
+\item Move to FreeFEM version 3.62.
+\item Moved manufactured solutions to {\ttfamily validation-test} folder.
+\end{itemize}
+
+\subsection{Version 1.1 - 2019-03-04}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files for sequential linear elasticity in 2D (case of constrained bar).
+\item More cases of manufactured solution for linear elasticity in 2D.
+\item Added {\ttfamily README.MD} for explaining the solver.
+\item ParaView plotting activated.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to Tuleap git hosting from CEA.
+\item Separate folder of manufactured solutions and the linear elastic solver.
+\item Move to FreeFEM version 3.61.
+\end{itemize}
+
+\subsection{Version 1.0 - 2019-02-15}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files  Method of manufactured solution for linear elasticity in 2D.
+\end{itemize}
+
+\subsection{Version git tags}
+\begin{itemize}
+\item | [1.0]      |8a8ecb2746b7da792073358c60df33bae647f788 |
+\item | [1.1]     |a667e6085ba1f92f8dd619bd40e18f85c593bc0a |
+\item | [1.2]        |e48b7b3a30c05ad4c343efa6a17fee386031f437 |
+\item | [1.3]       |39f4324550365849852c5264b8d4535aae05e30d |
+\item | [1.4]        |f51f678630eb9b2fed355e5cedf976ce8b5fa341 |
+\item | [1.5]        |07293ba09a69d3d6a16278220a0b4a7a9f318f96 |
+\item | [1.6]        |f359dd049fb1ddde376e8ad8e5177c663e430418 |
+\item | [1.7]       |aee9bfec868a70b3d9974d7692bc19f9739ab7dc |
+\item | [1.8]       |2f26292636c7248133e31ae912ee58113de2ef71 |
+\item | [2.0]       |1e1a4d7f10df30d106b52eba1c5caf69e8bc0f36 |
+\end{itemize}
