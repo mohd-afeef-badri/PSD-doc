@@ -1,3 +1,4 @@
+error.dat
 *~
 *.aux
 *.bbl
@@ -5,7 +6,7 @@
 *.blg
 *.log
 *.out
-PSD_manual.pdf
+Manual.pdf
 *.xml
 *.synctex.gz
 *.toc
