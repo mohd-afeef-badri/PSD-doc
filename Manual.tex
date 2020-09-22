@@ -1,0 +1,3234 @@
+\documentclass{report}
+%\usepackage{fullpage}
+
+\usepackage[top=1in, bottom=1in, left=1.25in, right=.75in]{geometry}
+
+    \usepackage{fancyhdr}
+    \pagestyle{fancy}
+    \lhead{PSD 2.0}
+    \chead{}
+    \rhead{\fancyplain{}{\textit{\leftmark}}}
+ 
+ \usepackage[LGR,T1]{fontenc}
+ 
+%\renewcommand{\familydefault}{\sfdefault}
+%\usepackage[scaled=1]{helvet}
+%\usepackage[helvet]{sfmath}
+%\everymath={\sf}
+
+\usepackage{parskip}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bbm}
+\usepackage{bm}
+\usepackage{cleveref}
+\usepackage{listings}
+\usepackage{graphbox,graphicx}
+\usepackage{siunitx}
+\usepackage{subcaption}
+\usepackage{textcomp}
+\usepackage[english]{babel}
+\usepackage[autostyle=false]{csquotes}
+
+
+\usepackage{stmaryrd}
+\usepackage{xcolor}
+\definecolor{halfgray}{gray}{0.55}
+\definecolor{ipython_frame}{RGB}{207, 207, 207}
+
+\usepackage{color}
+\definecolor{eclipseBlue}{RGB}{42,0.0,255}
+\definecolor{eclipseGreen}{RGB}{63,127,95}
+\definecolor{eclipsePurple}{RGB}{127,0,85}
+
+\usepackage{tabularx}
+\newenvironment{conditions*}
+  {\par\vspace{\abovedisplayskip}\noindent
+   \tabularx{\columnwidth}{>{\ttfamily}l<{ \ttfamily ~~~ } @{\ttfamily} >{\raggedright\arraybackslash}X}}
+  {\endtabularx\par\vspace{\belowdisplayskip}}
+
+\lstdefinelanguage{iPython}{
+    commentstyle=\color{cyan}\ttfamily,
+    stringstyle=\color{red}\ttfamily,
+    keepspaces=true,
+    showspaces=false,
+    showstringspaces=false,
+    %
+    rulecolor=\color{ipython_frame},
+    frame=single,
+    frameround={t}{t}{t}{t},
+    framexleftmargin=6mm,
+    numbers=left,
+    numberstyle=\tiny\color{halfgray},
+    %
+    basicstyle=\scriptsize\ttfamily,
+    keywordstyle=\color{green}\ttfamily,
+}
+
+\lstdefinelanguage{PSD}
+{
+  % list of keywords
+  morekeywords={
+    import,
+    if,
+    while,
+    for,
+    np
+  },
+  sensitive=false, % keywords are not case-sensitive
+  morecomment=[l]{//}, % l is for line comment
+  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+  morestring=[b]" % defines that strings are enclosed in double quotes
+}
+
+\lstdefinestyle{Linux}
+{
+ backgroundcolor=\color{white},
+ basicstyle=\scriptsize\color{black}\ttfamily,
+    frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+  frameround=tttt, % make the frame round at all four corners
+  framesep=4pt, % quarter circle size of the round corners
+}
+
+\DeclareRobustCommand{\greektext}{%
+  \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
+\DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
+\ProvideTextCommand{\~}{LGR}[1]{\char126#1}
+
+\newcommand{\assemble}{%
+  \mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NEW COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\bA}{\textbf{A}}
+\newcommand{\bM}{\textbf{M}} 
+\newcommand{\bx}{\textbf{x}} 
+\newcommand{\bb}{\textbf{b}} 
+\newcommand{\br}{\textbf{r}}
+\newcommand{\bu}{\textbf{u}}
+\newcommand{\bv}{\textbf{v}}
+\newcommand{\bt}{\boldsymbol t}
+\newcommand{\bl}{\boldsymbol f}
+\newcommand{\bnv}{N_{\text{v}}}
+\newcommand{\bnd}{N_{\text{DOF}}}
+\newcommand{\bnz}{N_{\text{nz}}}
+\newcommand{\bgc}{G_{\text{c}}}
+\newcommand{\buh}{\boldsymbol u^h}
+\newcommand{\bvh}{\boldsymbol v^h}
+\newcommand{\bwh}{\boldsymbol w^h}
+\newcommand{\bqh}{\boldsymbol q^h}
+\newcommand{\bz}{\textbf{z}}
+\newcommand{\bp}{\textbf{p}}
+\newcommand{\np}{N_\text{p}}
+\newcommand{\wu}{\widehat{u}}
+\newcommand{\wbu}{\widehat{\textbf{u}}}
+\newcommand{\we}{\widehat{\varepsilon}}
+\newcommand{\ws}{\widehat{\sigma}}
+\newcommand{\wf}{\widehat{f}}
+\newcommand{\bff}{\textbf{f}}
+\newcommand{\fih}{ d^h}
+\newcommand{\ttah}{ \theta^h}
+\newcommand{\sig}{\boldsymbol{\sigma}}
+\newcommand{\eps}{\boldsymbol{\varepsilon}} 
+\newcommand{\dv}{\mathrm{d}\text{v}}
+\newcommand{\ds}{\mathrm{d}\text{s}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\RR}{I\!\!R}
+\newcommand{\NN}{I\!\!N}
+\newcommand{\field}[1]{\mathbb{#1}}
+\newcommand{\uu }[1]{\pmb{#1}}
+\newcommand{\ten}[1]{\pmb{\mathbb{#1}}}
+\newcommand{\sprod}{\underline{\otimes}}
+\newcommand{\tr}{\mathop{\rm tr}}
+\newcommand{\dd}{{\rm d}}
+\renewcommand{\det}{\mathop{\rm det}}
+
+\newcommand{\eul}{\mbox{e}}
+
+\def\Tij{{T_{ij}}}
+
+\def\bxi{\mbox{\boldmath${\xi}$}}
+\def\balpha{\mbox{\boldmath${\alpha}$}}
+\def\bepsilon{\mbox{\boldmath${\epsilon}$}}
+%\def\bepsilon{\mbox{\boldmath$\underline{\underline{{\epsilon}}}$}}
+\def\bkappa{\mbox{\boldmath${\kappa}$}}
+\def\bphi{\mbox{\boldmath${\phi}$}}
+\def\bsigma{\mbox{\boldmath${\sigma}$}}
+
+\def\bA{{{\bf{A}}}}
+\def\ba{{\bf{a}}}
+\def\bB{{\bf B}}
+\def\bb{{\bf{b}}}
+\def\bC{{\bf C}}
+\def\bc{{\bf c}}
+\def\bd{{\bf d}}
+\def\bD{{{\bf{D}}}}
+\def\bE{{\bf E}}
+\def\be{{\bf e}}
+\def\be{{\bf{e}}}
+\def\bF{{\bf F}}
+\def\bfvec{{\bf{f}}}
+\def\bG{{\bf G}}
+\def\bI{{{\bf{I}}}}
+\def\bg{{\bf{g}}}
+\def\bh{{\bf h}}
+\def\bi{{\bf i}}
+\def\bH{{\bf H}}
+\def\bk{{\bf k}}
+\def\bK{{\bf K}}
+\def\bl{{\bf l}}
+\def\bL{{\bf L}}
+\def\bM{{\bf M}}
+\def\bN{{\bf N}}
+\def\bn{{\bf{n}}}
+\def\bm{{\bf m}}
+\def\b0{{\bf 0}}
+\def\b1{{\bf 1}}
+\def\bo{{\bf o}}
+\def\bX{{\bf X}}
+\def\bZ{{\bf Z}}
+\def\bx{{\bf{x}}}                   
+\def\bP{{\bf P}}
+\def\bp{{\bf p}}
+\def\bQ{{\bf Q}}
+\def\bq{{\bf q}}
+\def\br{{\bf r}}
+\def\bR{{\bf R}}
+\def\bS{{\bf S}}
+\def\bs{{\bf s}}
+\def\bT{{\bf{T}}}
+\def\bt{{\bf t}}
+\def\bU{{\bf U}}
+\def\bu{{\bf{u}}}
+\def\bV{{\bf{V}}}                   
+\def\bv{{\bf{v}}}
+\def\bw{{\bf w}}
+\def\bW{{\bf W}}
+\def\vecbx{{\bf x}}
+\def\by{{\bf y}}
+\def\bY{{\bf Y}}
+\def\bz{{\bf z}}
+\def\bY{{\bf Y}}
+\def\Id{{\bf 1}}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable} % For \pgfplotstableread
+\pgfplotsset{compat=newest}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{colortbl}
+%%% START MACRO FOR ANNOTATION OF TRIANGLE WITH SLOPE %%%.
+\newcommand{\logLogSlopeTriangle}[5]
+{
+    % #1. Relative offset in x direction.
+    % #2. Width in x direction, so xA-xB.
+    % #3. Relative offset in y direction.
+    % #4. Slope d(y)/d(log10(x)).
+    % #5. Plot options.
+
+    \pgfplotsextra
+    {
+        \pgfkeysgetvalue{/pgfplots/xmin}{\xmin}
+        \pgfkeysgetvalue{/pgfplots/xmax}{\xmax}
+        \pgfkeysgetvalue{/pgfplots/ymin}{\ymin}
+        \pgfkeysgetvalue{/pgfplots/ymax}{\ymax}
+
+        % Calculate auxilliary quantities, in relative sense.
+        \pgfmathsetmacro{\xArel}{#1}
+        \pgfmathsetmacro{\yArel}{#3}
+        \pgfmathsetmacro{\xBrel}{#1-#2}
+        \pgfmathsetmacro{\yBrel}{\yArel}
+        \pgfmathsetmacro{\xCrel}{\xArel}
+        %\pgfmathsetmacro{\yCrel}{ln(\yC/exp(\ymin))/ln(exp(\ymax)/exp(\ymin))} % REPLACE THIS EXPRESSION WITH AN EXPRESSION INDEPENDENT OF \yC TO PREVENT THE 'DIMENSION TOO LARGE' ERROR.
+
+        \pgfmathsetmacro{\lnxB}{\xmin*(1-(#1-#2))+\xmax*(#1-#2)} % in [xmin,xmax].
+        \pgfmathsetmacro{\lnxA}{\xmin*(1-#1)+\xmax*#1} % in [xmin,xmax].
+        \pgfmathsetmacro{\lnyA}{\ymin*(1-#3)+\ymax*#3} % in [ymin,ymax].
+        \pgfmathsetmacro{\lnyC}{\lnyA+#4*(\lnxA-\lnxB)}
+        \pgfmathsetmacro{\yCrel}{\lnyC-\ymin)/(\ymax-\ymin)} % THE IMPROVED EXPRESSION WITHOUT 'DIMENSION TOO LARGE' ERROR.
+
+        % Define coordinates for \draw. MIND THE 'rel axis cs' as opposed to the 'axis cs'.
+        \coordinate (A) at (rel axis cs:\xArel,\yArel);
+        \coordinate (B) at (rel axis cs:\xBrel,\yBrel);
+        \coordinate (C) at (rel axis cs:\xCrel,\yCrel);
+
+        % Draw slope triangle.
+        \draw[#5]   (A)-- node[pos=0.5,inner sep=2pt,anchor=north] {\scriptsize 1}
+                    (B)-- 
+                    (C)-- node[pos=0.5,inner sep=2pt,anchor=west] {\scriptsize #4}
+                    cycle;
+    }
+}
+%%% END MACRO FOR ANNOTATION OF TRIANGLE WITH SLOPE %%%.
+
+
+\pgfplotsset{colormap={paraviewWR}{rgb(0cm)=(1,1,1) rgb(0.166666667cm)=(0,0,1) rgb(0.333333334cm)=(0,1,1) rgb(0.500000001cm)=(0,1,0) rgb(0.666666668cm)=(1,1,0) rgb(0.833333335cm)=(1,0,0) rgb(1cm)=(0.878431,0,1)}}
+
+\pgfplotsset{colormap={paraviewRB}{rgb(0cm)=(0.278431,0.278431,0.858824) rgb(0.142857143cm)=(0.,0.,0.360784) rgb(0.285714286cm)=(0.,1,1) rgb(0.428571429cm)=(0.,0.501961,0.) rgb(0.571428571cm)=(1,1,0) rgb(0.714285714cm)=(1,0.380392,0.) rgb(0.857142857cm)=(0.419608,0,0) rgb(1cm)=(0.878431,0.301961,0.301961)}}
+
+\pgfplotsset{colormap={paraviewCR}{rgb(0cm)=(0,0,1) rgb(.25cm)=(0,1,1) rgb(.5cm)=(0,1,0)  rgb(.75cm)=(1,1,0) rgb(1cm)=(1,0,0)}}
+
+\begin{filecontents}{error.dat}
+h				L2u1				L2u2				Linfu1			Linfu2
+0.0102892       1.2507e-07      1.05278e-07     4.10912e-06     4.24223e-06
+0.00514461      3.51621e-08     3.02976e-08     1.53255e-06     1.51037e-06
+0.0025723       9.3285e-09      8.11649e-09     5.03167e-07     4.90303e-07
+0.00128615      2.76667e-09     2.36418e-09     1.55562e-07     1.42582e-07
+\end{filecontents}
+
+%\bibliography{biblio.bib}
+\usepackage[style=numeric]{biblatex}
+%\usepackage[citestyle=alphabetic,bibstyle=authortitle]{biblatex}
+
+\addbibresource{biblio.bib}
+
+\title{PSD v 2.0}
+\author{}
+%\author{Mohd Afeef Badri,~Giuseppe Rastiello}
+\setcounter{tocdepth}{2}
+
+\DeclareLanguageMapping{nil}{english}
+
+\begin{document}
+\maketitle
+
+\pagebreak
+\tableofcontents
+\pagebreak
+\chapter{Introduction} 
+
+\section{Introduction} 
+PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements-based solid mechanics solver with capabilities of performing High Performance Computing (HPC) simulations with billions of unknowns. The kernel of PSD is wrapped around FreeFEM for finite element discretization, and PETSc for linear algebra/Preconditioning. PSD solver contains straightforward supports for static or dynamic simulations with linear  and nonlinear solid mechanics problems. Besides these hybrid-phase field fracture mechanics models have also been incorporated within PSD. For dynamics the generalized-$\alpha$ model  for time discretization is used, this models enable straightforward use of Newmark-$\beta$, central difference, or HHT as time discretization. PSD uses sate-of-the art domain-decomposition paradigm via vectorial finite elements for parallel computing and all solvers are  proven to scale quasi-optimally. PSD has proven scalabilty uptill 13,000 cores with largest problem solved containing over 5 Billion unknowns.
+
+\section{PSD evolution}
+PSD has been maturing and evolving with time, following subsections present the highlights of  some key changes made to each PSD version. 
+
+\subsection{Version 2.1 (currently under development)}
+\textbf{Added}
+\begin{itemize}
+    \item New accurate force calculations via matrix-vector product: new flag {\ttfamily -getreactionforce}.
+    \item New flag {\ttfamily -reactionforce} variational-based | stress-based to get reaction force on a surface.
+    \item New flag {\ttfamily -plotreactionforce} to activate real time pipe plotting using GnuPlot. 
+\end{itemize}
+\textbf{Removed}
+\begin{itemize}
+    \item Flag {\ttfamily-pipegnu} not supported for damage mechanics (to be further deprecated from elsto/soildynamics) 
+\end{itemize}
+\subsection{Version 2.0 - 2020-08-18}
+\textbf{Added}
+\begin{itemize}
+    \item New preprocessing via C++, {\ttfamily PSD\_PreProcess} binary.
+    \item New solving via shell wrapper {\ttfamily PSD\_Solve} instead of {\ttfamily FreeFem++} or {\ttfamily FreeFem++-mpi}.    
+    \item Scripting is now handled in {\ttfamily .hpp} files.
+    \item New time discretization option {\ttfamily -timediscretization [string]} for dynamic simulation, with {\ttfamily [string]} choose between the following options {\ttfamily generalized-alpha}, {\ttfamily newmark-beta}, and {\ttfamily hht}.
+    \item New Dirichlet point boundary conditions  by {\ttfamily -dirichletpointconditions [int]} flag, with {\ttfamily  [int]} number of Dirichlet point conditions.
+    \item Paraxial element support for solidyanmics extended to 3D.
+    \item New point boundary conditions.
+    \item New dummy city mesh and analysis 2D for soil dynamics. 
+    \item Automatic identification of FreeFEM and Gmsh during {\ttfamily./configure}.
+     \item New flags for {\ttfamily --with-FreeFEM=} and {\ttfamily--with-Gmsh=} during {\ttfamily./configure}.
+     \item New flag {\ttfamily -problem linear-elasticity|damage|elastodynamics|soildynamics} to define physics.
+     \item New flag {\ttfamily -model} to set approximation for damage mechanics {\ttfamily hybrid-phase-field|Mazar}.
+    \item Better energy splitting included Hybrid phase-field compressibility vs tensile energy condition.
+    \item Introduce boundary conditions via {\ttfamily -dirichletconditions [int]} flag. 
+    \item Introduce point boundary conditions via {\ttfamily -dirichletpointcondition [int]} flag. 
+    \item Introduce traction boundary conditions via  {\ttfamily -tractionconditions [int]} flag.
+    \item New folder {\ttfamily tests} containing unit-tests for modules.
+    \item New Hujeux law (nonlinear soil law) coupling using C++ class (Thanks to Evelyne Foerster).
+    \item New pseudo-nonlinear model for solving elastodynamics and soildynamics with nonlinear Newton-Raphsons.
+    \item New option {\ttfamily -nonlinearmethod Picard | Newton-Raphsons | pseudo-nonlinear}.
+    \item Introduced double couple earthquake source boundary condition for soildynamics.
+    \item New flag {\ttfamily -doublecouple force-based | displacement-based }  to use double couple source for soildynamics.
+    \item New top-ii-vol parallel meshing via {\ttfamily -top2vol-meshing} flag (compatible with soildynamics).    
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to FreeFEM 4.6.
+\item Moved to PETSc 13.13.
+\item Moved to C++ for preprocessing.
+\item Dirichlet conditions handled now by {\ttfamily -dirichletconditions [int]} flag, with {\ttfamily  [int]} number of Dirichlet conditions.
+\item Traction conditions handled now by {\ttfamily -tractionconditions [int]} flag, with {\ttfamily  [int]} number of traction conditions.
+\item Body force conditions handled now by {\ttfamily -bodyforceconditions [int]} flag, with {\ttfamily  [int]} regions under bodyforce.
+\item Changes to GFP energydecopostion plugin {\ttfamily DecompEnergy\_Op}, now includes compressibility history.
+\item Replaced GFPDecompEnergy2D/GFPDecompEnergy3D by a generic 2D/3D function {\ttfamily GFPSplitEnergy}.
+\item Postprocessing flag {\ttfamily -postprocess} options now support  {\ttfamily u} , {\ttfamily v},  {\ttfamily a} , {\ttfamily uv}, {\ttfamily ua}, {\ttfamily av}, {\ttfamily uav}, {\ttfamily d} or {\ttfamily ud}.
+
+\end{itemize}
+
+
+\textbf{Removed}
+\begin{itemize}
+\item No more {\ttfamily FFINSTALLDIR} and {\ttfamily GMSH} variables during {\ttfamily make} and {\ttfamily make check}.
+\item Deprecated PSD flag  {\ttfamily plot} flag now handled by {\ttfamily postprocess}.
+\item Deprecated PSD flag {\ttfamily nonlinear} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily bodyforce} flag now handled by an {\ttfamily int} valued {\ttfamily bodyforceconditions}.
+\item Deprecated PSD flag {\ttfamily dynamic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily soildynamic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily quasistatic} flag now handled by {\ttfamily problem} and {\ttfamily model}.
+\item Deprecated PSD flag {\ttfamily dirichletbc} flag now handled by {\ttfamily dirichletconditions}.
+\end{itemize}
+
+\subsection{Version 1.8 - 2020-01-21}
+\textbf{Added}
+\begin{itemize}
+ \item New soil dynamic module {\ttfamily -soildynamics}
+ \item New paraxial element support in 2D.
+ \item New timeplotting support {\ttfamily timepvd}
+ \item New {\ttfamily -postprocess} option for postprocessing {\ttfamily u} , {\ttfamily v},  {\ttfamily a} , or {\ttfamily uav}. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Moved to FreeFEM 4.4.2.
+ \item Moved to PETSc 13.12.
+ \item New simpler way of plotting {\ttfamily savevtk} in parallel with {\ttfamily append} flag for iterative solutions.
+ \item VTU files get stored with a date and time stamp.
+ \item New way of maintaining a logfile for all simulations (date,time,case,..) in {\ttfamily simulation-log.csv}.
+\end{itemize}
+
+\subsection{Version 1.7 - 2019-11-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New  mesh reordering via Reverse Cuthill-Mackee via {\ttfamily -useRCM}. 
+ \item New quasi-static parallel solver (Extension of B.Masseron \& G.Rastiello sequential version).
+ \item New GFP plugin for Mazar's damage update for 2D/3D problems {\ttfamily GFPMazarsDamageUpdate(...)}.
+ \item New MPI plotting routine {\ttfamily plotJustMeshMPI()}.
+ \item New option {\ttfamily -fastmethod} to switch back to default variational formulation.
+ \item New  make flag for compiling on supercomputer. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Changed variational formulation now using $\epsilon(u):A:\epsilon(v)$.
+ \item Using GFP becomes optional {\ttfamily -useGFP}.
+ \item Better documentation via {\ttfamily .md} and {\ttfamily .html} files.
+ \item Better plotting support for {\ttfamily PlotMPI()}.
+ \item Moved to FreeFEM 4.4.
+\end{itemize}
+
+
+\subsection{Version 1.6 - 2019-06-11}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  parallel/sequential.
+ \item New finite element variable for partition of unity for fixing integrals.
+\end{itemize}
+
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via {\ttfamily.md} and {\ttfamily.html} files.
+ \item Correct quadrature order for faster computations.
+ \item Major changes/splitting of {\ttfamily.script} files.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the {\ttfamily BoundaryAndSourceConditions.script} merged with {\ttfamily ControlParameters.script}.
+\end{itemize}
+
+\textbf{Bugs}
+\begin{itemize}
+ \item Bug in integrals fixed.
+\end{itemize}
+
+
+\subsection{Version 1.5 - 2019-05-29}
+
+\textbf{Added}
+\begin{itemize}
+ \item Dynamic linear solver in 2D and 3D  sequential.
+ \item New meshes for dynamics tests {\ttfamily bar-dynamic.msh}.
+ \item Checking modules {\ttfamily make check}.
+ \item Faster sparsity pattern calculations. 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Better documentation via {\ttfamily.md} and {\ttfamily.html} files.
+ \item Major restructuring of the codes. 
+ \item Moved to {\ttfamily automake} for solver installation.
+ \item Mesh building via {\ttfamily make}.
+\end{itemize}
+
+\textbf{Removed}
+\begin{itemize}
+ \item Removed the manufactured solution codes.
+\end{itemize}
+
+\subsection{Version 1.4 - 2019-05-14}
+
+\textbf{Added}
+\begin{itemize}
+ \item Fully vectorial finite element solver for phase-filed {\ttfamily-vectorial}.
+ \item New {\ttfamily-supercomp} for avoiding xterm issues on super computers.
+ \item New {\ttfamily MatViz()} function for matrix sparsity visualization.
+ \item Introduced  {\ttfamily GFP} plugin support (Go Fast Plugins). 
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Elastic energy decomposition is now optional {\ttfamily -energydecomp}.
+ \item Force calculation using integrals (Thanks to G.Rastiello).
+\end{itemize}
+
+\subsection{Version 1.3 - 2019-04-08}
+
+\textbf{Added}
+\begin{itemize}
+ \item New meshes in 2D/3D {\ttfamily Notched-plate} , {\ttfamily square-crack}, etc.
+ \item New fracture mechanics module.
+ \item New {\ttfamily -nonlinear} flag to activate phase-field model for brittle fracture.
+ \item New {\ttfamily -timelog} for time logging the solver.
+ \item New {\ttfamily -pipegnu} for GNUplot piping.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+ \item Scripting now performed using {\ttfamily .script} files:
+ \begin{itemize}
+	\item {\ttfamily BoundaryAndSourceConditions.script}
+	\item {\ttfamily LinearFormBuilderAndSolver.script}
+	\item {\ttfamily Macros.script} 
+	\item {\ttfamily Main.script} 
+	\item {\ttfamily VariationalFormulation.script} 
+	\item ....
+	\end{itemize}
+\item Move to FreeFEM version 4.0.
+\item Move to PETSc version 3.11.
+\end{itemize}
+
+\subsection{Version 1.2 - 2019-03-18}
+
+\textbf{Added}
+\begin{itemize}
+\item Support for Gmsh's {\ttfamily .msh}  or Medit's {\ttfamily .mesh} meshes in folder {\ttfamily Meshes}.
+\item Advance to 3D physics.
+\item New MPI based parallel solver linear elasticity.
+\item New approach for solver generation via scripting (PhD thesis MA Badri) with {\ttfamily scriptGenerator.edp}.
+\item Integrated Domain decomposition macro (PhD thesis MA Badri).
+\item Customized {\ttfamily .vtk} support for ParaView post-processing.
+\item New point boundary condition macro {\ttfamily pointbc(Real[int], fespace, matrix)}.
+\item New flags for communicating with the solver: {\ttfamily -dimension}, {\ttfamily -plot}, {\ttfamily -bodyforce}, {\ttfamily -lagrange}, etc.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item More advance README.MD.
+\item Sequential solver now merged within scripting via flag {\ttfamily -sequential}.
+\item Move to FreeFEM version 3.62.
+\item Moved manufactured solutions to {\ttfamily validation-test} folder.
+\end{itemize}
+
+\subsection{Version 1.1 - 2019-03-04}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files for sequential linear elasticity in 2D (case of constrained bar).
+\item More cases of manufactured solution for linear elasticity in 2D.
+\item Added {\ttfamily README.MD} for explaining the solver.
+\item ParaView plotting activated.
+\end{itemize}
+
+\textbf{Changed}
+\begin{itemize}
+\item Moved to Tuleap git hosting from CEA.
+\item Separate folder of manufactured solutions and the linear elastic solver.
+\item Move to FreeFEM version 3.61.
+\end{itemize}
+
+\subsection{Version 1.0 - 2019-02-15}
+
+\textbf{Added}
+\begin{itemize}
+\item Initial FreeFEM files  Method of manufactured solution for linear elasticity in 2D.
+\end{itemize}
+
+\subsection{Version git tags}
+\begin{itemize}
+\item | [1.0]      |8a8ecb2746b7da792073358c60df33bae647f788 |
+\item | [1.1]     |a667e6085ba1f92f8dd619bd40e18f85c593bc0a |
+\item | [1.2]        |e48b7b3a30c05ad4c343efa6a17fee386031f437 |
+\item | [1.3]       |39f4324550365849852c5264b8d4535aae05e30d |
+\item | [1.4]        |f51f678630eb9b2fed355e5cedf976ce8b5fa341 |
+\item | [1.5]        |07293ba09a69d3d6a16278220a0b4a7a9f318f96 |
+\item | [1.6]        |f359dd049fb1ddde376e8ad8e5177c663e430418 |
+\item | [1.7]       |aee9bfec868a70b3d9974d7692bc19f9739ab7dc |
+\item | [1.8]       |2f26292636c7248133e31ae912ee58113de2ef71 |
+\item | [2.0]       |1e1a4d7f10df30d106b52eba1c5caf69e8bc0f36 |
+\end{itemize}
+
+\chapter{Installation}
+
+
+PSD is cross-platform solver built to work with Linux, MacOs, and Windows platforms. 
+
+\section{Dependencies}
+
+To install and work with PSD first check that you have installed all the dependencies. PSD depends on the following:   
+
+\begin{itemize}
+\item  {\ttfamily C++}    (g++ version 4.8 or greater) (or Intel compiler)
+\item  {\ttfamily automake}
+\item  {\ttfamily FreeFEM}
+\item  {\ttfamily PETSc}      (optional)
+\item  {\ttfamily Gmsh}
+\item  {\ttfamily gnuplot}	(optional)
+\item  {\ttfamily git}   
+\end{itemize}
+
+
+\section{PSD installation steps \label{sec:psd-install}}
+Now that I have all the dependencies what next ?  
+
+\begin{itemize}
+\item  Go ahead and grab the latest copy of PSD. The code is hosted on CEA's internal git repository.
+
+\begin{lstlisting}[style=Linux]
+git clone https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem.git  PSD-Sources
+\end{lstlisting}
+
+\item  Now goto the {\ttfamily PSD-Sources} folder and autoconf PSD within the  cloned folder
+
+\begin{lstlisting}[style=Linux]
+autoreconf -i
+\end{lstlisting}
+
+\item Configure  PSD within the  cloned folder
+\begin{lstlisting}[style=Linux]
+./configure
+\end{lstlisting}
+\textbf{Note}:   {\ttfamily ./configure will} install PSD in {\ttfamily  \$HOME/PSD } to change this directory use {\ttfamily  --prefix=Your/Own/Path } with {\ttfamily ./configure}. 
+
+\textbf{Note}:   {\ttfamily ./configure} will try to look for installation of {\ttfamily FreeFEM} and {\ttfamily Gmsh} in {\ttfamily usr/bin/} or {\ttfamily usr/local/bin/} directories. If you have these packages installed in some other directory this should be specified during {\ttfamily ./configure} by using flags {\ttfamily --with-FreeFEM=} and {\ttfamily --with-Gmsh=}. For example, if {\ttfamily FreeFEM} is installed at {\ttfamily home/FreeFem/bin} and {\ttfamily Gmsh} in {\ttfamily home/Gmsh/bin} then one should use
+
+\textbf{Note}: Please use the new version of {\ttfamily Gmsh} (greater than version 4.3.0) from their official website.
+
+\begin{lstlisting}[style=Linux]
+./configure --with-FreeFEM=home/FreeFem/bin  --with-Gmsh=home/Gmsh/bin
+\end{lstlisting}
+
+\item Make PSD directives
+\begin{lstlisting}[style=Linux]
+make 
+\end{lstlisting}
+
+
+\item Install PSD
+\begin{lstlisting}[style=Linux]
+make install
+\end{lstlisting}
+
+\textbf{Note:} To install a copy of PSD for developers use {\ttfamily make install-devl} instead of{\ttfamily make install} 
+
+
+\item Check if installation is correct 
+\begin{lstlisting}[style=Linux]
+make check
+\end{lstlisting}
+
+Now you should have the solver at {\ttfamily \$HOME/PSD}. To use the solver please go to {\ttfamily \$HOME/PSD}.
+
+\end{itemize}
+
+\section{Update PSD to the latest version}
+
+If you are a PSD user and would like to update your old PSD source to a new one. Go to your {\ttfamily PSD-Sources} folder and
+
+\begin{lstlisting}[style=Linux]
+git pull origin master
+\end{lstlisting}
+
+After this step simply
+
+\begin{lstlisting}[style=Linux]
+./reconfigure;  make;  make install;  make check
+\end{lstlisting}
+
+\section{PSD developers version}
+
+If you would like to install  a developers copy  of PSD use:
+
+\begin{lstlisting}[style=Linux]
+make install-devel;
+\end{lstlisting}
+
+
+
+
+\chapter{Theoretical background}
+
+\section{Elastostatics}
+
+Let us consider $d$-dimensional domain $\Omega\in\mathbb{R}^{d}$ in a Euclidean referential $R(O,\be_{i})$ (with $i=1,\dots,d)$ submitted to a system of body forces $\bb$. We denote $\partial\Omega$ the boundary of $\Omega$ and indicate with $\bn=\bn(\bx)=n_{i}(\bx)\be_{i}$
+its outer normal in any point $\bx=x_{i}\be_{i}\in\partial\Omega$.
+
+The problem to solve in order to characterize the dynamics equilibrium thus consists in finding a vector-valued displacement field $\bu=\bu(\bx,t):\Omega\times[0,T]\to\mathbb{R}^{d}$
+regular ``enough'' and such that: 
+\begin{equation}
+\begin{cases}
+\mathrm{\mathrm{div}}\bsigma+\bb=0 & (\bx,t)\in\Omega\times[0,T]\\
+\bsigma=\bsigma(\bu) & (\bx,t)\in\Omega\times[0,T]\\
+\bu=\bu^{*} & (\bx,t)\in\partial_{u}\Omega\times[0,T]\\
+\bsigma\cdot\bn=\bt & (\bx,t)\in\partial_{t}\Omega\times[0,T]
+\end{cases}
+\end{equation}
+where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
+expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
+boundary condition) and 
+$\bt=\bt(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$
+is the imposed traction vector on $\partial_{t}\Omega$ (Neumann boundary condition). The split of $\partial\Omega$ is such that $\partial\Omega=\overline{\partial_{u}\Omega\cup\partial_{t}\Omega}$ and $\partial_{u}\Omega\cap\partial_{t}\Omega=\emptyset$, with overline $\overline{\bullet}$ denoting the closure of set $\bullet$.
+
+Let us now introduce the spaces of the admissible displacements fields ($\mathcal{U}$) and test functions ($\mathcal{V}$):
+%
+\begin{equation}
+\begin{aligned}\mathcal{U} & =\left\{ \bu=\bu(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bu\in H^{1}(\Omega),\,\bu=\bu^{*}\,\partial_{u}\Omega\times[0,T]\right\} \\
+\mathcal{V} & =\left\{ \bv=\bv(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bv\in H^{1}(\Omega),\,\bv=0\,\partial_{u}\Omega\times[0,T],\right\} 
+\end{aligned}
+\end{equation}
+%
+The weak form of previous boundary value problem can be easily obtained
+by integrating by part the linear momentum balance equation using
+a test function $\bv\in\mathcal{V}$, and imposing the Neumann boundary
+condition:
+%
+\begin{equation}
+%
+\underbrace{\int_{\Omega}\bsigma(\bu):\bepsilon(\bv)\,{\rm d}V}_{:=K(\bu,\bv)}=\underbrace{\int_{\Omega}\bb\cdot\bv\,{\rm d}V+\int_{\partial_{t}\Omega}\bt\cdot\bv\,{\rm d}S}_{:=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}}\quad\forall\,\bv\in\mathcal{V}
+%
+\end{equation}
+
+where symbol ``$:$'' is the double contraction operation between
+tensors, $K(\bu,\bv)$
+is the bi-linear symmetric form associated with the stiffness matrix
+and $b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}$ are the linear forms
+associated with the external loading.\footnote{In the following of this document, given a known field $\ba$, symbol
+$b(\bv;\ba)$ will be used to denote the linear form $\int_{\Omega}\ba\cdot\bv\,{\rm d}V$,
+whereas $b(\bv;\ba)_{Surf}$ will denote the linear form obtained
+form the surface integral $\int_{Surf}\ba\cdot\bv\,{\rm d}S$. Any
+linear form without down-script has to be interpreted as an integral
+over $\Omega$. Only surface integrals will be defined
+explicitly.}
+
+The problem to solve can be finally written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+\section{Elastodynamics}
+
+The problem to solve in order to characterize the dynamics equilibrium thus consists in finding a vector-valued displacement field $\bu=\bu(\bx,t):\Omega\times[0,T]\to\mathbb{R}^{d}$
+regular ``enough'' and such that: 
+\begin{equation}
+\begin{cases}
+\mathrm{\mathrm{div}}\bsigma+\bb=\rho\ddot{\bu} & (\bx,t)\in\Omega\times[0,T]\\
+\bsigma=\bsigma(\bu) & (\bx,t)\in\Omega\times[0,T]\\
+\bu=\bu^{*} & (\bx,t)\in\partial_{u}\Omega\times[0,T]\\
+\bsigma\cdot\bn=\bt & (\bx,t)\in\partial_{t}\Omega\times[0,T]\\
+\bu=\bu_{0} & \bx\in\Omega,\,t=0\\
+\dot{\bu}=\dot{\bu}_{0} & \bx\in\Omega,\,t=0
+\end{cases}
+\end{equation}
+where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density,
+$\ddot{\bu}=\ddot{\bu}(\bx,t)=\bu_{tt}:\Omega\times[0,T]\to\mathbb{R}^{d}$ is the acceleration field (i.e., the second time derivative of the field $\bu$) and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
+expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
+boundary condition) and 
+$\bt=\bt(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$
+is the imposed traction vector on $\partial_{t}\Omega$ (Neumann boundary condition). The split of $\partial\Omega$ is such that $\partial\Omega=\overline{\partial_{u}\Omega\cup\partial_{t}\Omega}$ and $\partial_{u}\Omega\cap\partial_{t}\Omega=\emptyset$, with overline $\overline{\bullet}$ denoting the closure of set $\bullet$. Finally,
+$\bu_{0}=\bu_{0}(\bx,0):\Omega\to\mathbb{R}^{d}$ and $\dot{\bu}_{0}=\dot{\bu}_{0}(\bx,0):\Omega\to\mathbb{R}^{d}$
+are the displacement and velocity fields at time $t=0$ (initial conditions).
+
+Let us now introduce the spaces of the admissible displacements fields ($\mathcal{U}$) and test functions ($\mathcal{V}$):
+%
+\begin{equation}
+\begin{aligned}\mathcal{U} & =\left\{ \bu=\bu(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bu\in H^{1}(\Omega),\,\bu=\bu^{*}\,\partial_{u}\Omega\times[0,T],\,\bu(\bx,0)=0,\:\dot{\bu(\bx,0)}=\dot{\bu}_{0}\right\} \\
+\mathcal{V} & =\left\{ \bv=\bv(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}\,|\,\bv\in H^{1}(\Omega),\,\bv=0\,\partial_{u}\Omega\times[0,T],\right\} 
+\end{aligned}
+\end{equation}
+%
+The weak form of previous boundary value problem can be easily obtained
+by integrating by part the linear momentum balance equation using
+a test function $\bv\in\mathcal{V}$, and imposing the Neumann boundary
+condition:
+%
+\begin{equation}
+%
+\underbrace{\int_{\Omega}\rho\ddot{\bu}\cdot\bv\,{\rm d}V}_{:=M(\ddot{\bu},\bv)}+\underbrace{\int_{\Omega}\bsigma(\bu):\bepsilon(\bv)\,{\rm d}V}_{:=K(\bu,\bv)}=\underbrace{\int_{\Omega}\bb\cdot\bv\,{\rm d}V+\int_{\partial_{t}\Omega}\bt\cdot\bv\,{\rm d}S}_{:=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}}\quad\forall\,\bv\in\mathcal{V}
+%
+\end{equation}
+
+where symbol ``$:$'' is the double contraction operation between
+tensors, $M(\ddot{\bu},\bv)$ is the bi-linear symmetric form associated
+with inertial terms (i.e., dependent on the mass matrix), $K(\bu,\bv)$
+is the bi-linear symmetric form associated with the stiffness matrix
+and $b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}$ are the linear forms
+associated with the external loading.\footnote{In the following of this document, given a known field $\ba$, symbol
+$b(\bv;\ba)$ will be used to denote the linear form $\int_{\Omega}\ba\cdot\bv\,{\rm d}V$,
+whereas $b(\bv;\ba)_{Surf}$ will denote the linear form obtained
+form the surface integral $\int_{Surf}\ba\cdot\bv\,{\rm d}S$. Any
+linear form without down-script has to be interpreted as an integral
+over $\Omega$. Only surface integrals will be defined
+explicitly.}
+
+The problem to solve can be finally written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+The only way for accounting form dumping effects in this formulation
+is through a proper definition of a constitutive law $\bsigma=\bsigma(\bu)$
+modeling dissipative processes occurring at the material level. In
+some cases, however, it can be useful to account for damping effects
+in a more global way. This can be done by modifying the variational
+problem as follows:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $C(\dot{\bu},\bv)$ is an additional bi-linear symmetric form
+associated with damping/viscous effects.
+
+\section{Time discretization}
+
+Time discretized variational formulations are illustrate in this subsection,
+considering several implicit time integration schemes. Representative
+members of these algorithms are, among others, the N\textminus $\beta$
+method \cite{newmark1959method}, the HHT\textminus $\alpha$ method \cite{hilber1977improved}, the WBZ\textminus $\alpha$ method \cite{wood1980alpha}, the HP\textminus $\theta_{1}$ method \cite{hoff1988development} and the CH\textminus $\alpha$ method \cite{chung1993time}. These methods exhibit second order accuracy
+in linear dynamics and permit efficient variable step size techniques,
+being one-step methods. The CH\textminus $\alpha$, the HHT\textminus $\alpha$
+and the WBZ\textminus \textgreek{a} methods, the so called $\alpha-$methods,
+are one-parameter schemes which can be considered as particular cases
+of a more general class of methods named generalized \textminus{}
+$\alpha$ (G \textminus{} $\alpha$). This class
+of methods corresponds to the CH\textminus \textgreek{a} scheme \cite{chung1993time}, where the algorithmic parameters $\alpha_{m}$,
+$\alpha_{f}$, $\beta$ and $\gamma$ are assumed to be independent
+of each other.
+
+\subsection{Generalized-\texorpdfstring{$\alpha$}{a} method}
+
+The Generalized \textminus{} $\alpha$ (G \textminus{} $\alpha$)
+is an implicit method that allows for high frequency energy dissipation,
+reduced unwanted low-frequency dissipation, and second order accuracy
+(i.e., $\Delta t^{2}$), both in linear and nonlinear regimes. Depending
+on choices of input parameters, unconditionally stability can be achieved
+for linear problems (as for all implicit schemes). Stability properties
+for nonlinear problem were studied in \cite{erlicher2002analysis}. In
+the latter work, the second-order accuracy of this class of algorithms
+was proved also in the non-linear regime, independently of the quadrature
+rule for non-linear internal forces. Conversely, the G-stability notion
+which is suitable for linear multi-step schemes devoted to non-linear
+dynamic problems cannot be applied, as the non-linear structural dynamics
+equations are not contractive. Nonetheless, \cite{erlicher2002analysis}
+proved that the G \textminus{} $\alpha$ methods are stable in an
+energy sense, and guarantee energy decay for high-frequencies and
+asymptotic cancellation. However, overshoot and heavy energy oscillations
+in the intermediate-frequency range are exhibited.
+
+\subsubsection{Problem setting}
+
+Let introduce a time discretization of the time interval $[0,T]$
+in an ordered sequence of $N+1$ time increments $(0,\dots,t_{i},t_{i+1},\dots,T$)
+such that $t_{i+1}=t_{i}+\Delta t$, with $\Delta t=T/N$ denoting
+the time step (here supposed constant). According to the (G \textminus{}
+$\alpha$) method, the dynamic evolution equation is solved at intermediate
+time $t_{n+1-\alpha}\in[t_{n},t_{n+1}]$. The following notation is
+used to denote the value of a generic variable $z$ at time $t_{n+1-\alpha}$:
+\begin{equation}
+z_{n+1\text{\textminus}\alpha}=(1\text{\textminus}\alpha)z_{n+1}+\alpha z_{n}\quad \text{with} \quad \alpha \in [0,1]\label{eq:Xn1alpha}
+\end{equation}
+Furthermore, the following approximations (standard for Newmark schemes)
+for the displacement and velocity fields at time $t_{n+1}$ are used \cite{newmark1959method}:
+\begin{equation}
+\begin{aligned}{\bu_{n+1}} & =\overline{\bu}_{n+1}+\beta\,\Delta t^{2}\,\ddot{\bu}_{n+1}\\
+\dot{\bu}_{n+1} & =\dot{\overline{\bu}}_{n+1}+\gamma\,\text{\textgreek{D}}t\,\ddot{\bu}_{n+1}
+\end{aligned}
+\label{eq:newmmark_approximations-corr-1}
+\end{equation}
+where $\overline{\bu}_{n+1}$ and $\dot{\overline{\bu}}_{n+1}$ are
+the following known contributions (predictions in predictor-corrector
+schemes):
+\begin{equation}
+\begin{aligned}\overline{\bu}_{n+1} & ={\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\\
+\dot{\overline{\bu}}_{n+1} & =\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}
+\end{aligned}
+\label{eq:newmmark_approximations-pred-1}
+\end{equation}
+
+and $(\beta,\gamma)$ are algorithmic parameters.
+By inverting the
+first equation of (\ref{eq:newmmark_approximations-corr-1}), one
+can express $\ddot{\bu}_{n+1}$ as a function of $\bu_{n+1}$ as:
+\begin{equation}
+\ddot{\bu}_{n+1}=\frac{1}{\beta\,\Delta t^{2}}\left(\bu_{n+1}-\overline{\bu}_{n+1}\right)\label{eq:accn1fdispn1}
+\end{equation}
+
+
+\subsection{Time discretized variational problem (no damping)}
+
+Neglecting damping effects, the problem to solve is written as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\ddot{\bu}_{n+1-\alpha_{m}}$ and $\bu_{n+1-\alpha_{f}}$ can
+be written according to (\ref{eq:Xn1alpha}):
+\begin{equation}
+\begin{aligned}\ddot{\bu}_{n+1-\alpha_{m}} & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}\left(\bu_{n+1}-\overline{\bu}_{n+1}\right)+\alpha_{m}\ddot{\bu}_{n}\\
+\bu_{n+1-\alpha_{f}} & =(1-\alpha_{f})\bu_{n+1}+\alpha_{f}\bu_{n}
+\end{aligned}
+\label{eq:accn1fdispn1-1}
+\end{equation}
+Furthermore, parameters $\beta$ and $\gamma$ read:
+\begin{equation}
+    \gamma = \frac{1}{2}+ \alpha_f - \alpha_m \qquad \beta = \frac{1}{4} \left( \gamma + \frac{1}{2}\right)^2
+\end{equation}
+
+\paragraph{Bilinear and linear operators.}
+
+Using equation (\ref{eq:accn1fdispn1}), one can easily write the
+bi-linear part associated with the mass matrix in terms of the unknown
+displacement $\bu_{n+1}$ as follows:
+\begin{equation}
+\begin{aligned}M(\ddot{\bu}_{n+1-\alpha_{m}},\bv) & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)-\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv;\overline{\bu}_{n+1})+\alpha_{m}m(\bv;\ddot{\bu}_{n})\end{aligned}
+\label{eq:M_1}
+\end{equation}
+where linear forms $m(\bv;\overline{\bu}_{n+1})$ and $m(\bv;\ddot{\bu}_{n})$
+read:\footnote{More in general, given a field $\ba=\ba(\bx):\Omega\to\mathbb{R}^{d}$,
+$m(\bv;\ba)$ denotes the linear form:
+\begin{equation}
+m(\bv;\ba)=\int_{\Omega}\rho\ba\cdot\bv\,{\rm d}V
+\end{equation}}
+\begin{equation}
+m(\bv;\overline{\bu}_{n+1})=\int_{\Omega}\rho\overline{\bu}_{n+1}\cdot\bv\,{\rm d}V\qquad m(\bv;\ddot{\bu}_{n})=\int_{\Omega}\rho\ddot{\bu}_{n}\cdot\bv\,{\rm d}V
+\end{equation}
+
+Term $m(\bv;\overline{\bu}_{n+1})$ figuring in equation (\ref{eq:M_1})
+can also be expanded as:
+\begin{equation}
+m(\bv;\overline{\bu}_{n+1})=m(\bv;{\bu_{n}})+\text{\textgreek{D}}t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)m(\bv;\ddot{\bu}_{n})
+\end{equation}
+As a consequence (\ref{eq:M_1}) can be rewritten as:\footnote{When summing up the terms depending on $\ddot{\bu}_{n}$, coming from
+the definition of $\overline{\bu}_{n+1}$ and from equation (\ref{eq:M_1}),
+we have:
+\begin{equation}
+-\left[(1-\alpha_{m})\left(\frac{1-2\beta}{2\beta}\right)-\alpha_{m}\right]=-\frac{(1-\alpha_{m})(1-2\beta)-2\beta\alpha_{m}}{2\beta}=-\frac{1-2\beta-\alpha_{m}+2\beta\alpha_{m}-2\beta\alpha_{m}}{2\beta}=1-\frac{1-\alpha_{m}}{2\beta}
+\end{equation}
+}
+\begin{equation}
+M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)=\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)-\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv;\bu_{n})-\frac{1-\alpha_{m}}{\beta\,\Delta t}m(\bv;\dot{\bu}_{n})+\left(1-\frac{1-\alpha_{m}}{2\beta}\right)m(\bv;\ddot{\bu}_{n})
+\end{equation}
+
+In a similar way, we can rewrite the bi-linear form associated with
+the stiffness matrix as:
+\begin{equation}
+\begin{aligned}K(\bu_{n+1-\alpha_{f}},\bv) & =(1-\alpha_{f})K(\bu_{n+1},\bv)+\alpha_{f}k(\bv;\bu_{n})\end{aligned}
+\end{equation}
+
+where $k(\bv;\bu_{n})$ is the linear form:\footnote{More in general, given a field $\ba=\ba(\bx):\Omega\to\mathbb{R}^{d}$,
+$k(\bv;\ba)$ denotes the linear form:
+\begin{equation}
+k(\bv;\ba)=\int_{\Omega}\bsigma\left(\ba\right):\bepsilon(\bv)\,{\rm d}V
+\end{equation}}
+\begin{equation}
+k(\bv;\bu_{n})=\int_{\Omega}\bsigma\left(\bu_{n}\right):\bepsilon(\bv)\,{\rm d}V
+\end{equation}
+Finally, the linear form $b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}$
+becomes:
+\begin{equation}
+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}=(1-\alpha_{f})b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\alpha_{f}b(\bv;\bt_{n})_{\partial_{t}\Omega}
+\end{equation}
+
+
+\paragraph{Final variational problem.}
+
+The time discretized variational formulation to solve becomes:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & \widetilde{K}({\bu_{n+1}},\bv)=\widetilde{l}(\bv)
+\end{aligned}
+}
+\end{equation}
+where $ \widetilde{K}({\bu_{n+1}},\bv)$ is the bi-linear form associated with
+the effective/equivalent stiffness matrix:
+\begin{equation}
+\begin{aligned}\widetilde{K}({\bu_{n+1}},\bv) & =\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}M(\bu_{n+1},\bv)+(1-\alpha_{f})K(\bu_{n+1},\bv)\end{aligned}
+\end{equation}
+and $\widetilde{l}(\bv)=\widetilde{l}(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} )$
+is the following linear form:
+\begin{equation}
+\begin{aligned}\widetilde{l}(\bv) & =b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}m(\bv,\bu_{n})+\frac{1-\alpha_{m}}{\beta\,\Delta t}m(\bv;\dot{\bu}_{n})\\
+ & \qquad\cdots+\left(1-\frac{1-\alpha_{m}}{2\beta}\right)m(\bv;\ddot{\bu}_{n})-\alpha_{f}k(\bv;{\bu_{n}})
+\end{aligned}
+\end{equation}
+
+
+\subsection{Time discretized variational problem (Rayleigh damping)}
+
+The problem to solve is now:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}\label{eq:variational_pb_damping_1}
+\end{equation}
+where, following a simple Rayleigh formulation, the bi-linear form associated with the damping matrix can be written as:
+\begin{equation}
+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)=\eta_{M}M(\dot{\bu}_{n+1-\alpha_{f}},\bv)+\eta_{K}K(\dot{\bu}_{n+1-\alpha_{f}},\bv)
+\end{equation}
+with ($\eta_{M},\eta_{K}$) denoting two positive model parameters.
+
+Now, using definitions \eqref{eq:Xn1alpha}, \eqref{eq:newmmark_approximations-corr-1}
+and \eqref{eq:newmmark_approximations-pred-1}, $\dot{\bu}_{n+1-\alpha_{f}}$ can be written as:\footnote{Using definitions \eqref{eq:Xn1alpha}, \eqref{eq:newmmark_approximations-corr-1}
+and \eqref{eq:newmmark_approximations-pred-1}, the velocity field at time $t_{n+1-\alpha_{f}}$ reads:
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =(1-\alpha_{f})\dot{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}\\
+ & =(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\dot{\bu}_{n}+\gamma\,\text{\textgreek{D}}t\,(1-\alpha_{f})\ddot{\bu}_{n+1}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\overline{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}
+\end{aligned}
+\end{equation}
+}
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\overline{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}\end{aligned}
+\end{equation}
+or, using definitions (\ref{eq:newmmark_approximations-pred-1}),
+as:\footnote{Using definitions (\ref{eq:newmmark_approximations-pred-1}) one obtains:
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\left[\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}\right]-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\left[{\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\right]+\alpha_{f}\dot{\bu}_{n}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+\left[1-\frac{\gamma(1-\alpha_{f})}{\beta}\right]\dot{\bu}_{n}+(1-\alpha_{f})\text{\textgreek{D}}t\left\{ 1\text{\textminus}\gamma\left[1+\left(\frac{1-2\beta}{2\beta}\right)\right]\right\} \ddot{\bu}_{n}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}
+\end{aligned}
+\end{equation}
+}
+\begin{equation}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}\end{aligned}
+\end{equation}
+
+
+\paragraph{Bilinear and linear operators.}
+
+Operator $M(\dot{\bu}_{n+1-\alpha_{f}},\bv)$ reads:
+\begin{equation}
+\begin{aligned}M(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}M(\bu_{n+1},\bv)-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}m(\bv;{\bu_{n}})\\
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]m(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)m(\bv;\ddot{\bu}_{n})
+\end{aligned}
+\end{equation}
+Similarly, the stiffness contribution becomes:
+\begin{equation}
+\begin{aligned}K(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}K(\bu_{n+1},\bv)-\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}k(\bv;\bu_{n})\\
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]k(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)k(\bv;\ddot{\bu}_{n})
+\end{aligned}
+\end{equation}
+
+
+\paragraph{Final variational problem.}
+
+Finally, the variational problem to solve reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)$ is the bi-linear form associated with the effective stiffness matrix:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{K}}({\bu_{n+1}},\bv) & =\widetilde{K}({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)\\
+ & =\frac{1-\alpha_{m}}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+\left(1-\alpha_{f}\right)K({\bu_{n+1}},\bv)
+\end{aligned}
+\label{eq:final_varational_discr_dumping}
+\end{equation}
+%
+with $C({\bu_{n+1}},\bv)$ denoting  the Rayleigh damping operator:
+%
+\begin{equation}
+C({\bu_{n+1}},\bv)=\eta_{M}M({\bu_{n+1}},\bv)+\eta_{K}K({\bu_{n+1}},\bv)
+\end{equation}
+%
+and $\widetilde{\widetilde{l}}(\bv) =\widetilde{\widetilde{l}}(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} )$ being the following linear form:
+%
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})\\
+ & \quad\cdots+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]c(\bv;\dot{\bu}_{n})+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}c(\bv;{\bu_{n}})
+\end{aligned}
+\end{equation}
+In previous equation we introduced the following notation:
+\begin{equation}
+c(\bv;\ba)=\eta_{M}m(\bv;\ba)+\eta_{K}k(\bv;\ba)
+\end{equation}
+
+\subsection{Implicit N\textminus \texorpdfstring{$\beta$}{b} and HHT\textminus \texorpdfstring{$\alpha$}{a} method
+as special cases}
+
+\paragraph{Newmark.}
+
+One can easily show that, the Newmark scheme is obtained by choosing
+$\alpha_{m}=\alpha_{f}=0$.
+
+Without damping, the stiffness matrix becomes:
+\begin{equation}
+\widetilde{K}({\bu_{n+1}},\bv)=\frac{1}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+K({\bu_{n+1}},\bv)
+\end{equation}
+whereas the linear form simplifies as follows:
+\begin{equation}
+\begin{aligned}\widetilde{l}(\bv) & =b(\bv;\bb)+b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\frac{1}{\beta\,\Delta t^{2}}m(\bv;\overline{\bu}_{n+1})\\
+ & =b(\bv;\bb)+b(\bv;\bt_{n+1})_{\partial_{t}\Omega}+\frac{1}{\beta\,\Delta t^{2}}\left[m(\bv;\bu_{n})+\Delta t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}-\beta\right)m(\bv;\ddot{\bu}_{n})\right]
+\end{aligned}
+\end{equation}
+When Rayleigh damping is considered, the bi-linear operator $\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)$
+becomes:
+\begin{equation}
+\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\frac{1}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+K({\bu_{n+1}},\bv)
+\end{equation}
+whereas the linear form simplifies as follows:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})+\left(\frac{\gamma}{\beta}-1\right)c(\bv;\dot{\bu}_{n})+\frac{\gamma}{\beta\,\Delta t}c(\bv;{\bu_{n}})\end{aligned}
+\end{equation}
+
+
+\paragraph{HHT.}
+
+One can also show that HHT\textminus $\alpha$ \cite{hilber1977improved} method is recovered for $\alpha_{m}=0$. Such formulation is not detailed in the following of this document, since it is less used than the classic Newmark approach.
+
+\subsection{Considerations on methods based upon operator splitting}
+
+In order to introduce predictor-correction, implicit-explicit and
+more in general schemes based upon operator splitting, one can rewrite
+displacement and velocity in a predictor-correction fashion as in
+(\ref{eq:newmmark_approximations-corr-1}) and (\ref{eq:newmmark_approximations-pred-1}),
+where (\ref{eq:newmmark_approximations-pred-1}) now defines predictors
+and (\ref{eq:newmmark_approximations-corr-1}) correctors (for more general information, the interested reader can refer to \cite{hughes2012finite,zienkiewicz1994finite}). For
+instance, a simple explicit predictor-corrector method can be obtained
+through solving problem (\ref{eq:variational_pb_damping_1}) with
+$K(\bar{\bu}_{n+1},\bv$) and $C((1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\bu_{n})$.
+Mixed implicit-explicit predictor-corrector methods can also be obtained
+through splitting $\Omega$ into two subdomains and using different
+time-integration schemes for solving the dynamic equilibrium problem
+on each of them.
+
+\section{Space discretization}
+
+Space discretization is performed according to the standard finite
+element method. The computational domain $\Omega$ is thus discretized
+into a mesh $\Omega^{h}$ comprising a finite number ($n_{el}$) of
+subdomains, the finite element $\Omega_{e}^{h}$, such that $\Omega\approx\Omega^{h}=\cup_{e=1}^{n_{el}}\Omega_{e}^{h}$.
+Inside each element, the displacement field is interpolated based
+on nodal displacements ($\bd$) through the shape functions matrix
+($\bN$), i.e., $\bu\approx\bu^{h}=\bN(\bx)\bd$. As usual, gradient
+terms are interpolated using the derivatives of the shape functions,
+i.e., $\bepsilon\approx\bepsilon^{h}=\bB(\bx)\bd$.
+
+In a standard matrix format, after spatial discretization of the displacement
+field, the problem to solve can be written in the standard form as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+ & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
+ & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}
+\end{aligned}
+}
+\end{equation}
+where $\bM$ and $\bK$ are now the mass and stiffness matrices. They
+are obtained through assembling (operator $\assemble$) the corresponding
+elemental operators over the finite element mesh as:
+\begin{equation}
+\begin{aligned}\bM & =\assemble_{e=1}^{n_{el}}\int_{\Omega_{e}}\rho\bN^{\top}\bN\mathrm{d}V\\
+\bK & =\assemble_{e=1}^{n_{el}}\int_{\Omega_{e}}\bB^{\top}\bD\bB\mathrm{d}V
+\end{aligned}
+\end{equation}
+where $\bD$ is the material stiffness matrix defining the link between
+the stress and strain tensors (or between theirs rates of variation
+-- more details are given in the next section). 
+
+When Rayleigh damping is considered the problem to solve is written
+as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+ & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bC+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
+ & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}\\
+ & +\bC\left\{ \text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bd}_{n}+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bd}_{n}+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bd_{n}\right\} 
+\end{aligned}
+}
+\end{equation}
+
+where matrix $\bC$ is now defined as:
+\begin{equation}
+\bC=\eta_{M}\bM+\eta_{K}\bK
+\end{equation}
+
+
+\section{Linear and nonlinear dynamic solvers}
+
+Elastodynamics is the simplest case one can encounter in structural mechanics. In that case, the space-time discretized linear system of equations is linear and finding the solution at any time $t_{n+1}$ is straightforward. In most applications, however, material behavior is nonlinear since structural materials often dissipate energy and exhibit
+damage, permanent strains, etc. In that case, the resulting discretized problem to solve is nonlinear, and Newton--Raphson procedures can be used. In that case, the solution is found iteratively through solving a series of linearized problems.
+
+\subsection{Linear case - linear elastic material behavior}
+
+Let us start from the linear case first. Under small strains conditions, if the material is assumed isotropic linear elastic, the Cauchy's stress tensor reads $\bsigma=\lambda\text{tr}(\bepsilon)\bI+2\mu\bepsilon$,
+where $\bepsilon=(\nabla\bu+\nabla^{\top}\bu)/2$ is the small strain tensor (i.e., the symmetric part of the displacement gradient $\nabla\bu$), $\lambda=\lambda(\bx$) and $\mu=\mu(\bx)$ are the Lame's parameters and $\bI=\delta_{ij}\be_{i}\otimes\be_{j}$ denotes the second order identity tensor. As a consequence, the bi-linear form $K({\bu_{n+1}},\bv)$ and the corresponding linear form $k(\bv;{\bu_{n}})$ can be rewritten in a more explicit form as:
+\begin{equation}
+\begin{aligned}K({\bu_{n+1}},\bv)=\int_{\Omega}\bsigma\left({\bu_{n+1}}\right):\bepsilon(\bv)\,{\rm d}V & =\int_{\Omega}\left[\lambda\tr\bepsilon(\bu_{n+1})\bI+2\mu\bepsilon(\bu_{n+1})\right]:\bepsilon(\bv)\,{\rm d}V=\int_{\Omega}\bepsilon(\bu_{n+1}):\mathbb{E}:\bepsilon(\bv)\,{\rm d}V\\
+k(\bv;{\bu_{n}})=\int_{\Omega}\bsigma\left({\bu_{n}}\right):\bepsilon(\bv)\,{\rm d}V & =\int_{\Omega}\left[\lambda\tr\bepsilon(\bu_{n})\bI+2\mu\bepsilon(\bu_{n})\right]:\bepsilon(\bv)\,{\rm d}V=\int_{\Omega}\bepsilon(\bu_{n}):\mathbb{E}:\bepsilon(\bv)\,{\rm d}V
+\end{aligned}
+\end{equation}
+where $\mathbb{E}$ is the fourth-order elastic stiffness tensor. 
+
+\subsection{Nonlinear case - inelastic material behaviors (under implementation)}
+
+An iterative Newton--Raphson procedure is used to solve the nonlinear
+problem. The unknown displacement ${\bu_{n+1}}$ at global iteration
+$k+1$ is written as ${\bu_{n+1}^{k+1}}={\bu_{n+1}^{k}}+\delta{\bu_{n+1}^{k+1}}$,
+where ${\bu_{n+1}^{k}}$ is the solution at iteration $k$, and $\delta{\bu_{n+1}^{k+1}}$
+is the solution variation at iteration $k+1$. The latter is computed
+from the resolution of a linearized system of equations. 
+
+For this purpose, the variational formulation (\ref{eq:final_varational_discr_dumping}) is first written in residual form as:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{{\bu_{n+1}^{k+1}}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+ & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+
+The residual(i.e., the out-of-balance force) is then linearized around solution ${\bu_{n+1}^{k}}$
+as follows:
+\begin{equation}
+R({\bu_{n+1}^{k+1}},\bv)=r(\bv;\bu_{n+1}^{k})+R'(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})\label{eq:linearization_1-1}
+\end{equation}
+where $r(\bv;\bu_{n+1}^{k})=r(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} ,\bu_{n+1}^{k})$
+is the linear form corresponding to the out-of-balance forces at iteration
+$k$:
+\begin{equation}
+r(\bv;\bu_{n+1}^{k})=\frac{1-\alpha_{m}}{\beta\Delta t^{2}}m(\bv;\bu_{n+1}^{k})+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}c(\bv;\bu_{n+1}^{k})+\left(1-\alpha_{f}\right)k(\bv;\bu_{n+1}^{k})-\widetilde{\widetilde{l}}(\bv)\label{eq:nl_residual}
+\end{equation}
+and:
+\begin{multline}
+R'(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})= \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) \\ + (1-\alpha_{f})\left(1+\frac{\gamma\eta_{K}}{\beta\,\Delta t}\right)K_{t}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})\label{eq:linearization_1}
+\end{multline}
+with:
+\begin{equation}
+K_{t}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k})=\int_{\Omega}\bepsilon(\delta{\bu_{n+1}^{k+1}}):\mathbb{D}^{k}:\bepsilon(\bv)\,{\rm d}V
+\end{equation}
+The fourth order stiffness tensor $\mathbb{D}^{k}=D_{ijkl}(\be_{i}\otimes\be_{j}\otimes\be_{k}\otimes\be_{l})$
+can be defined differently according to the chosen algorithm. For
+instance, if a standard Newton--Raphson formulation is chosen, $\mathbb{D}^{k}=\partial_{\bepsilon}\bsigma({\bu_{n+1}^{k}})$
+is the tangent stiffness operator at iteration $k$.
+
+Finally, the discretized variational formulation to solve becomes:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\delta{\bu_{n+1}^{k+1}}}\ensuremath{\in\mathcal{U}_{\delta}} such that : }\\
+ & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\mathcal{U}_{\delta}$ is the admissibility space of the displacement
+variations, and $-r(\bv;\bu_{n+1}^{k})$ can now be interpreted as
+the difference between the pseudo-external forces (represented by the linear form $\widetilde{\widetilde{l}}(\bv)$)
+and the internal forces (first three terms of equation (\ref{eq:nl_residual})).
+
+\section{Paraxial formulation for absorbing layers}
+
+When spatially unbounded (infinite) domains are represented through bounded computational domains, spurious wave reflections can be observed boundaries.
+Several techniques have been proposed in the literature to introduce proper treatments of the boundary conditions allowing to reproduce propagation processes in infinite one-phase and two-phase media artificially. Among the available formulations, one can cite the ones based upon using lumped dumpers \cite{lysmer1969finite}, Perfectly Matched Layers
+(PML) \cite{berenger1994perfectly} and paraxial boundaries \cite{engquist1977absorbing,clayton1977absorbing,aubry1985local,MODARESSI1994117}.
+
+\subsection{Standard formulation}
+
+Paraxial approximation constitutes a local boundary condition which permits diffracting waves to be evacuated from the computational domain. To introduce the formulation, let us consider a split of the total domain $\Omega^{\infty}$ into two subdomains $\Omega$ and $\Omega^{E}$ separated by a surface $\Sigma\in\mathbb{R}^{d}$ of outer normal $\bm{}$ (pointing from $\Omega$ to $\Omega^{E}$). On surface $\Sigma$, the continuity condition of the displacement field read:
+\begin{equation}
+[|\bu|]=\bu-\bu^{E}=0\qquad\Sigma\times[0,T]
+\end{equation}
+%
+whereas the continuity of the traction vector reads:
+%
+\begin{equation}
+[|\bsigma|]\cdot\bm{}=\left(\bsigma-\bsigma^{E}\right)\cdot\bm{}=\bsigma\cdot\bm{}+\bsigma^{E}\cdot(-\bm{})=\bt+\bt^{E}=0\qquad\Sigma\times[0,T]\label{eq:paraxial_continuity_t}
+\end{equation}
+
+In previous equations, symbol $[|\bullet|]$ is used to denote the jump of function $\bullet$ across surface $\Sigma$, $\bu^{E}=\bu^{E}(\bx,t):\Omega^{E}\times[0,T]\to\mathbb{R}^{d}$ is the vector-valued displacement field on $\Omega^{E}$, and $\bsigma^{E}=\bsigma^{E}(\bu^{E}):\Omega^{E}\times[0,T]\to\mathbb{R}^{d\times d}$ is the corresponding stress tensor.
+
+\subsubsection{Variational formulation}
+
+Given the traction continuity condition (\ref{eq:paraxial_continuity_t}),
+the variational problem to solve on $\Omega$ reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu} \ensuremath{\in} \ensuremath{\mathcal{U}} such that: }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;\bt^{E})_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}\label{eq:paraxial_varf_1}
+\end{equation}
+Using a zeroth-order paraxial approximation, the traction vector $\bt^{E}$ can be written as:
+\begin{equation}
+\bt^{E}=A_{0}(\dot{\bu}) = \rho c_p \dot{u}_m \bm + \rho c_s \dot{\bu}_s
+\label{eq:paraxial_lin_form}
+\end{equation}
+where $(c_p,c_s)$ are the the propagation velocities of compressional and shear waves, $\dot{u}_m = \dot{\bu} \cdot \bm$ is the velocity normal to $\Sigma$ and  $\dot{\bu}_s = \dot{\bu} - \dot{u}_m \bm$ its tangent counterpart.
+
+More in general, given a vector-valued field $\ba$ (e.g., the displacement, velocity and acceleration fields), we write:\footnote{We recall that given three Euclidean vectors $\bv \in \mathbb{R}^d$, $\bw\in \mathbb{R}^d$ and $\bz\in \mathbb{R}^d$, the dyadic product $\bv \otimes \bw \in \mathbb{R}^{d\times d}$ is the second order tensor defined by: $(\bv \otimes \bw)\cdot \bz = (\bw\cdot \bz) \bv $. In components: $(\bv \otimes \bw)_{ij}=v_i\,w_j$.}
+\begin{equation}
+    A_{0}(\ba) = \rho c_p \, (\bm \otimes \bm) \cdot \ba + \rho c_s ({\bI} - \bm \otimes \bm) \cdot \ba = \rho \left[ (c_p - c_s)\, m_i m_j + c_s \delta_{ij} \right] a_j \be_i
+\end{equation}
+where symbol $\otimes$ denotes the dyadic product between first order tensors (vectors).\footnote{Denoting $(m_x,m_y,m_z)$ the components of vector $\bm$ in the reference system $R(O,\be_x,\be_y,\be_z)$, the components of $A_{0}(\ba)$ read:
+\begin{align}
+    (A_{0}(\ba))_x & = \rho \left[(c_p-c_s) m_x (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_x \right] \\
+    (A_{0}(\ba))_y & =  \rho \left[(c_p-c_s) m_y (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_y \right] \\
+    (A_{0}(\ba))_z & =  \rho \left[(c_p-c_s) m_z (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_z \right]
+\end{align}}
+
+\subsubsection{Time-discretization}
+After time discretization, equation \eqref{eq:paraxial_lin_form} becomes:
+\begin{equation}
+\begin{aligned}b(\bv;\bt^{E})_{\Sigma} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
+ & \quad\cdots-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+\end{aligned}
+\end{equation}
+The variational problem to solve thus reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}} such that : }\\
+ & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+where $\widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)$ is:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv) & =\widetilde{\widetilde{K}}({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}\\
+ & =\frac{1-\alpha_{m}}{\beta\Delta t^{2}}M({\bu_{n+1}},\bv)+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}C({\bu_{n+1}},\bv)+\left(1-\alpha_{f}\right)K({\bu_{n+1}},\bv)\\
+ & \quad\cdots+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}
+\end{aligned}
+\end{equation}
+and $\widetilde{\widetilde{\widetilde{l}}}(\bv)$ is:
+\begin{equation}
+\begin{aligned}\widetilde{\widetilde{\widetilde{l}}}(\bv) & =\widetilde{\widetilde{l}}(\bv)+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
+ & \quad\cdots+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\text{}\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+\end{aligned}
+\end{equation}
+
+\subsection{Accounting for incident waves}
+%
+Let us now split the total displacement vector at $\Sigma$ into its incident $\bu_{in}$ and radiant $\bu_{r}$ components:
+%
+\begin{equation}
+\bu=\bu^{E}=\bu_{in}+\bu_{r}
+\end{equation}
+%
+and use the zeroth-order paraxial approximation for expressing the traction contribution to the traction vector $\bt^{E}$ due to the radiant field. The traction continuity condition (\ref{eq:paraxial_continuity_t}),
+together with the linearity hypotheses at the vicinity of $\Sigma$, enables us to write:
+%
+\begin{equation}
+\bt=-\bt^{E}(\bu^{E})=-\bt^{E}(\bu_{in})-\bt^{E}(\bu_{r})=-\bt^{E}(\bu_{in})-A_{0}(\dot{\bu}_{r})=-\bt^{E}(\dot{\bu}_{in})-A_{0}(\dot{\bu})+A_{0}(\dot{\bu}_{in})
+\end{equation}
+%
+here $\dot{\bu}_{in}$ is known, whereas $\dot{\bu}$ is the unknown velocity field. 
+
+The variational equation to solve now reads:
+\begin{equation}
+\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+ & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;A_{0}(\dot{\bu}))_{\Sigma}\\
+ & \quad\cdots-b(\bv;\bt_{E}(\dot{\bu}_{in}))_{\Sigma}+b(\bv;A_{0}(\dot{\bu}_{in}))_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
+\end{aligned}
+}
+\end{equation}
+%
+where the last two terms are the only novelty with respect to equation \eqref{eq:paraxial_varf_1}.
+
+\chapter{Tutorials}
+
+\textbf{Preliminaries}\\
+Before diving into the tutorials, here are some preliminaries that will help you guide easily through them.
+
+\begin{itemize}
+    \item A PSD simulation is performed in three steps: preprocessing, solving, and postprocessing. 
+    \item Domain: denoted by $\Omega$ is a a $n$-dimensional solid body such that $\Omega \subset \mathbbm{R}^n$ with $n=2$   for 2D problems or  $n=3$ for 3D problems.
+    \item Finite element mesh: denoted by $\Omega^h$ with mesh size $h$. Mesh can be triangular in 2D and tetrahedral in 3D.
+    \item MPI processes for simulation: denoted by $\np$ these are the total MPI ranks that will work in parallel to solve the problem.
+    \item Partitioned mesh: denoted by $\{ \Omega ^h_i \}_{i=1}^{\np}$ these are set of subdomains which are held by each MPI rank during a parallel simulation.
+\end{itemize}
+
+\section{Linear Elasticity}
+Linear Elasticity is a mathematical approximation of solid object deformation caused by prescribed loading conditions. It is a simplification of the more general nonlinear theory of elasticity. PSD allows for solving Linear Elasticity problems both in sequential and in parallel. We shall discuss how to do so in details within this section.
+
+
+PSD is a FEM based solver, to solve a given physics it heavily relies on the variational formulations of the underlying physics. Let us begin with writing the variational formulation of system of  Elasticity in which the primary unknown is the displacements vector $\bu=\{u_j\}^n_{j=1}$. In the Lagrangian FE framework for searching the unknown nodal displacements vector $\bu^h=\{u^h_j\}^n_{j=1}$ the variational formulation of system of  Elasticity reads,
+%
+%
+\begin{equation}\label{Eq:Varf}
+\forall i \in \llbracket 1; N_{\text p} \rrbracket,  \int_{\Omega^h_i}\sig(\buh) : \eps(\bvh) = \int_{\partial\Omega^h_{i,\text{N}}} \mathbf{f}\cdot\bvh \, \quad\forall\,\bvh\in\mathbb{V}^h,\buh\in\mathbb{V}^h,
+\end{equation}
+%
+here,  $\buh$ is in fact the FE trial function and $\bvh=\{v^h_j\}^n_{j=1}$ is the FE test function.
+
+\begin{equation}\label{Eq:LinearElasticity}
+\forall i \in \llbracket 1; N_{\text p} \rrbracket, 
+\int_{\Omega^h_i}\lambda\nabla\cdot\buh\nabla\cdot\bvh + \int_{\Omega^h_i}2\mu\boldsymbol\varepsilon(\buh):\boldsymbol\varepsilon(\bvh)-\int_{\Omega^h_i}\mathbf{f}\cdot\bvh=0, \quad\forall\bvh\in[H^1_0(\Omega^h_i)]^n 
+\end{equation}
+
+In these formulations $\lambda$ and $\mu$ are the Lame's parameters, $\mathbf{f}$ is the body force vector.  
+
+\subsection{PSD simulation of 2D bar problem bending under own body weight \label{sec:2d-bar-load}}
+
+To showcase the usage of Linear elasticity, we shall discuss here an example of a 2D bar, which bends under its own load. The bar ---$5\times1$~\si{\square\meter} in area-- is made up of material with $\rho=8\text E3$, $E=200\text E9$, and $\nu=0.3$.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar.png}\hspace{.1\textwidth}
+    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar-mesh.png}
+    \caption{2D bar clamped at left end and bending under own load. Geometry (left) and mesh (right).}
+    \label{fig:2Dbar}
+\end{figure} 
+
+\textbf{Step 1: Preprocessing}
+
+First step in a PSD simulation is ``PSD setup", at this step you tell PSD what kind of physics, boundary conditions, approximations, mesh, etc are you expecting to solve.
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch  {\ttfamily PSD\_PreProcess} from the terminal, to do so run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 1 -postprocess u
+\end{lstlisting}
+%
+After the ``PSD setup" runs successfully you should see many {\ttfamily .edp} files in your {\ttfamily PSD/Solver} folder. \textit{What do the arguments mean ?}  {\ttfamily -dimension 2} means it is a 2D simulation, {\ttfamily -bodyforceconditions 1} with body force; {\ttfamily -dirichletconditions 1} says we have one Dirichlet border; and {\ttfamily -postprocess u} means we would like to have ParaView post processing files. The input properties ``$E,\nu$" can be mentioned in {\ttfamily ControlParameters.edp}, change {\ttfamily E  = 200.e9}, and {\ttfamily nu = 0.3;}. The volumetric body force condition is mentioned in the same file via variable {\ttfamily Fbc0Fy -78480.0}, i.e ($\rho*g=8.e3*(-9.81)=-78480.0$). In addition variable {\ttfamily Fbc0On 1} has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in {\ttfamily ControlParameters.edp}. To provide the clamped boundary condition the variables   {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.}  are used, which means for Dirichlet border 2 ({\ttfamily Dbc0On 2}) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {{\ttfamily Dbc0Ux 0.}, {\ttfamily Dbc0Uy 0}} i.e., the clamped end condition ($u_x=u_y=0$).
+
+\textbf{Step 2: Solving}
+
+As PSD is a parallel solver, let us use  4 cores to solve the 2D bar case. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 4 Main.edp
+\end{lstlisting}
+
+Here {\ttfamily -np 4} denote the argument used to enter the number of cores. {\ttfamily PSD\_Solve} is a wrapper around {\ttfamily FreeFem++} or {\ttfamily FreeFem++-mpi}.  Note that if your problem is large use more cores. PSD has been tested upto 13,000 cores, surely you will now need that many for the 2D bar problem. 
+
+\textbf{Step 3: Postprocessing}
+
+PSD allows postprocessing of results in ParaView. After the step 2 mentioned above finishes. Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-partioned.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-results.png}
+    \end{minipage}
+    \caption{2D clamped bar results. Partitioned mesh (left) and 1000X warped displacement field (right).}
+    \label{fig:2d-bar-results}
+\end{figure}
+
+
+\subsection{PSD simulation of 2D bar problem clamped at both ends \label{sec:2D-bar-clamped1}}
+
+For this test the properties of the material are the same as used in \cref{sec:2d-bar-load}. 
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 2 -postprocess u
+\end{lstlisting}
+%
+Since basic nature of both the problems is same this is the exact same command used in preprocessing of \cref{sec:2d-bar-load}. The only difference of this problem compared to the one from \cref{sec:2d-bar-load} is that an additional Dirichlet condition needs to be supplied, notified to PSD by {\ttfamily -dirichletconditions 2}. To provide Dirichlet conditions of the left clamped end ($u_x=u_y=0$) in {\ttfamily ControlParameters.edp} set {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.}. Similarly, for the right end set variables {\ttfamily Dbc1On 4}, {\ttfamily Dbc1Ux 0.}, and {\ttfamily Dbc1Uy 0}. Each one of these is a clamped border respectively labeled as 2  ({\ttfamily Dbc0On 2}) and 4 ({\ttfamily Dbc1On 4}) in the mesh.
+
+\textbf{Step 2: Solving}
+
+Let us now use  3 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 3 Main.edp
+\end{lstlisting}
+%
+Notice, that this is the exact same command used in solving of \cref{sec:2d-bar-load}, with only difference that we now use {\ttfamily -np 3} vs.~{\ttfamily -np 4}.
+
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-partitioned3.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-ends.png}
+    \end{minipage}
+    \caption{2D clamped bar results. Partitioned mesh (left) and 20000X warped displacement field (right).}
+    \label{fig:3part}
+\end{figure}
+
+In~\cref{fig:3part} there are only three subdomais in the partitioned mesh since only three cores were used.
+
+\subsubsection{Redoing the test on Jupiter and moon}
+
+Imagine, you wish to know how the test would compare if performed on Moon and Jupiter. The only thing that will change now is the gravitational pull, for Moon $g=1.32$ and for Jupiter $g=24.79$. To perform the moon test simply change  {\ttfamily Fbc0Fy -10560.0} in {\ttfamily ControlParameters.edp} and redo step 2 and step 3. Similarly, for the Jupiter test {\ttfamily Fbc0Fy -198320.0} in {\ttfamily ControlParameters.edp} and redo step 2 and step 3.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2.5cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-moon.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2.5cm][t]{0.4\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-Jupiter.png}
+    \end{minipage}
+    \caption{2D clamped bar 20000X warped displacement fields. On moon (left) and  on Jupiter (right).}
+    \label{fig:moon-jupiter}
+\end{figure}
+
+\subsection{PSD simulation of 2D bar problem clamped at one end wile being pulled at the other end (Dirichlet-Dirichlet case)\label{sec:2d-bar-clamped2}}
+
+In this section we showcase the 2D bar problem simulation with one end clamped wile being pulled at the other end. Body force is neglected and the non clamped ends pull is approximated with Dirichlet displacement $u_1=1$. If this simulation is compared to the previous one from \cref{sec:2d-bar-load}, the only difference now is that no body force is applied and an additional Dirichlet condition is applied at the free end of the bar. Here is how PSD simulation of this case can be performed.
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 2   -dirichletconditions 2 -postprocess u
+\end{lstlisting}
+%
+In comparison to preprocessing from \cref{sec:2d-bar-load,sec:2D-bar-clamped1}, notice that {\ttfamily -bodyforceconditions 1} is missing. This is due to the fact that for this problem we assume null body force. Just like in~\cref{sec:2D-bar-clamped1} {\ttfamily -dirichletconditions 2}, which notifies to PSD that there are two Dirichlet borders ---the clamped and the pulled ends of the bar--- in this simulation.
+To provide these Dirichlet conditions of the two ends in {\ttfamily ControlParameters.edp} set the variables  {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.} signifying the clamped end ($u_x=0,u_y=0$ on mesh label 2) and {\ttfamily Dbc1On 4}, {\ttfamily Dbc1Ux 1.}, and {\ttfamily Dbc1Uy 0.} signifying the pulled end ($u_x=1,u_y=0$  on label 4). Note that here at border 4 we have explicitly set $u_2=0$ this means the bar is not allowed to shrink(compress) in $y$ direction, however you might wish to allow the bar to compress. For such a simulation simply use {\ttfamily Dbc1On 4} and {\ttfamily Dbc1Ux 1.}, and remove the term {\ttfamily Dbc1Uy 0.} therefor asking PSD not to apply constrain in $y$ direction on the pulled end.
+
+\textbf{Step 2: Solving}
+
+Let us now use 2 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 2 Main.edp
+\end{lstlisting}
+%
+Notice, that this is the exact same command used in solving of \cref{sec:2d-bar-load,sec:2D-bar-clamped1}, with only difference that we now use {\ttfamily -np 2} vs.~{\ttfamily -np 4} in \cref{sec:2d-bar-load} and ~{\ttfamily -np 3} in \cref{sec:2D-bar-clamped1}.
+
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.39\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-pulled-partioned.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.5\textwidth}
+    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-clamped-pulled.png}
+    \end{minipage}
+    \caption{2D bar results. Partitioned mesh (left) and 1.5X warped displacement field (right).}
+    \label{fig:2part}
+\end{figure}
+
+Note now in~\cref{fig:2part} there are only two subdomais in the partitioned mesh since only three cores were used. As expected we see that the right end of the bar which is being pulled does not contract in $y$ direction.
+\pagebreak
+
+
+\subsection{PSD simulation of 2D bar problem clamped at one end wile being pulled at the other end (Dirichlet--Neumann case)\label{sec:2d-bar-clamped3}}
+
+
+Similar simulation, as in \cref{sec:2d-bar-clamped2} is presented in this section. We showcase the 2D bar problem simulation with one end clamped wile being pulled at the other end. Just like simulation from \cref{sec:2d-bar-clamped2} the body force is neglected, However now  the non clamped ends pull is approximated with Neumann force $\int_{\partial\Omega^h_{\text N}}(\mathbf t\cdot \bvh)$. To simulate the pull we assume traction vector $\mathbf t=[t_x,t_y]=[10^9.,0]$ acting on the non clamped right end of the bar, i.e., force in $x$ direction is 10 units. Here is how PSD simulation of this case can be performed.
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 2 -dirichletconditions 1  -tractionconditions 1 -postprocess u
+\end{lstlisting}
+%
+the comandline flag {\ttfamily -dirichletconditions 1}, notifies to PSD that there is one Dirichlet border ---the clamped end of the bar--- in this simulation. And the flag {\ttfamily -tractionconditions 1} notifies to PSD that there is one traction border ---the right end of the bar--- in this simulation. 
+To provide the clamped boundary condition ($u_1=0,u_2=0$) set the variables  {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.} in {\ttfamily ControlParameters.edp}. In the same file traction boundary conditions are provided via the variables {\ttfamily Tbc0On 4} and {\ttfamily Tbc0Tx 1.e9}, which mean apply traction force $\mathbf t=[t_x,t_y]=[10^9.,0]$ on label number 4 (right) of the mesh. If user wishes to add traction force ,for instance $t_y=100.$, simply add the missing macro {\ttfamily macro Tbc0Tx 1.e9 //}.
+
+
+\textbf{Step 2: Solving}
+
+Let us now use 5 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 5 Main.edp
+\end{lstlisting}
+%
+Notice, that this is the exact same command used in solving the previous bar problems from other sections, with only difference that we now use {\ttfamily -np 5}.
+
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.36\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-partitioned5.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.5\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-clamped-traction.png}
+    \end{minipage}
+    \caption{2D bar results. Partitioned mesh (left) and 100X warped displacement field (right).}
+    \label{fig:5part}
+\end{figure}
+
+Note now in~\cref{fig:5part} there are five subdomains in the partitioned mesh since five cores were used. Contrary to~\cref{fig:2part}, as expected, we see that the right end of the bar which is being pulled now contract in $y$ direction. This is due to the fact that there is no Dirichlet condition at this end now. 
+
+\pagebreak
+
+
+
+
+\subsection{PSD simulation of 2D bar problem clamped at one end wile being pulled at the other end (Dirichlet-Neumann-Point boundary conditions case)\label{sec:2d-bar-clamped4}}
+
+
+Similar simulations, as in \cref{sec:2d-bar-clamped2,sec:2d-bar-clamped3} is presented in this section. We showcase the 2D bar problem simulation with one end clamped  wile being pulled at the other end. Contrary to simulation in \cref{sec:2d-bar-clamped2,sec:2d-bar-clamped3}, the clamped end just restricts $x$ movement, i.e, $u_x=0$. Just like simulation from \cref{sec:2d-bar-clamped2,sec:2d-bar-clamped3} the body force is neglected. Just like simulation in  \cref{sec:2d-bar-clamped3}, the non clamped ends pull is approximated with Neumann force $\int_{\partial\Omega^h_{\text N}}(\mathbf t\cdot \bvh)$. To simulate the pull we assume traction vector $\mathbf t=[t_x,t_y]=[10^9,0]$ acting on the non clamped right end of the bar, i.e., force in $x$ direction is $10^9$ units. Here is how PSD simulation of this case can be performed.
+
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 2 -dirichletconditions 1 -tractionconditions 1  \ 
+-dirichletpointconditions 1 -postprocess u
+\end{lstlisting}
+
+Additional flag {\ttfamily -dirichletpointconditions 1} now appears, this notifies to PSD that there is one Dirichlet point boundary condition. Edit the  {\ttfamily ControlParameters.edp} to communicate the desired point boundary conditions, set the variables {\ttfamily Pbc0Ux  0.} and {\ttfamily Pbc0Uy  0.} to specify $u_x=0,u_y=0$, and variable {\ttfamily PbcCord = [[  0. , 0. ]];} to specify the point coordinates $(x,y)=(0,0)$. Via the flags we specified that {\ttfamily -dirichletconditions 1}, i.e., there is one Dirichlet border.
+To provide the Dirichlet condition ($u_x=0$) set the variables {\ttfamily Dbc0On 2} and {\ttfamily Dbc0Ux 0.}  in {\ttfamily ControlParameters.edp}. PSD understands that 4 is the mesh border label on which Dirichlet is applied and ($u_x=0$) is the condition to be applied.
+
+\textbf{Step 2: Solving}
+
+Let us now use 6 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 6 Main.edp
+\end{lstlisting}
+%
+Notice, that this is the exact same command used in solving the previous bar problems from other sections, with only difference that we now use {\ttfamily -np 6}.
+
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.36\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-partitioned6.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.5\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/2d-bar-clamped-traction-point.png}
+    \end{minipage}
+    \caption{2D bar results. Partitioned mesh (left) and 100X warped displacement field (right).}
+    \label{fig:6part}
+\end{figure}
+
+Note now in~\cref{fig:6part} there are six subdomais in the partitioned mesh. As expected, we see that the right and the left end of the bar which is being pulled now contract in $y$ direction, and the bar elongates in $x$ direction. 
+
+
+\pagebreak
+
+
+
+\subsection{PSD simulation of 3D bar problem clamped at one end wile being pulled at the other end (Dirichlet-Neumann case)\label{sec:3d-bar-clamped3}}
+
+In this section we present a 3D PSD simulation of a clamped bar which his being loaded in vertical direction at the non-clamped end. This simulation is like the one presented in \cref{sec:2d-bar-clamped3}, however in 3D. The material properties are same as before, and at the non-clamped end traction $t_y=-10^9$ units. The 3D bar is $1\times1\times5$ m$^3$.
+
+Here is how PSD simulation of this case can be performed.
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 3 -dirichletconditions 1  -tractionconditions 1 -postprocess u
+\end{lstlisting}
+%
+the comandline flag {\ttfamily -dirichletconditions 1} notifies to PSD that there is one Dirichlet border ---the clamped end of the bar--- in this simulation; {\ttfamily -dimension 3} means the simulation is 3D. And the flag {\ttfamily -tractionconditions 1} notifies to PSD that there is one traction border ---the right end of the bar--- in this simulation. 
+To provide Dirichlet conditions of the  clamped end ($u_x=0,u_y=0,u_z=0$) in {\ttfamily ControlParameters.edp} set {\ttfamily Dbc0On 1}, {\ttfamily Dbc0Ux 0.}, {\ttfamily Dbc0Uy 0.}, and {\ttfamily Dbc0Uz 0.}, where 1 being the surface mesh label of the clamped end. To add the traction boundary condition set  {\ttfamily Tbc0On 2} and {\ttfamily Tbc0Ty -1.e9}, here the mesh label number of the right end is 2. For this end $\mathbf t=[t_x,t_y,t_z]=[0.,10^9,0.]$, hence in {\ttfamily ControlParameters.edp} we only  use {\ttfamily Tbc0Ty -1.e9}. 
+
+
+\textbf{Step 2: Solving}
+
+Let us now use 4 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 4 Main.edp
+\end{lstlisting}
+%
+Notice, that this is the exact same command used in solving the previous bar problems from other sections.
+
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.38\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-bar-clamped-ends.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-bar-clamped-pulled-partioned.png}
+    \end{minipage}
+    \caption{3D bar results. Partitioned mesh (left) and 0.5X warped displacement field (right).}
+    \label{fig:3Dpart}
+\end{figure}
+
+In~\cref{fig:3Dpart} there are four subdomais in the partitioned mesh since four cores were used.
+
+\pagebreak
+
+
+\subsection{PSD simulation of 3D  mechanical piece (Dirichlet-Neumann case) with complex mesh\label{sec:3d-bar-clamped3-sub}}
+
+So far in the previous cases we only concentrated on bar simulations, which were more or less trivial cases. Moreover, the bar meshes are provided with the PSD solver. In this section we now turn towards  3D simulation of a mechanical piece, the geometry of which is shown in~\cref{fig:mechanicalpiecegeo}. The left (small) hole is fixed: $u_1=u_2=u_3=0$, while as traction force $t_x=10^9$ is applied on the large hole.
+
+You can grab a copy of CAD geometry for the mechanical piece (the Gmsh {\ttfamily .geo}) your local Gmsh installation folder  {\ttfamily gmsh/share/doc/gmsh/demos/simple\_geo/{piece}.geo}. The listing of the file is also given in @. To generate the mesh {\ttfamily piece.msh} simply do 
+\begin{lstlisting}[style=Linux]
+gmsh -3 piece.geo
+\end{lstlisting}
+Place the generated mesh {\ttfamily piece.msh} in {\ttfamily /PSD/Meshes/3D/piece.msh}. Now the PSD simulation can be performed.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[align=b,width=0.5\textwidth]{./Images/3d-mechanical.png}
+    \caption{3D mechanical piece.}
+    \label{fig:mechanicalpiecegeo}
+\end{figure}
+
+\textbf{Step 1: Preprocessing}
+
+For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+\begin{lstlisting}[style=Linux]
+PSD_PreProcess -dimension 3 -dirichletconditions 1  -tractionconditions 1 -postprocess u
+\end{lstlisting}
+Here, by using these parameters we have generated one Dirichlet condition and one traction condition, respectively to be applied to the small and the large holes in the mesh. Further, by using {\ttfamily -dimension 3} we have let PSD know that the problem is 3D .In the {\ttfamily /PSD/Meshes/3D/piece.msh} generated, the label 4 (resp.~3) corresponds to the Dirichlet (resp.~traction) border. 
+To provide Dirichlet conditions on label number 4 ($u_x=0,u_y=0,u_z=0$) in {\ttfamily ControlParameters.edp} use set {\ttfamily Dbc0On 4}, {\ttfamily Dbc0Ux 0.}, {\ttfamily Dbc0Uy 0.}, and {\ttfamily Dbc0Uz 0.}. To add the values and label numbers of the traction borders edit the  {\ttfamily ControlParameters.edp}, set  {\ttfamily Tbc0On 3} and {\ttfamily Tbc0Ty -1.e9}. For this end $\mathbf t=[t_x,t_y,t_z]=[0.,10^9,0.]$. Finally we use steel properties for the material, so in {\ttfamily ControlParameters.edp} the parameters {\ttfamily real E  = 200.e9;} and {\ttfamily real nu = 0.3;} should be used. These represent $E$ and $\nu$, respectively. With all the properties and boundary conditions set we now use  {\ttfamily string ThName = "../Meshes/3D/piece";} in the {\ttfamily ControlParameters.edp} file, this notifies PSD about the name of the mesh used for this simulation.  
+
+\textbf{Step 2: Solving}
+
+Let us now use 2 cores to solve this problem. To do so enter the following command:
+
+\begin{lstlisting}[style=Linux]
+PSD_Solve -np 2 Main.edp
+\end{lstlisting}
+
+\textbf{Step 3: Postprocessing}
+
+Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[t][2cm][t]{0.36\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-part.png}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}[t][2cm][t]{0.4\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result.png}
+    \end{minipage}
+    \caption{Mechanical piece test results. Partitioned mesh (left) and  warped displacement field (right).}
+    \label{fig:mechapieceresult}
+\end{figure}
+
+\textbf{Redoing the test with different conditions}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}{0.42\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result-x.png}
+    \subcaption{{\ttfamily real  tx0=1.e9, ty0=0, tz0=0.,;}}
+    \end{minipage}\hspace{.1\textwidth}
+    \begin{minipage}{0.4\textwidth}
+    \includegraphics[align=b,width=1\textwidth]{./Images/3d-mechanical-result--x.png}
+    \subcaption{{\ttfamily real  tx0=1.e9, ty0=0, tz0=0.,;}}
+    \end{minipage}
+    \caption{Mechanical piece test results.}
+    \label{fig:mechapieceresult2}
+\end{figure}
+
+
+
+\pagebreak
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Damage mechanics}
+\subsection{Hybrid phase-field for damage}
+On a meshed domain $\Omega^h\in\Omega\subset\mathbb{R}^n$, for damage mechanics the mixed finite element variational formulation in the Lagrangian framework for searching the unknown nodal displacements vector $\bu^h=[u_1,u_2,u_3]^\mathsf{T}$ reads,
+%
+%
+\begin{equation}\label{Eq:VarfU}
+\begin{aligned}
+&\text{search}~\buh\in\mathbb{V}^h \text{~that satisfies}~\forall\, t\in[0,T]:\\
+&\int_{\Omega^h}\big[(1-d^h)^2 + \kappa \big]\sig(\buh) : \eps(\bvh) \,\dv= \int_{\partial\Omega^h_\text{N}} \overline{\bt}\cdot\bvh \,\ds \quad\forall\,\bv^h\in\mathbb{V}^h,
+\end{aligned}
+\end{equation}
+where $\kappa\ll1$ is a model parameter to prevent numerical singularity when $d \to 1$.
+ %
+ %
+In this formulation, the notation ``$:$" is used for the double contraction between tensors (i.e., component-wise tensor product) and $ \mathbb{V}^h $ is a  mixed third order vector valued finite element functional space to approximate vector test function~$\bvh$ and vector trial function~$\buh$:
+ %
+\begin{equation}
+\mathbb{V}^h=\left\{ \bu^h\in [ {H}^1(\Omega^h) ]^3~~\forall t\in[0,T]~|~ \forall \bx\in\partial\Omega^h_{\text{D}}~\buh=\overline{\bu}\right\},
+\end{equation}
+%
+with ${H}^1(\Omega^h)$ denoting a square integrable Sobolev functional space.
+Similarly, for~the phase-field the standard finite element variational formulation for the unknown damage scalar $\fih$ reads, 
+%
+%
+\begin{equation}
+\begin{aligned}\label{Eq:VarfPhi}
+&\text{search}~\fih\in{{V}}^h \text{~that satisfies}~\forall\, t\in[0,T]:\\
+&\int_{\Omega^h}\left[ \frac{\bgc}{l_0} + 2 \mathcal{H}^{+}(\buh) \right]\fih\ttah\, \dv + \int_{\Omega^h} {\bgc}{l_0}\nabla\fih \cdot \nabla\ttah \, \dv= \int_{\Omega^h} 2\mathcal{H}^{+}(\buh)\ttah \, \dv\quad\forall\,\ttah\in{{V}}^h, 
+\end{aligned}
+\end{equation}
+%
+%
+where,~${{V}}^h$ denotes the scalar finite element functional space to approximate scalar test function~$\ttah$ and scalar trial function~$\fih$:
+\begin{equation}
+{{V}}^h=\left\{\fih \in  {H}^1(\Omega^h)~~\forall t\in[0,T]~\middle|~\fih\in[0,1]  \right\}.
+\end{equation}
+
+\pagebreak
+
+\section{Elastodynamics}
+\pagebreak
+
+\section{Soil dynamics}
+
+
+
+\pagebreak
+
+\section{General list of examples}
+ *============================================================*\\
+  \textbf{Sequential  2D linear-elasticity}\\                   
+ *============================================================*\\
+\begin{lstlisting}[style=Linux] 
+./PSD_PreProcess -dimension 2 -bodyforceconditions 1 conditions 1 -sequential -dirichletconditions 1 
+	
+PSD_Solve Main.edp -v 0 -ns -nw 
+\end{lstlisting}
+
+
+*============================================================*\\
+ \textbf{Sequential  3D linear-elasticity}                   \\
+*============================================================*\\
+\begin{lstlisting}[style=Linux] 
+./PSD_PreProcess -dimension 3 -bodyforceconditions 1 -sequential -dirichletconditions 1
+
+PSD_Solve Main.edp -v 0 -ns -nw
+\end{lstlisting}
+
+
+*============================================================*\\
+\textbf{ Sequential  2D linear-elasticity fastmethod }      \\
+*============================================================*\\
+\begin{lstlisting}[style=Linux] 
+./PSD_PreProcess -dimension 2 -bodyforceconditions 1 -sequential -dirichletconditions 1 -fastmethod 
+
+PSD_Solve Main.edp -v 0 -ns -nw	
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Sequential  3D linear-elasticity   fastmethod }     \\
+*============================================================*\\
+\begin{lstlisting}[style=Linux] 
+./PSD_PreProcess -dimension 3 -bodyforceconditions 1 -sequential -dirichletconditions 1 -fastmethod 
+
+PSD_Solve Main.edp -v 0 -ns -nw  	
+\end{lstlisting}
+
+
+
+*============================================================*\\
+\textbf{ Parallel 2D linear-elasticity }                  \\
+*============================================================*\\
+	
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 1 
+
+ff-mpirun-np 2  Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D linear-elasticity  }                 \\
+*============================================================\\
+	
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -bodyforceconditions 1  -dirichletconditions 1 
+
+ff-mpirun-np 2  Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D linear-elasticity     fastmethod  }            \\
+*============================================================\\
+	
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 1 -fastmethod  
+
+ff-mpirun-np 2  Main.edp -v 0 -ns -nw	
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D linear-elasticity     fastmethod }             \\
+*============================================================\\
+	
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -bodyforceconditions 1  -dirichletconditions 1 -fastmethod  
+
+ff-mpirun-np 2  Main.edp -v 0 -ns -nw
+\end{lstlisting}
+
+
+
+*============================================================\\
+\textbf{ Sequential  2D phase-field fracture mechanics }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential  3D phase-field fracture mechanics}\\ 
+*============================================================\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics} \\
+*============================================================\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics with vectorial FEM } \\
+*============================================================\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics  with vectorial FEM} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential 2D  phase-field fracture mechanics energydecomp }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential 3D phase-field fracture mechanics energydecomp }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics energydecomp }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics energydecomp }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics energydecomp \& vectorial}\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics energydecomp }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-energydecomp   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential 2D phase-field fracture mechanics with GFP }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field  -dirichletconditions 2 
+-sequential -useGFP   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential 3D phase-field fracture mechanics with GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field  -dirichletconditions 2 
+-sequential -useGFP   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics with GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with GFP }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 2D phase-field fracture mechanics with GFP \& vectorial} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with GFP \& vectorial }\\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+ \textbf{Sequential 2D phase-field fracture mechanics with energydecomp \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+-energydecomp -useGFP   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Sequential 3D phase-field fracture mechanics with energydecomp \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+-energydecomp -useGFP   
+
+PSD_Solve Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+ \textbf{Parallel 2D phase-field fracture mechanics with energydecomp \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 
+-energydecomp -useGFP  
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with energydecomp \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2
+-energydecomp -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
+\end{lstlisting}
+*============================================================\\
+ \textbf{Parallel 2D phase-field fracture mechanics with energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-energydecomp -useGFP  
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2
+-energydecomp -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
+\end{lstlisting}
+*============================================================\\
+ \textbf{Parallel 2D phase-field fracture mechanics with reaction-force, energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-getreactionforce -energydecomp -useGFP  
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with reaction-force, energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-getreactionforce -energydecomp -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
+\end{lstlisting}
+*============================================================\\
+ \textbf{Parallel 2D phase-field fracture mechanics with live reaction-force plotting, energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-getreactionforce -plotreactionforce -energydecomp -useGFP  
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
+\end{lstlisting}
+*============================================================\\
+\textbf{ Parallel 3D phase-field fracture mechanics with live reaction-force plotting, energydecomp, vectorial \& GFP} \\
+*============================================================\\
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+-getreactionforce -plotreactionforce -energydecomp -useGFP   
+
+PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
+\end{lstlisting}
+
+
+*============================================================*\\
+\textbf{ Sequential 2D Elastodynamics}  \\                    
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem elastodynamics -sequential -dirichletconditions 1  
+-tractionconditions 1 
+
+PSD_Solve Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Sequential 3D Elastodynamics}  \\                    
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem elastodynamics -sequential -dirichletconditions 1 
+-tractionconditions 1 
+
+PSD_SolveMain.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Parallel 2D Elastodynamics}   \\                   
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 
+
+ff-mpirun  -np 2 Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Parallel 3D Elastodynamics } \\                    
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 
+
+ff-mpirun  -np 2 Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Sequential 2D Soildynamics }    \\                   
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem soildynamics -sequential -dirichletconditions 1  
+
+PSD_Solve Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Sequential 3D Soildynamics  }  \\                    
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem soildynamics -sequential -dirichletconditions 1  
+
+PSD_Solve Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Parallel 2D Soildynamics  }  \\                    
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 2 -problem soildynamics -dirichletconditions 1  
+
+PSD_Solve -np 2 Main.edp -v 0 -ns -nw
+\end{lstlisting}
+*============================================================*\\
+\textbf{ Parallel 3D Soildynamics  }     \\                 
+*============================================================*\\
+
+\begin{lstlisting}[style=Linux]
+./PSD_PreProcess -dimension 3 -problem soildynamics -dirichletconditions 1  
+
+PSD_Solve -np 2 Main.edp -v 0 -ns -nw 
+\end{lstlisting}	
+\lstset{
+  language={PSD},
+  basicstyle=\small\ttfamily, % Global Code Style
+  captionpos=b, % Position of the Caption (t for top, b for bottom)
+  extendedchars=true, % Allows 256 instead of 128 ASCII characters
+  tabsize=2, % number of spaces indented when discovering a tab 
+  columns=fixed, % make all characters equal width
+  keepspaces=true, % does not ignore spaces to fit width, convert tabs to spaces
+  showstringspaces=false, % lets spaces in strings appear as real spaces
+  breaklines=true, % wrap lines if they don't fit
+  frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+  frameround=tttt, % make the frame round at all four corners
+  framesep=4pt, % quarter circle size of the round corners
+  numbers=left, % show line numbers at the left
+  numberstyle=\tiny\ttfamily, % style of the line numbers
+  commentstyle=\color{eclipseGreen}, % style of comments
+  keywordstyle=\color{eclipsePurple}, % style of keywords
+  stringstyle=\color{eclipseBlue}, % style of strings
+}
+
+
+
+%\begin{lstlisting}[language=PSD]
+%import math
+%import numpy as np
+%from lib.analytical import csa
+%
+%sin2_theta  = np.sin(theta)**2  // THis is  a commen
+%+= -= *= /= + - * / ? < > & % == <=
+%# += -= *= /= + - * / ? < > & % == <=
+%def test(a=100, b=True):
+%    <= >= == 2 + 3j * 7e-3
+%\end{lstlisting}
+
+\chapter{Validation}
+
+\section{Linear elasticity solver validation and verification using method of manufactured solutions}
+The main aim of this write-up is to develop and implement the method of manufactured solutions (MMS) within the field of linear elasticity. A FEM solver is developed for solving linear elasticity problems. Within this note MMS is applied to verify and validate this solver.\\
+
+	\noindent\textbf{Mathematical typesetting conventions}\\\\
+	\noindent Unless specified, the mathematical typesetting conventions are as follows.\\
+	\begin{table}[h]
+		\centering
+			\begin{tabular}{p{.3\textwidth}p{.2\textwidth}p{.3\textwidth} }
+			\hline
+			Typesetting &Example&Description\\
+			\hline
+			Bold uppercase & $\bA,\bM$& Matrices\\
+			Bold lowercase & $\bx,\bb,\bff$& Vector\\
+			Lowercase Greek   & $\alpha,\beta,\lambda$ & Scalars\\
+			Lowercase Roman   & $\textsl{g}$ & Scalars\\			
+			Bold Greek   & $\sig,\eps$ & Tensor\\
+			Blackboard bold style   & $\mathbb{R}$ & Number set\\												
+			\hline
+		\end{tabular}
+	\end{table}
+	
+
+\subsection{Introduction}
+	
+In order to use the developed FEM solver to predict outcomes from previously unforeseen situations in linear elasticity, it is important to validate and verify the proposed solver. In other words, it is important to build trust on the solvers reliability and know its limits. This can be done by asserting whether the solver is able to reproduce analytical or experimental observations for certain linear elasticity problems. Another way is to compare against results of certain benchmark problems solved with other numerical tools, hence performing cross-validation. Other interesting option is the use of MMS. 
+
+Before progressing further, let us  interpret  what validation and verification means in the context of numerical modeling. Assuming that the mathematical model for a given physics is accurate, the process of \textit{verification}  investigates if an accurate numerical solution to the given mathematical model can be obtained via the numerical method which is being verified. By the process of verification the order of accuracy for the numerical methods can also be calculated. Whereas, the process of \textit{validation} asserts if an appropriate mathematical model has been chosen to describe the physical phenomenon. More elaborate discussions on the process of validation and verification of numerical tools can be found in~\cite{oberkampf2004verification}. 
+
+	 
+\subsection{Verification tests with the method of manufactured solutions }
+The method of manufactured solutions is used by many numerical communities for solver (code) verification, see for example~\cite{roache1998verification,ecca2007verification,pautz2001verification}. Concerning the solid mechanics solvers, studies such as~\textbf{???} used the method of manufactured solutions for solver verification.
+
+In the method of manufactured solutions, we start with an assumed explicit expression for the solution field (manufactured solution). Then, the solution is substituted  in the  concerned PDE model. This leads to a consistent set of source terms and/or initial conditions and/or boundary conditions. These terms are then used to solve the equation numerically, with the method (solver) that needs to be verified. Finally, by analyzing the error between the numerical solution and the manufactured solution, one can verify if the numerical method works. In addition, by analyzing how the error decreases when finer numerical discretization is considered, one can obtain the order of convergence for the numerical method. 
+
+\subsubsection{Two-dimensional MMS test case}\label{SS:2dMMS}
+
+
+Let us assume a hypothetical solid material domain ($\Omega\in\mathbb{R}^2$) is acted upon by manufactured forcing vector $\widehat{\bff}=[\widehat{f}_1,\widehat{f}_2]^\top$. This causes the body to deform:
+%
+\begin{equation}\label{MMS}
+\begin{aligned}
+&\widehat{u}_1=x^3+x^2y,\\
+&\widehat{u}_2=xy^2+x^2y.\\
+\end{aligned}
+\end{equation}
+%
+The equation~\eqref{MMS} is our manufactured solution and has been explicitly assumed\footnote{One could chose other expressions, as long as small strain limiting condition is obeyed: $\|\eps\|=\{0.2\times10^{-2};0.5\times10^{-2}\}$}. The task now is to calculate the manufactured forcing vector~$\widehat{\bff}$. In order to do so the following steps are applied.
+
+\begin{itemize}
+\item Using \eqref{MMS} for calculating $\nabla\cdot\wbu$:
+%
+\begin{equation}\label{MMS2}
+\begin{aligned}
+&\partial_x\wu_1=3x^2+2xy, &~\partial_y\wu_1=x^2,\\
+&\partial_x\wu_2=y^2+2xy,  &\partial_y\wu_2=x^2+2xy,
+\end{aligned}
+\end{equation}
+then
+\begin{equation}\label{MMS3}
+\nabla\cdot\widehat{\mathbf{u}}=\nabla\cdot[\wu_1~~\wu_2]^\top=4(x^2+xy).
+\end{equation}
+\item Using \eqref{MMS2} for  calculating the manufactured stain tensor $\widehat{\eps}$ components $\widehat{\varepsilon}_{ij}$:
+	\begin{equation*}
+	\widehat{\varepsilon}_{ij}(\widehat{\bu})=\frac{1}{2}\left( \partial_j \widehat{u}_i+ \partial_i \widehat{u}_j\right),
+	\end{equation*}
+then
+\begin{equation}\label{MMS4}
+\begin{aligned}
+\we_{11}=3x^2+2xy,\quad\quad\quad\quad &\we_{12}=\frac{1}{2}(x^2+y^2+2xy),\\
+\we_{21}=\frac{1}{2}(x^2+y^2+2xy),\quad   &\we_{22}=x^2+2xy.
+\end{aligned}
+\end{equation}
+\item Using \eqref{MMS3} and \eqref{MMS4} for calculating the manufactured stress tensor $\widehat{\sig}$ components $\ws_{ij}$:
+\begin{equation*}
+\ws_{ij}=\lambda\delta_{ij}\nabla\cdot\wbu+2\mu\we_{ij}(\wbu)
+\end{equation*}
+then
+\begin{equation}
+\begin{aligned}
+&\ws_{11}=4\lambda(x^2+xy)+2\mu(3x^2+2xy),&\ws_{12}=\mu(x^2+y^2+2xy),\\
+&\ws_{21}=\mu(x^2+y^2+2xy),&\ws_{22}=4\lambda(x^2+xy)+2\mu(3x^2+2xy).
+\end{aligned}
+\end{equation}
+\item Finally,  using \eqref{MMS4} for calculating the manufactured force vector $\widehat{\bff}$ components $\widehat{f}_i$:
+\begin{equation*}
+\begin{aligned}
+&\wf_{1}=-\partial_x\ws_{11}-\partial_x\ws_{12},\\
+&\wf_{2}=-\partial_x\ws_{21}-\partial_x\ws_{22},
+\end{aligned}
+\end{equation*}
+then
+\begin{equation}\label{MMS-force}
+\begin{aligned}
+&\wf_{1}=-x(8\lambda+14\mu)-y(4\lambda+6\mu),\\
+&\wf_{2}=-x(6\lambda+4\mu)-y(2\mu).
+\end{aligned}
+\end{equation}
+
+Now all we need is a FEM solver that can solve the elasticity system given the manufactured forcing vector \eqref{MMS-force}. Error analysis between the displacement solution vector $\bu^h$ from the FEM solver and the manufactured solution $\wbu$, can then be used to validate and verify the solver. In addition the error analysis will help in assessing the convergence order.  
+
+\end{itemize}
+
+ \begin{figure}[t]
+ \centering
+ \begin{subfigure}[t]{.23\linewidth}
+ \includegraphics[width=1\textwidth]{./Images/M0.png}
+ \caption{Level 1 $\Omega^{0.01}$}
+ \end{subfigure}\hfill
+  \begin{subfigure}[t]{.23\linewidth}
+  \includegraphics[width=1\textwidth]{./Images/M1.png}
+   \caption{Level 2 $\Omega^{0.005}$}
+ \end{subfigure}\hfill
+  \begin{subfigure}[t]{.23\linewidth}
+  \includegraphics[width=1\textwidth]{./Images/M2.png}
+   \caption{Level 3 $\Omega^{0.002}$}
+ \end{subfigure}\hfill
+  \begin{subfigure}[t]{.23\linewidth}
+  \includegraphics[width=1\textwidth]{./Images/M4.png}
+   \caption{Level 4 $\Omega^{0.001}$}
+ \end{subfigure}
+ \caption{Finite element meshes.}\label{fig:4meshes}
+ \end{figure}
+	
+\subsection{FEM solving model}
+Assuming $\Omega^h$ be the bi-dimensional tessellated reference configuration for the hypothetical solid material, or in other words the finite element mesh defined with size parameter~$h$. Finite element variational formulation in the Lagrangian framework for the unknown displacements vector $\bu^h$ then reads, 
+	%
+	%    
+	\begin{equation}\label{varf}
+	\left\|\begin{aligned}
+	&\text{find}~\bu^h\in[H^1_0(\Omega^h)]^2:\\
+	&\int_{\Omega^h}\lambda\nabla\cdot\bu^h\nabla\cdot\bv^h + \int_{\Omega^h}2\mu\boldsymbol\varepsilon(\bu^h):\boldsymbol\varepsilon(\bv^h)+\int_{\Omega^h}\widehat{\bff}\cdot\bv^h=0, \quad\forall\bv^h\in[H^1_0(\Omega^h)]^2,\\
+	&\text{given}~\quad\bu^h=\wbu\quad\text{on}\quad\partial\Omega^h_D.
+	\end{aligned}\right.
+	\end{equation}
+	%
+Notice in this equation the essential Dirichlet boundary conditions\footnote{For unique solution of the elasticity problem one needs the Dirichlet boundary conditions.} are provided by the known manufactured displacement field $\wbu$ from equation~\eqref{MMS}. Please refer to the other note ``The Krylov subspace based CG solver for linear elasticity", in order to know how the finite element linear system $\bA\bx=\bb$ is assembled and then solved iteratively to derive the displacement field $\wbu: \wbu=\bx^{(m)}$, where $m$ is the converged iteration number for the CG iterative solver. 
+	
+\begin{table}[htbp]
+		\centering
+		\begin{tabular}{p{.1\textwidth} p{.17\textwidth}p{.17\textwidth}p{.17\textwidth}p{.17\textwidth} }
+			\hline
+			 - & Level 1 & Level 2 & Level 3 & Level 4	\\ \hline
+			$N_v$ & 244 & 923 & 3,589 & 14,153  \\ 
+			$N_e$ & 486 & 1,844 & 7,176  & 28,304  \\ 
+			$h_{\text{min}}$ & 0.0102 & 0.0051 & 0.0026 & 0.00013 \\ 
+			\hline
+		\end{tabular}
+\caption{Characteristics of different FEM meshes used for error analysis.
+} \label{tab:meshes}
+\end{table}	
+
+\subsection{The FEM solver}
+To numerically solve equation \eqref{varf}, 
+a mixed finite element space based solver is developed using a DSL FreeFem++~\cite{hecht2012new}. The  space discretization kernel of FreeFem++ uses unstructured (triangular or tetrahedral)  mesh inputs. Further, for the linear algebra backend the CG solver provided within FreeFem++. The solver has the capabilities to mix $\mathbb{P}_1$, $\mathbb{P}_2$, and $\mathbb{P}_3$ finite element spaces, for approximating $\bu$. For the sake of simplicity we will only use mixed $\mathbb{P}_1$ spaces, i.e.~in order to solve  \eqref{varf} a mixed finite element space $\boldsymbol{\mathcal{V}}^h:=\mathcal{V}^h\times\mathcal{V}^h$ is defined, such that  $$\bu^h=[u_1^h,u_2^h]^\top\in\boldsymbol{\mathcal{V}}^h\quad\text{and}\quad\bv^h=[v_1^h,v_2^h]^\top\in\boldsymbol{\mathcal{V}}^h.$$ where, $$\mathcal{V}^h({v}^h)=\{{v}^h \in [H^1_0(\Omega^h)], ~{v}^h\in\mathbb{P}_1:{v}^h=\widehat{u} \text{~on~} \partial\Omega^h_D\}.$$
+
+Let us now asses if the developed solver is any good and asses its convergence order. We assume $\Omega$ to be a circle\footnote{Circular domain is  just an assumption, given the mathematics developed in section \ref{SS:2dMMS} one could use any 2D geometry of choice.} of radius 0.1 m and made of a material with modulus of elasticity $E=100$ GPa and Poissons ratio $\nu=0.2$. Let us call this test MMS-test 1. 
+
+
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+\begin{loglogaxis}[
+		xmin=0.0008, xmax=.015,
+		ymin=1e-9, ymax=1e-5,
+		mark repeat={1},
+		legend style={at={(.5,1.22)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+		legend image post style={scale=.9},
+		xtick = {.01, .005, .0025, .00125},
+		xticklabels = {0.01, 0.005, 0.0025, 0.00125},
+		xlabel={Mesh size $h$},
+		ylabel={$L^2$ \& $L^{\infty}$ error norm}
+]
+		\addplot[line width=1.pt, mark=*, color=blue, dotted, mark size=2pt, mark options={solid}] table[x=h, y=L2u1] {error.dat};\addlegendentry{$L^2 -\mathbb{P}_1 - u_1$};
+		\addplot[line width=1.pt, mark=o, color=red, dotted, mark size=3pt, mark options={solid}] table[x=h, y=L2u2] {error.dat};\addlegendentry{$L^{\infty} -\mathbb{P}_1- u_1$};
+		\addplot[line width=1.pt, mark=square*, color=blue, dotted, mark size=2pt, mark options={solid}] table[x=h, y=Linfu1] {error.dat};\addlegendentry{$L^2 -\mathbb{P}_1 - u_2$};
+		\addplot[line width=1.pt, mark=square, color=red, dotted, mark size=3pt, mark options={solid}] table[x=h, y=Linfu2] {error.dat};\addlegendentry{$L^{\infty} -\mathbb{P}_1- u_2$};
+		\logLogSlopeTriangle{0.775}{0.2}{0.25}{1.85}{blue};
+		\logLogSlopeTriangle{0.775}{0.2}{.7}{1.89}{red};
+       
+\end{loglogaxis}
+\end{tikzpicture}
+\caption{Error between the FEM and manufactured solution. Note that the mesh size $h$ is infact the minimum element size $h_{\min}$ that exists within a mesh $\Omega^{h}$.}\label{fig:error}
+\end{figure}
+
+To solve this elasticity problem with FEM, four hierarchical meshes are produced using BMAG: Bidimensional Anisotopic Mesh Generator~\cite{hecht1998bamg}. Hierarchy of refined meshes are obtained by splitting each triangle in the coarse level mesh by four. The split operation is followed to ensure that coarse solutions live in the fine ones. The four hierarchical meshes are presented in figure~\ref{fig:4meshes}. For elaborated characteristics of these meshes refer to table~\ref{tab:meshes}.   
+
+Using the four hierarchical meshes, four simulations of MMS-test 1 were performed. Note, to avoid numerical error discrepancies from the linear solver, the CG iteration was stopped when the relative unpreconditioned residual was lower than $10^{-13}$. The mixed FEM solution for the solver was then compared to the manufactured one and $L^2$ and $L^\infty$ errors were calculated:
+\begin{equation}
+L^2(\bu)=\left( \int_{\Omega^h} (\wbu-\bu^h)^2\right)^{\frac{1}{2}}\text{ and}
+\end{equation}
+\begin{equation}
+L^\infty(\bu)=\text{max}\left( |\wbu-\bu^h|\right),
+\end{equation}
+ these are plotted in figure~\ref{fig:error}.  
+ 
+  \begin{figure}[h]
+ \centering
+ 
+ \begin{subfigure}[t]{.3\linewidth}
+ \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.4\textwidth,.17\textwidth) { \scriptsize 2.3$\times10^{-12}$};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 1.2$\times10^{-3}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Displacement $\|\wbu\|$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{3mm}
+ \includegraphics[width=1\textwidth]{./Images/Mms-s8.png}
+  \caption{MMS solution.}
+ \end{subfigure}\\\vspace{5mm}  
+  \begin{subfigure}[t]{.3\linewidth}
+   \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.4\textwidth,.17\textwidth) { \scriptsize 1.2$\times10^{-7}$};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 1.2$\times10^{-3}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Displacement $\|\bu\|$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{3mm}   
+  \includegraphics[width=1\textwidth]{./Images/Fem-s1.png}
+   \caption{Level 1 FEM solution.}
+ \end{subfigure}\hspace{1cm}
+   \begin{subfigure}[t]{.3\linewidth}
+    \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.4\textwidth,.17\textwidth) { \scriptsize 2.9$\times10^{-10}$};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 1.2$\times10^{-3}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Displacement $\|\bu\|$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{3mm}    
+  \includegraphics[width=1\textwidth]{./Images/Fem-s8.png}
+   \caption{Level 4 FEM solution.}
+ \end{subfigure}
+ \caption{Displacement field magnitude visualization.}\label{fig:disfiled}
+ \end{figure}
+
+Error analysis plot provided in figure~\ref{fig:error} proves that the developed FEM solver has approximately second order convergence rate. More precisely, the $L^2$ error analysis reveled that the FEM solver has the order of  convergences given by 1.85, against theoretical value of 2. Similarly,  the $L^\infty$ error analysis reveled that the FEM solver has the order of  convergences given by 1.89, against theoretical value of 2.  To investigate further the displacement  field magnitudes for the MMS solution and the FEM solutions have been visualized in figure~\ref{fig:disfiled}. Notice how solution improves from the coarsest level mesh (level 1) to the finest one (level 4). It is fair to say that even the coarse level solution is approximating the displacement field well. To investigate further in figure~\ref{fig:errorfiled} the point wise error field is visualized. One can clearly  observe how the error reduces when using ore refined meshes. Moreover, notice that error is zero at the borders, this is due to the fact that all border are Dirichlet borders.  
+
+ 
+  \begin{figure}
+ \centering
+  \begin{subfigure}[t]{.3\linewidth}
+   \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h1.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.42\textwidth,.17\textwidth) { \scriptsize 0.0};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 3.5$\times10^{-6}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Error $\{L^2\}_i$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{3mm}   
+  \includegraphics[width=1\textwidth]{./Images/error-s2.png}
+   \caption{Level 2 error.}
+ \end{subfigure}\hfil
+   \begin{subfigure}[t]{.3\linewidth}
+    \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h1.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.42\textwidth,.17\textwidth) { \scriptsize 0.0};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 1.4$\times10^{-6}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Error $\{L^2\}_i$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{1.2cm}        
+  \includegraphics[width=1\textwidth]{./Images/error-s4.png}
+   \caption{Level 3 error.}
+ \end{subfigure}\hfil
+    \begin{subfigure}[t]{.3\linewidth}
+    \centering
+  	\begin{minipage}{1\textwidth}
+  	\centering
+	\begin{tikzpicture}
+	\node at (0,0){\includegraphics[width=.9\textwidth ,height=.07\textwidth]{./Images/scale-h1.png}};
+	\node at (.45\textwidth,.06\textwidth) {$|$ };
+	\node at (-.45\textwidth,.06\textwidth) {$|$ };
+	\node at (.42\textwidth,.17\textwidth) { \scriptsize 0.0};
+	\node at (-.35\textwidth,.17\textwidth) { \scriptsize 1.6$\times10^{-7}$};
+	\node at (0\textwidth,.09\textwidth) {{\scriptsize Error $\{L^2\}_i$ }};
+	\end{tikzpicture}
+ 	\end{minipage}\\\vspace{1.5cm}  
+  \includegraphics[width=1\textwidth]{./Images/error-s8.png}
+   \caption{Level 4 error.}
+ \end{subfigure}
+ \caption{Warped error field visualization. The warp fields have been magnified a million times for better visualization.}\label{fig:errorfiled}
+ \end{figure}
+ 
+ 
+\section{Damage mechanics solver validation \label{sec:Numerical-benchmarks}}
+A commonly used numerical test from literature (see e.g., \cite{Ambati2014,Liu2016,jeong2018phase,Hirshikesh2018} to cite but a few), the two-dimensional (2D) single-edge notched tensile fracture test, is considered as the benchmark problem in this subsection. From here-forth this test is referenced as test~1 in the text. 
+
+
+\subsubsection{Problem setting \label{sec:2D-problem-statement}}
+%
+The domain of interest is an initially cracked square plate $(x,y) \in \Omega =[0~\si{\centi\meter},1~\si{\centi\meter}]^2$ (\cref{fig:figcrack-fe-geo-crop-a}). With an initial crack and a constrained bottom edge~$\partial\Omega_{\text{D}}(x,y:y=0)$, the plate  is subject to increasing displacements on its top edge~$\partial\Omega_{\text{D}}(x,y:y=1)$ until the plate fully cracks open.
+The initial crack is placed at the center of the plate, i.e., $\partial\Omega_{\text{D}}(x:0 \le x \le 0.5,y:y=0.5)$. These boundary conditions are also illustrated in~\cref{fig:figcrack-fe-geo-crop-a}.
+The plate material is characterized by $\lambda=121.15$~\si{\kilo\pascal}, $\mu=80.77$~\si{\kilo\pascal}, and $\bgc=2.7$~\si{\kilo\newton\per\milli\meter}.
+
+Concerning  the  computational specifications of test~1,  the displacement discontinuity  imposed by the initial crack was modeled by nearly overlapping (tolerance $\delta y=10^{-7}$~\si{\meter}) Dirichlet nodes  placed along the cracks edge $\partial\Omega^h_{\text{D}}(x:0 \le x \le 0.5,y:y=0.5\pm\delta y)$ within $\Omega^h$. For illustration proposes,  a coarse grid featuring Dirichlet nodes for the initial crack of test~1 is presented in~\cref{fig:figcrack-fe-geo-crop-b}.
+The displacement Dirichlet condition on the top edge is applied with an increment of $\Delta\bar{u}_{2} =1\cdot10^{-5}$~\si{\milli\meter} up to $u_2=5\cdot10^{-3}$~\si{\milli\meter} and $\Delta\bar{u}_{2} =1\cdot10^{-6}$~\si{\milli\meter} up to failure of the specimen. For the lower edge, the constrained displacement Dirichlet conditions $\bar{u}_{1}=\bar{u}_{2}=0$ are applied. Further, for test 1 and for all the simulations that appear in this study, parameter $\kappa$ is set to $1\cdot10^{-6}$ and $l_0$ is assumed equal to $2h$, where $h$ is the characteristic size of the mesh $\Omega^h$.  
+
+The unstructured Delaunay (triangular) meshes generated with Gmsh are used for solving the finite element problem of test~1. To establish mesh convergence, test~1 has been solved multiple times by varying the level of mesh refinements, details of these meshes are provided in~\cref{tab:meshes1}. The hierarchy of mesh refinements were generated by dividing each triangle in $\Omega^h$ into four equal triangles. As such in~\cref{tab:meshes1}, we observe that with every refinement, the mesh size~$h$ halves and the number of triangles quadruple. The initial crack fields for the three mesh refinements (visualized using damage-field $d$) are presented in~\cref{fig:initial-crack}.    %{Since the third order vectorial finite element space $\mathbb{W}^h\in[H^1(\Omega^h)]^3$ is used to approximate the combined displacement and damage variables ($w^h_1,w^h_2,w^h_3$), observe  in~\cref{tab:meshes1}~for a particular mesh level the $\bnd$~(column~5) are thrice the nodes number (column~2).    }
+
+\begin{figure}[tb]
+	\centering
+	\begin{minipage}[t]{.3\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\node at (0,0) {\includegraphics[width=.85\textwidth]{./Images/geo1.png}};
+		\node at (-2.,-2.3cm) 		{\small 0};
+		\node at (-1.0,-2.3cm) 		{\small 0.25};
+		\node at (-0.05,-2.3cm) 	{\small 0.50};
+		\node at ( 1.1,-2.3cm) 		{\small 0.75};
+		\node at (2.1,-2.3cm) 		{\small 1.0};
+		\node at (-2.3,-2.1cm)		{\small 0};
+		\node at (-2.45,-1.1cm) 	{\small 0.25};
+		\node at (-2.45,0.0cm) 		{\small 0.50};
+		\node at (-2.45,1.1cm) 		{\small 0.75};
+		\node at (-2.45,2.1cm)      {\small 1.0};
+		\node at (0.1,-2.6cm) 		{\small {$x$ axis }};
+		\node [rotate=90] at (-3.,0.0cm) 		{\small {$y$ axis }};		
+		\node at (1.3,1.3cm) 		{\small $\Omega$};
+		\node at (0,-1.68cm)     	{\color{blue}\small $\partial \Omega_\text{D}:u_1=u_2=0$};
+		\draw[fill=blue,dotted, fill opacity=.25,draw opacity=0] (-2.1,-2.1cm) rectangle (2.1,-1.95cm);
+		\node at (0,1.66cm)      	{\color{magenta}\small $\partial \Omega_\text{D}:u_2=u_2+\Delta u_2$};
+		\draw[fill=magenta,dotted, fill opacity=.15,draw opacity=0] (-2.1,2.1cm) rectangle (2.1,1.95cm);
+		\node at (-.9,.2cm)      		{\small $\partial \Omega_\text{D}:d=1$};
+		\draw[fill=black,dotted, fill opacity=.15,draw opacity=0] (-2.1,-0.05cm) rectangle (0,.05cm);	
+		\end{tikzpicture}
+		\subcaption{domain~$\Omega$.\label{fig:figcrack-fe-geo-crop-a}}
+	\end{minipage}\hspace{.018\textwidth}
+	\begin{minipage}[t]{.3\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\node at (0.,0) {\includegraphics[width=.85\textwidth]{./Images/geo2.png}};
+		\node at (0.,-2.7) {~};
+		\end{tikzpicture}
+		\subcaption{a coarse mesh~$\Omega^h$.\label{fig:figcrack-fe-geo-crop-b}}
+	\end{minipage}\hspace{-.02\textwidth}
+	\begin{minipage}[t]{.3\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\node at (0.,0) {\includegraphics[width=.85\textwidth]{./Images/part-domain-2d.png}};
+		\node at (0.,-2.7) {~};
+		\end{tikzpicture}
+		\subcaption{partitioned mesh~$\{\Omega^h_i\}_{i=1}^{10}$.\label{fig:figcrack-fe-geo-crop-c}}
+	\end{minipage}
+	\caption{domain~$\Omega$, mesh~$\Omega^h$, and partitioned mesh~$\{\Omega^h_i\}_{i=1}^{10}$~for test~1. (a) also illustrates the boundary conditions applied to test~1. (b) represents a coarse unstructured finite element mesh with `nearly' duplicate Dirichlet nodes for the initial crack.\label{fig:figcrack-fe-geo-crop}}
+\end{figure}	
+
+\begin{figure}[tb]
+	\centering
+	\begin{minipage}[t]{.3\textwidth}
+		\centering \includegraphics[width=.92\textwidth]{./Images/d-level1.png}
+		\subcaption{$d$ at mesh level 1.\label{fig:initial-crack-a}}
+	\end{minipage}
+	\begin{minipage}[t]{.3\textwidth}
+		\centering \includegraphics[width=.92\textwidth]{./Images/d-level2.png}
+		\subcaption{$d$ at mesh level 2.\label{fig:initial-crack-b}}
+	\end{minipage}
+	\begin{minipage}[t]{.3\textwidth}
+		\centering \includegraphics[width=.92\textwidth]{./Images/d-level3.png}
+		\subcaption{$d$ at mesh level 3.\label{fig:initial-crack-c}}
+	\end{minipage}
+	\hspace{-.02\textwidth}
+	\begin{minipage}[t]{.02\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\begin{axis}[
+		xmin=0, xmax=0.001,
+		ymin=0,ymax=1,
+		yscale=0.6,
+		enlargelimits=false,
+		colorbar,
+		colormap name=paraviewWR,
+		point meta min=0,
+		point meta max=1,
+		hide axis,
+		colorbar style={
+			xtick style={draw=none},
+			%ytick style={draw=none},
+			ytick pos=right,
+			tick align = outside,
+			title style={yshift=-2.2cm,xshift=0.8cm,rotate=90},
+			title={\footnotesize damage-field $d$},
+			scaled y ticks = false,
+			height = 4cm,
+			font = \footnotesize,
+			width = 1\textwidth,
+			ytick={0,1}
+		}
+		]	
+		\end{axis}
+		\node at (0.,-.2) {~};
+		\end{tikzpicture}
+	\end{minipage}	
+	\caption{ initial crack visualization of test 1 via damage-field $d$ at different mesh levels.\label{fig:initial-crack}}
+\end{figure}
+
+
+{
+	\pgfplotstableread{
+		A			B		C  		D		E		  F						G					H
+		%  level~1	4,256	0.0312  6,387	131,193	  17.82\si{\percent}	19.22\si{\percent}		
+		level~1	16,384	0.0156  25,059	520,425   17.82\si{\percent}	19.22\si{\percent}  8,353
+		level~2	65,536	0.0078	99,267	2,073,033 5.68\si{\percent}		8.12\si{\percent}   33,089
+		level~3	262,144	0.0039	395,139	8,274,825 0.45\si{\percent}		0.61\si{\percent}   131,713
+		
+	}\datatab 
+	\begin{table}[tb]\centering
+		\caption{characteristics and computational details for the different finite element meshes used for test~1. $E1_{\text{max}(F_y)}$ and $E2_{\text{max}(F_y)}$ are are the the maximum reaction force errors computed against references~\cite{amor2009regularized} and~\cite{Ambati2014}, respectively.\label{tab:meshes1}}
+		\pgfplotstabletypeset[
+		font=\footnotesize,
+		columns={A,H,B,C,D,E,F,G},
+		columns/A/.style={column name =mesh,string type,column type = {l}},
+		columns/B/.style = {column name =triangles,string type,precision =0,fixed zerofill,column type = {l}},
+		columns/C/.style = {column name =$h$,string type,precision =0,fixed zerofill,column type = {l}},
+		columns/D/.style = {column name =$\bnd$,string type,fixed zerofill,column type = {l}},
+		columns/E/.style = {column name =$\bnz$,string type,fixed zerofill,column type = {l}},
+		columns/F/.style = {column name =$E1_{\text{max}(\bl)}$,string type,fixed zerofill,column type = {l}},
+		columns/G/.style = {column name =$E2_{\text{max}(\bl)}$,string type,fixed zerofill,column type = {l}},
+		columns/H/.style = {column name =nodes,string type,precision =0,fixed zerofill,column type = {l}},						
+		every odd row/.style={before row={\rowcolor{white}}},
+		every even row/.style={before row={\rowcolor{black!9}}},
+		every head row/.style={before row={\midrule},after row=\midrule},
+		every last row/.style={after row=\midrule},
+		]{\datatab}
+	\end{table}
+}
+
+\subsubsection{Solver validation \label{sec:solver-validation}}
+Using the test~1 we cross-validate and compare our PSD solver (sequential and parallel) against benchmark solutions of this test available in the literature. 
+In~\cref{fig:force-comp-2d-tensile-crack}, the top surface reaction force~$F_y$ versus applied displacements is plotted for various mesh refinement levels (detailed in~\cref{tab:meshes1}) and compared to a reference anisotropic phase-field solution from~\cite{amor2009regularized}.
+
+In~\cref{fig:force-comp-2d-tensile-crack}, the mesh convergence is evidenced from the improving PSD solutions (solid lines) towards the reference solution, hence validating  the PSD solver. 
+Our computations~(at level~3) are in good agreement with the results provided in~\cite{amor2009regularized}. This simulation was executed using 10 processes on the desktop PC. The parMETIS partitioned mesh with 10 subdomains is presented in~\cref{fig:figcrack-fe-geo-crop-c}.    
+
+To further validate  the PSD solver, we compare the errors in computing the maximum reaction-force $\text{max}(F_y)$ obtained from our solver against two different reference solutions provided in \cite{Ambati2014} and \cite{amor2009regularized}.
+The last two columns of~\cref{tab:meshes} enumerate these errors. At finest mesh level~3, these errors decrease down to less than 1\si{\percent}. 
+Alongside the plot in~\cref{fig:force-comp-2d-tensile-crack}, four instantaneous snapshots of the calculated damage-fields are presented. These damage-fields are obtained from the  simulation of test~1 at the finest mesh level~3. Damage-field evolution, crack initiation, and propagation can be observed in these snapshots. As expected, under extreme tensile loading, the crack can be seen to travel along  a (almost) straight line dividing the square specimen into two (almost) equal halves. Note that for additional validation, other literature comparative tests (mode I, mode II, and mode III fracture) were also performed but these are not shown here for the sake of conciseness.                        
+%
+\begin{figure}[tb]
+	\centering
+	\begin{minipage}{1\textwidth}
+		\centering
+		\begin{tikzpicture}
+		\node at (-0cm,0) {\includegraphics[scale=.1]{./Images/t0-crack.png}};
+		\node at (-0cm,0.5cm) {\scriptsize \color{black}crack~tip~(0.5,0.5)};
+		\node at (-0cm,3.25cm){\includegraphics[scale=.1]{./Images/t30-crack.png}};
+		\node at (0cm,4cm) {\scriptsize \color{black}crack~tip~(0.5,0.5)};
+		\begin{axis}[
+		anchor=north west,
+		xshift=-1cm,yshift=11.5cm,
+		enlargelimits=false,
+		colorbar,
+		colormap name=paraviewWR,
+		point meta min=0,
+		point meta max=1,
+		hide axis,
+		colorbar horizontal,
+		colorbar style={
+			ytick style={draw=none},
+			xtick pos=left,
+			tick align = outside,
+			title style={yshift=-.28cm},
+			title={damage-field~~$d$},
+			scaled y ticks = false,
+			height = .25cm,
+			font = \scriptsize,
+			width = 2.cm,
+			xtick={0,0.5,1.0}
+		}
+		]
+		\end{axis}
+		\pgfplotsset{every tick label/.append style={font=\footnotesize},scaled x ticks=false}
+		\begin{axis}[
+		at={(0.18\linewidth,-.05\linewidth)},
+		ymax=0.82,xmax=6.2e-3,
+		legend style={at={(.35,.96)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+		legend image post style={scale=.9},
+		xlabel={\footnotesize applied displacement~$u_2$~{[}\si{\milli\meter}{]}},
+		ylabel={\footnotesize top surface force~$F_y$~{[}\si{\kilo\newton}{]}},
+		xtick = { 0,2e-3,4e-3,6e-3},
+		%xticklabels = { 0,2e-3,4e-3,6e-3}		
+		]
+		\addplot[only marks, line width=1.pt, mark=square, color=black, dotted, mark size=2pt, mark options={solid},mark repeat=2] table[x index=0, y index=1] {./Images/force-Amor-n.data};\addlegendentry{\scriptsize Amor~et~al.};
+		\addplot[line width=2.pt,color=orange,mark repeat=15] table[x index=0, y index=1] {./Images/force-r1.data};\addlegendentry{\scriptsize Level 1};	
+		\addplot[line width=2.pt,color=cyan,mark repeat=15] table[x index=0, y index=1] {./Images/force-r2.data};\addlegendentry{\scriptsize Level 2};		
+		\addplot[line width=2.pt,color=red,mark repeat=400] table[x index=0, y index=1] {./Images/force-r3.data};\addlegendentry{\scriptsize Level 3};
+		\draw[fill=black,dotted, fill opacity=.15,draw opacity=0] (axis cs:5.e-3,-1) rectangle (axis cs:6e-3,1);
+		\node[rotate=90] at (axis cs:5.1e-3,0.2){\scriptsize{cracking}};	
+		\node[rotate=90] at (axis cs:5.3e-3,0.2){\scriptsize{zone}};
+		\end{axis}
+		\node at (12.8cm,0){\includegraphics[scale=.1]{./Images/t141-crack.png}};
+		\node at (12.8cm,0.5cm) {\scriptsize \color{black}crack~tip~(1.0,0.5)};
+		\node at (12.8cm,3.25cm){\includegraphics[scale=.1]{./Images/t101-crack.png}};
+		\node at (12.8cm,4cm) {\scriptsize \color{black}crack~tip~(0.7,0.5)};
+		\begin{axis}[
+		at={(12.8cm,0)},
+		anchor=north west,
+		xshift=-1cm,yshift=11.5cm,
+		enlargelimits=false,
+		colorbar,
+		colormap name=paraviewWR,
+		point meta min=0,
+		point meta max=1,
+		hide axis,
+		colorbar horizontal,
+		colorbar style={
+			ytick style={draw=none},
+			xtick pos=left,
+			tick align = outside,			
+			title style={yshift=-.28cm},
+			title={damage-field~~$d$},
+			scaled y ticks = false,
+			height = .25cm,
+			font = \scriptsize,
+			width = 2.cm,
+			xtick={0,0.5,1.0}
+		}
+		]
+		\end{axis}
+		\draw[black,thick,dashed] (1.5,0) -- (2.5,0) -- (3.5,-.3);
+		\draw[black,thick,dashed] (1.5,4) -- (2.5,4) -- (6,1.8);
+		\draw[black,thick,dashed] (11.35,0) -- (10.35,0) -- (9.4,-.2);
+		\draw[black,thick,dashed] (11.35,4) -- (10.35,4)  -- (9.3,1.6);;
+		\end{tikzpicture}
+	\end{minipage}
+	\caption{mesh convergence demonstrated via force-displacement plot for the two-dimensional single-edge notched tensile fracture simulation, test~1. The solid lines (Level 1 to 3) refers to our PSD solution for different mesh refinements and the square markers denote the reference solution (obtained by the anisotropic phase-field method) presented by~\cite{amor2009regularized}.\label{fig:force-comp-2d-tensile-crack}}
+\end{figure}
+
+\section{Validating the PSD soil-dynamic solver with paraxial boundary conditions}
+In this subsection we would compare the paraxial absorbing elements implemented in PSD against other absorbing boundary conditions available in CAST3M\footnote{The CAST3M numerical experiments are performed by Reine Fares - Research Engineer - CEA/SEMT.}. This document also serves as a naive cross validation of the PSD solvers parallel/sequential kernel developed for soil-dynamics.
+
+\subsection{Numerical experiment 1: A two-dimensional square}
+The geometry is considered to be a square with 50 m side, meshed with 1 m elements. This test is inspired by the validation tests performed in the paper of Bambeger et al.~1988. The paraxial conditions (resp.~absorbing boundary conditions)  apply to the bottom, left, and right borders for the PSD simulation (resp.~for the CAST3M simulation). \Cref{fig:geo} illustrates the geometry, red borders depict the absorbing (paraxial) borders and the green one depicts the free boundary condition. 
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=.3\textwidth]{./Images/geo.png}
+	\caption{The two-dimensional geometry with paraxial borders in red and the free field border in green.\label{fig:geo}}
+\end{figure}
+
+\noindent The essential algorithmic  parameters concerning time discretization are enlisted below, while the material properties are tabulated in~\cref{tab:material-properties}.    
+\begin{itemize}
+
+\item Time step used for the generalized-$\alpha$ scheme is $\text{d}t=0.01$~sec 
+
+\item The generalized-$\alpha$ parameters read $\alpha_m=0.0$ and $\alpha_f=0.0$. Note that these null values for $\alpha_m$ and $\alpha_f$ transforms the generalized-$\alpha$ time discretization scheme into a Newmark-$\beta$ time discretization scheme. Hence, a  Newmark-$\beta$ is used  both in PSD and CAST3M.
+
+\item The simulation is run for $t=4.0$ seconds, hence requiring 400 iterations of  the solver.   		
+\end{itemize}
+
+
+
+
+
+{
+	\pgfplotstableread{
+		A			B			C       D           
+		Test~1	 2500		6.62E6    	0.45	
+		
+	}\datatab 
+	\begin{table}[htbp]\centering
+		\pgfplotstabletypeset[
+		font=\footnotesize,
+		columns={A,B,C,D},
+		columns/A/.style={column name =Case,string type,column type = {l}},
+		columns/B/.style = {column name =$\rho$~[\si{\kilogram\per\cubic\meter}],string type,precision =0,fixed zerofill,column type = {l}},
+		columns/C/.style = {column name =$E$~[\si{\pascal}],string type,precision =0,fixed zerofill,column type = {l}},
+		columns/D/.style = {column name =$\nu$,string type,fixed zerofill,column type = {r}},
+		every odd row/.style={before row={\rowcolor{white}}},
+		every even row/.style={before row={\rowcolor{black!9}}},
+		every head row/.style={before row={\midrule},after row=\midrule},
+		every last row/.style={after row=\midrule},
+		]{\datatab}
+		\caption{ Parameters for the seismic test.   \label{tab:material-properties}}
+	\end{table}
+}
+
+
+Before proceeding to the simulation comparison it is notified that meshes used by PSD and CASTEM, are triangular and quard type, respective. \Cref{fig:meshes} illustrates the difference between the PSD and the CASTEM meshes.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.8\textwidth]{./Images/mesh-CAST3M-PSD}
+	\caption{Meshes used by CAST3M (right) and PSD (left).\label{fig:meshes} }
+\end{figure}
+
+\subsection{Test 1: top loading of the square}
+We test how the solvers behave when the free boundary is loaded. 
+
+\begin{itemize}
+	\item Concerning the loading, on the center region of the top border we apply a small sinusoidal excitation spread over 1  seconds. The applied force reads:
+	$$\int_{\partial \Omega} (\sigma\cdot\textbf{n})\cdot\bv  = \int_{\partial \Omega} \left(\rho c_{\text{p}}\left( \sin(2\pi t\big /1.0)\right)\mathbbm{1}_{[x>20~~\&~~x<30~~\&~~y=50  ]}\times\mathbbm{1}_{[t\le1]}\right)v_1$$
+	
+		 	
+\end{itemize}
+
+
+
+\subsection{Test 2: bottom loading of the square}
+We test how the solvers behave when one of the paraxial (absorbing) boundary is loaded. 
+
+\begin{itemize}
+	\item Concerning the loading, on the center region of the bottom border we apply a small sinusoidal excitation spread over 1  seconds. The applied force reads:
+	$$\int_{\partial \Omega} (\sigma\cdot\textbf{n})\cdot\bv  = \int_{\partial \Omega} \left(\rho c_{\text{p}}\left( \sin(2\pi t\big /1.0)\right)\mathbbm{1}_{[x>20~~\&~~x<30~~\&~~y=0]}\times\mathbbm{1}_{[t\le1]}\right)v_1$$
+	
+	
+\end{itemize}
+
+
+   
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[height=8cm,width=17cm,
+	%xmin=0.0008, xmax=.015,
+	%ymin=1e-9, ymax=1e-5,
+	mark repeat={1},
+	legend style={at={(.5,1.22)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+	legend image post style={scale=.9},
+	%xtick = {.01, .005, .0025, .00125},
+	%xticklabels = {0.01, 0.005, 0.0025, 0.00125},
+	xlabel={Time (s)},
+	ylabel={Y- Velocity (m/s)}
+	]
+	\addplot[ line width=1.pt, mark=square, color=blue, mark size=1.5pt] table[x index=0, y index=1] {./Images/Cast3m-upper.data};\addlegendentry{CAST3M};		
+	\addplot[ mark=*, color=orange, mark size=1.5pt, mark options={solid}] table[x index=0, y index=1] {./Images/PSD-upper.data};\addlegendentry{PSD};
+			
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Test 1 results. Comparison of Y-velocities of a point $\bx=(25,50)$ obtained by CAST3M and PSD for a 4 second simulation with 1 second sinusoidal wave excitation.  }\label{fig:top}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[height=8cm,width=17cm,
+	%xmin=0.0008, xmax=.015,
+	%ymin=1e-9, ymax=1e-5,
+	mark repeat={1},
+	legend style={at={(.5,1.22)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+	legend image post style={scale=.9},
+	%xtick = {.01, .005, .0025, .00125},
+	%xticklabels = {0.01, 0.005, 0.0025, 0.00125},
+	xlabel={Time (s)},
+	ylabel={Y- Velocity (m/s)}
+	]
+
+	
+	\addplot[ line width=1.pt, mark=square, color=blue, mark size=1.5pt] table[x index=0, y index=1] {./Images/Cast3m-lower.data};\addlegendentry{CAST3M};		
+	\addplot[ mark=*, color=orange, mark size=1.5pt, mark options={solid}] table[x index=0, y index=1] {./Images/PSD-lower.data};\addlegendentry{PSD};
+			
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Test 1 results. Comparison of Y-velocities of a point $\bx=(25,0)$ obtained by CAST3M and PSD for a 4 second simulation with 1 second sinusoidal wave excitation.  }\label{fig:bottom}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\textwidth]{./Images/PSD-t1}\\\vspace{1cm}
+	\includegraphics[width=.8\textwidth]{./Images/CAST3M-t1}
+	\caption{Comparison of simulations performed  in CAST3M and PSD. Left: Y-velocity field snapshot at $t=1.0$~second. Right: Top and bottom border point ($x=25$) time history for Y-velocities.   }\label{fig:CastemPSD1}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\textwidth]{./Images/PSD-t2}\\\vspace{1cm}
+	\includegraphics[width=.8\textwidth]{./Images/CAST3M-t2}
+	\caption{Comparison of simulations performed  in CAST3M and PSD. Left: Y-velocity field snapshot at $t=1.5$~second. Right: Top and bottom border point ($x=25$) time history for Y-velocities.   }\label{fig:CastemPSD2}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\textwidth]{./Images/Test2-CAST3M-Vs-PSD.png}
+	\caption{Comparison of simulations performed  in CAST3M and PSD. Left: Y-velocity field snapshot at $t=1.26$~second. Right: Top and bottom border point ($x=25$) time history for Y-velocities.   }\label{fig:CastemPSD2-test2}
+\end{figure}
+
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[height=8cm,width=17cm,
+	%xmin=0.0008, xmax=.015,
+	%ymin=1e-9, ymax=1e-5,
+	mark repeat={1},
+	legend style={at={(.5,1.22)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+	legend image post style={scale=.9},
+	%xtick = {.01, .005, .0025, .00125},
+	%xticklabels = {0.01, 0.005, 0.0025, 0.00125},
+	xlabel={Time (s)},
+	ylabel={Y- Velocity (m/s)}
+	]
+	\addplot[ line width=1.pt, mark=square, color=blue, mark size=1.5pt] table[x index=0, y index=1] {./Images/CAST3M-TOP.csv};\addlegendentry{CAST3M};		
+	\addplot[ mark=*, color=orange, mark size=1.5pt, mark options={solid}] table[x index=0, y index=1] {./Images/PSD-TOP.csv};\addlegendentry{PSD};
+	
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Test 2 results. Comparison of Y-velocities of a point $\bx=(25,50)$ obtained by CAST3M and PSD for a 4 second simulation with 1 second sinusoidal wave excitation.  }\label{fig:top1}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+	\begin{axis}[height=8cm,width=17cm,
+	%xmin=0.0008, xmax=.015,
+	%ymin=1e-9, ymax=1e-5,
+	mark repeat={1},
+	legend style={at={(.5,1.22)},anchor=north,legend columns=2,font=\fontsize{10}{5}\selectfont},
+	legend image post style={scale=.9},
+	%xtick = {.01, .005, .0025, .00125},
+	%xticklabels = {0.01, 0.005, 0.0025, 0.00125},
+	xlabel={Time (s)},
+	ylabel={Y- Velocity (m/s)}
+	]
+	
+	
+	\addplot[ line width=1.pt, mark=square, color=blue, mark size=1.5pt] table[x index=0, y index=1] {./Images/CAST3M-BOT.csv};\addlegendentry{CAST3M};		
+	\addplot[ mark=*, color=orange, mark size=1.5pt, mark options={solid}] table[x index=0, y index=1] {./Images/PSD-BOT.csv};\addlegendentry{PSD};
+	
+	
+	\end{axis}
+	\end{tikzpicture}
+	\caption{Test 2 results. Comparison of Y-velocities of a point $\bx=(25,0)$ obtained by CAST3M and PSD for a 4 second simulation with 1 second sinusoidal wave excitation.  }\label{fig:bottom1}
+\end{figure}
+
+
+{
+	\pgfplotstableread{
+		A			B			C       D    	E       
+		PSD		sequential		96    	Test~1	paraxial
+		PSD		sequential-opt.	45		Test~1  paraxial
+		PSD		parallel		9		Test~1	paraxial
+		CAST3M	sequential		180 	Test~1	Lysmer-type	
+		
+	}\datatab 
+	\begin{table}[htbp]\centering
+		\pgfplotstabletypeset[
+		font=\footnotesize,
+		columns={D,A,B,C,E},
+		columns/A/.style={column name =package,string type,column type = {l}},
+		columns/B/.style = {column name =version,string type,precision =0,fixed zerofill,column type = {l}},
+		columns/C/.style = {column name =time,string type,precision =0,fixed zerofill,column type = {l}},
+		columns/D/.style = {column name =Case,string type,fixed zerofill,column type = {r}},
+		columns/E/.style = {column name =boundary,string type,fixed zerofill,column type = {l}},		
+		every odd row/.style={before row={\rowcolor{white}}},
+		every even row/.style={before row={\rowcolor{black!9}}},
+		every head row/.style={before row={\midrule},after row=\midrule},
+		every last row/.style={after row=\midrule},
+		]{\datatab}
+		\caption{ CPU time comparison of CAST3M and PSD for different test/versions.  CPU time is given in seconds, PSD version sequential-opt.~means PSD with the  GFP library (GoFastPlugins), by default the GFP library is used for PSD parallel version. As the mesh is tiny, only 4 MPI processes are used in the PSD parallel version.   \label{tab:packages}}
+	\end{table}
+}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.8\textwidth]{./Images/Test3-CAST3M-Vs-PSD.png}
+	\caption{Comparison of simulations performed  in CAST3M and PSD. Left: Y-velocity field snapshot at $t=1.26$~second. Right: Top and bottom border point ($x=25$) time history for Y-velocities.   }\label{fig:CastemPSD2-test3}
+\end{figure}
+
+\subsection{Numerical experiment 2: 3D case with complex geometry}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{./Images/top-bot.png}        \includegraphics[width=0.45\textwidth]{./Images/top-bot-bc.png}\\
+    \includegraphics[width=0.45\textwidth]{./Images/top-bot-bc1.png}        \includegraphics[width=0.45\textwidth]{./Images/top-bot-bc2.png}\\
+    \caption{Seismic 3D cased with complex geometry and boundary conditions.}
+    \label{fig:soilsemiCastemPSD3D}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.85\textwidth]{./Images/Cast3MPSD.pdf}
+	\caption{Comparison of 3D simulations performed  in CAST3M and PSD.   }\label{fig:CastemPSD3D}
+\end{figure}
+
+
+
+
+\chapter{Functions and descriptions}
+\section{Flags for PSD\_PreProcess}
+
+The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user interaction. These flags become a medium of communication between the user and the PSD solver. Three types of flags can be used i)  {\ttfamily int} type : these are integer type flags which expect an integer argument, ii) {\ttfamily string} type : these flags expect a string argument, and iii) {\ttfamily bool} type : these are boolean type flags with no argument. 
+
+\subsection{Integer type flags used for  PSD\_PreProcess}
+\begin{conditions*}
+  -dirichletpointconditions &  Number of Dirichlet points.  Default \ttfamily 0.\\
+
+  -dirichletconditions      &   Number of Dirichlet boundaries.  Default \ttfamily 0.\\
+  
+  -bodyforceconditions      &   Number of regions to which body force is applied.  Default \ttfamily 0.\\  
+
+  -tractionconditions       &   Number of Neumann/traction boundaries.  Default \ttfamily 0.\\
+
+  -parmetis\_worker          &   Active when mesh partitioner is parmetis.\\
+
+  -dimension                &  Dimension of problem. 2 for 2D 3 for 3D. Default 2.\\
+  
+  -lagrange                 &   Lagrange order used for building FE space. Default \ttfamily 1 for P1. \\
+\end{conditions*} 
+
+\subsection{String type flags used for  PSD\_PreProcess}
+\begin{conditions*} 
+  -timediscretization & Time discretization type. Use \ttfamily generalized-alpha | \ttfamily newmark-beta | \ttfamily hht-alpha | \ttfamily central-difference. \\	
+  
+  -nonlinearmethod & Nonlinear method type. Use \ttfamily Picard | \ttfamily Newton-Raphsons. \\ 			
+
+  -partitioner & Mesh partitioner. Use \ttfamily metis | scotch | parmetis.\\
+
+  -postprocess & Indicate postprocessing quantity. Use \ttfamily u | v | a | phi | uphi | uva.\\
+
+
+    -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force-based | displacement-based.\\
+  
+   -reactionforce      &  Reaction force calculation method. Use \ttfamily stress-based | variational-based.\\
+  
+  -problem     & Interested problem. Use \ttfamily linear-elasticity | damage | elastodynamics | soildynamics.\\
+
+  -model       & Interested model. Use \ttfamily hybrid-phase-field | Mazar.	\\		
+
+\end{conditions*}
+\subsection{Bool type flags used for  PSD\_PreProcess}
+\begin{conditions*} 
+  -help         &      Helping message on the terminal.  \\
+  			  
+  -debug        &      OpenGL plotting routine for displaying solution. \\
+  
+  -useGFP       & 	  Activate use of GoFastPlugins. A suite of C++ plugins.\\
+  
+  -timelog      & 	  To setup time logging for various phases of the solver. \\ 
+
+  -useRCM       & 	  Mesh level renumbering via Reverse Cuthill Mckee.\\   
+  
+  -pipegnu      & 	  Realtime pipe plotting using GnuPlot. \\
+  
+  -vectorial    & 	  Generate vectorial space solver for non-linear.  \\ 
+
+  -bodyforce    &     Use volumetric source term (body force). \\
+  
+  -sequential   & 	  To generate a sequential PSD solver. \\
+  
+  -fastmethod    & 	  Produce a fast solver (more optimized).   \\ 
+  
+  -pointprobe    & 	  Setup a point probe to record variables.   \\ 
+
+  -energydecomp &     Hybrid phase-field energy decomposition. \\ 
+
+  -top2vol-meshing &  top-ii-vol point source meshing for soil-dynamics. \\
+  
+  -getreactionforce &  Extraction reactions at surface. \\ 
+
+  -plotreactionforce &  Live pipe plotting using GnuPlot.
+  
+    
+
+
+  
+\end{conditions*}
+
+\section{Functions in gofastplugins.cpp}
+
+\subsection{GFPeigen}
+
+\begin{conditions*}
+GFPeigen(A,Eval,Evec); & {\ttfamily A} is a matrix, {\ttfamily Eval} is vector returning eigenvalues, {\ttfamily Evec} is the matrix returning eigenvectors.
+\end{conditions*}
+This is a call by reference pointer-based function of GFP library. It is used for computation of the eigenvalues and eigenvectors of a real symmetric matrix (upper triangular). This function inturn uses LAPACK libraries {\ttfamily dsyev\_} for calculation of eigenvalues and eigenvectors. 
+
+The function {\ttfamily GFPeigen} which can be called from PSD is coded as {\ttfamily lapack\_dsyevIn} function within the gofastplugins.cpp.  this function argument 1: {\ttfamily A} is the supplied symmetric matrix, argument 2: {\ttfamily vp}  are the output eigenvalues and argument 3: {\ttfamily vectp}  are the output eigenvectors.
+\begin{lstlisting}[language=PSD]
+long lapack_dsyev (KNM<double> *const &A, KN<double> *const &vp, KNM<double> *const &vectp) 
+{
+	intblas n = A->N();
+	KNM<double> mat(*A);
+	
+    .
+    .
+    dsyev_(&JOBZ, &UPLO, &n, mat, &n, *vp, w, &lw, &info);
+    .
+    .
+    *vectp = mat;
+}
+\end{lstlisting}
+
+
+\subsection{GFPeigenAlone}
+
+\begin{conditions*}
+GFPeigen(A,Eval,Evec); & {\ttfamily A} is a matrix, {\ttfamily Eval} is vector returning eigenvalues.
+\end{conditions*}
+
+This is a call by reference pointer based function of GFP library. It is used for computation of the eigenvalues of a real symmetric matrix (upper triangular). This function inturn uses LAPACK library for calculation of eigenvalues. The function {\ttfamily GFPeigenAlone} which can be called from PSD is coded as {\ttfamily lapack\_dsyevAlone} function within the gofastplugins.cpp. In this function argument 1: {\ttfamily A} is the supplied symmetric matrix and argument 2: {\ttfamily vp}  is the output eigenvalues of matrix {\ttfamily A} .
+\begin{lstlisting}[language=PSD]
+long lapack_dsyevAlone (KNM<double> *const &A, KN<double> *const &vp)
+\end{lstlisting}
+
+\subsection{GFPmaxintwoFEfields}
+This is a call by reference pointer based function of GFP library. It is used to find out max between two real numbers {\ttfamily f} and {\ttfamily f1} (two 1D arrays). The max is stored in array {\ttfamily f}.
+\begin{lstlisting}[language=PSD]
+double GFPmaxintwoP1(KN<double> *const & f, KN<double> *const & f1)
+\end{lstlisting}
+
+\chapter{Gallery}
+
+This chapter showcases some test cases that have been performed with PSD.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{./Images/400partmesh3d.png}
+    \caption{90 M dof with 400 partitions.}
+    \label{fig:90Mdof}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{./Images/rainbow-test.png}    \includegraphics[width=0.45\textwidth]{./Images/rainbow-test1.png}
+    \caption{Perforated concrete bar cracking.}
+    \label{fig:rainbow}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{./Images/dam1.png}    \includegraphics[width=0.45\textwidth]{./Images/dam2.png}\\
+    \includegraphics[width=0.45\textwidth]{./Images/dam3.png}
+    \includegraphics[width=0.45\textwidth]{./Images/dam4.png}
+    \caption{Full scale dam under seismic load.}
+    \label{fig:dam}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.3\textwidth]{./Images/t1-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t2-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t3-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t5-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t6-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t7-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t8-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t9-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t10-large.png}\\
+    \includegraphics[width=0.3\textwidth]{./Images/t11-large.png}        \includegraphics[width=0.3\textwidth]{./Images/t12-large.png}    
+    \includegraphics[width=0.3\textwidth]{./Images/t13-large.png}
+    \caption{Seismic signal dispersion in soil.}
+    \label{fig:soilsemi}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\textwidth]{./Images/t001.png}        
+    \includegraphics[width=0.65\textwidth]{./Images/t100.png}    
+    \includegraphics[width=0.65\textwidth]{./Images/t199.png} 
+    \caption{Seismic signal on nuclear site.}
+    \label{fig:nuclearplant}
+\end{figure}
+
+\printbibliography
+
+
+\end{document}
