@@ -66,17 +66,60 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
   -getreactionforce &  Extraction reactions at surface. \\ 
 
   -plotreactionforce &  Live pipe plotting using GnuPlot.
-  
-    
-
-
-  
 \end{conditions*}
+  
+\section{Flags for PSD\_Solve}    
+Just like  {\ttfamily PSD\_PreProcess}, the solver in PSD {\ttfamily PSD\_Solve} also relies heavily on command line flags for user interaction. These flags become a medium of communication between the user and the PSD solver. Three types of flags can be used i)  {\ttfamily int} type : these are integer type flags which expect an integer argument, ii) {\ttfamily string} type : these flags expect a string argument, and iii) {\ttfamily bool} type : these are boolean type flags with no argument.
+
+\subsection{Integer type flags used for  PSD\_Solve}
+\begin{conditions*}
+	
+   -np     &    Number of processes. Default \ttfamily 2. Values  accepted $1$ to  $\infty$\\         
+   
+   -v      &  FreeFEM flag verbosity of the background FEM kernel. Default \ttfamily 1. Set 0 for no output. Values  accepted 0 to 1000\\
+
+   -split  &  FreeFEM flag to split uniformly the mesh. Default \ttfamily 1 = no splitting. Use 2 to split once. Values  accepted 2 to 12.\\
+
+   -ksp\_max\_it &  PETSc flag to choose  Krylov solver max iterations. Default 1000.\\    
+	
+\end{conditions*}
+
+\subsection{Real type flags used for  PSD\_Solve}
+\begin{conditions*}
+	
+	-ksp\_atol     &    PETSc flag to set  absolute tolerance for the Krylov solver convergence. Default 1e-5.\\         
+	
+	-ksp\_rtol     &    PETSc flag to set  relative tolerance for the Krylov solver. Default 1e-5.\\   
+	
+\end{conditions*}  
+
+\subsection{String type flags used for  PSD\_Solve}
+\begin{conditions*} 
+	-mesh & Mesh file to be used. Either use .mesh or .msh. e.g.,  \ttfamily{ -mesh nameofmesh.mesh} . \\
+	
+	-ksp\_type & PETSc flag to choose the Krylov solver. Default \ttfamily{ cg }. Use  \ttfamily{ -ksp\_type cg | gmres | bicg | bicgstab} . \\
+	
+	-pc\_type & PETSc PETSc flag to choose preconditioner for the solver. Default \ttfamily{ bjacobi }. Use  \ttfamily{-pc\_type jacobi | bjacobi | lu | gamg } . \\	
+	
+	-sub\_pc\_type & PETSc  flag to choose sub preconditioner for solver. Default \ttfamily{ ilu }. Use  \ttfamily{ -sub\_pc\_type ilu | icc | lu | gamg } . \\							
+	
+\end{conditions*}
+
+\subsection{Bool type flags used for  PSD\_Solve}
+\begin{conditions*} 
+	-wg         &     FreeFEM flag to activate with graphics option for OpenGL graphics. Default false.  \\
+	
+	-nw         &     FreeFEM flag to activate no windows output on screen. Default false.  \\
+	
+    -ns         &     FreeFEM flag to activate no script  output on screen. Default false.  \\		
+	
+\end{conditions*}
+
 \section{Flags as per physics}
 \begin{small}
 
 \fbox{
-\begin{minipage}[t][11cm]{0.2\textwidth}
+\begin{minipage}[t][15cm]{0.2\textwidth}
   \centering \textbf{Linear Elasticity}
   \begin{scriptsize}
   \begin{conditions*}
@@ -87,16 +130,29 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
     -bodyforceconditions      &   \\  
     -tractionconditions       &   \\
     -parmetis\_worker         &   \\
+    -ksp\_max\_it             &   \\    
   	-dimension                &   \\    
     -lagrange                 &   \\
+    -split                    &   \\         
+    -np                       &   \\
+    -v                        &   \\
      &   \\
      &   \\
 
+   REAL TYPE &   \\ &   \\
+    -ksp\_rtol                &   \\
+    -ksp\_atol                &   \\
+    &   \\
+    &   \\
  
    STRING TYPE &   \\ &   \\ 
    -partitioner               &   \\
    -postprocess               &   \\
-   -problem                   &   \\   		    
+   -sub\_pc\_type             &   \\  
+   -ksp\_type                 &   \\
+   -pc\_type                  &   \\      
+   -problem                   &   \\
+   -mesh                      &   \\     		    
      &   \\
      &   \\
      &   \\
@@ -112,12 +168,15 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
    -useRCM                    &   \\         
    -debug                     &   \\
    -help                      &   \\
+   -wg                        &   \\
+   -nw                        &   \\
+   -ns                        &   \\     
        		
   \end{conditions*}
   \end{scriptsize}
 \end{minipage}
 }\hfill\fbox{
-\begin{minipage}[t][11cm]{0.2\textwidth}
+\begin{minipage}[t][15cm]{0.2\textwidth}
   \centering \textbf{Damage Mechanics}
   \begin{scriptsize}
 	\begin{conditions*}
@@ -128,18 +187,31 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 		-bodyforceconditions      &   \\  
 		-tractionconditions       &   \\
 		-parmetis\_worker         &   \\
+        -ksp\_max\_it             &   \\ 		
 		-dimension                &   \\    
 		-lagrange                 &   \\
+        -split                    &   \\
+        -np                       &   \\
+        -v                         &   \\ 		
 		&   \\
 		&   \\
-		
+
+      REAL TYPE &   \\ &   \\
+      -ksp\_rtol                &   \\
+      -ksp\_atol                &   \\
+       &   \\
+       &   \\		
 		
 		STRING TYPE &   \\ &   \\ 
 		-nonlinearmethod           &   \\
 		-reactionforce             &   \\
 		-partitioner               &   \\
 		-postprocess               &   \\
-		-problem                   &   \\   		    
+        -sub\_pc\_type             &   \\		
+        -ksp\_type                 &   \\
+        -pc\_type                  &   \\		
+		-problem                   &   \\
+		-mesh                      &   \\	
 		-model                     &   \\
 		&   \\
 		&   \\
@@ -147,22 +219,23 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 		BOOL TYPE &   \\ &   \\
     -plotreactionforce         &   \\		
     -getreactionforce          &   \\ 
-		-energydecomp              &   \\				
+		-energydecomp              &   \\
 		-sequential                &   \\
 		-vectorial                 &   \\
 		-timelog                   &   \\
 		-useGFP                    &   \\
-        -useRCM                    &   \\ 				   		
+        -useRCM                    &   \\ 
 		-debug                     &   \\
-		-help                      &   \\		
-
-
-      		
+		-help                      &   \\
+        -wg                        &   \\
+        -nw                        &   \\
+        -ns                        &   \\
+              		
 	\end{conditions*}
 \end{scriptsize}
 \end{minipage}
 }\hfill\fbox{
-\begin{minipage}[t][11cm]{0.2\textwidth}
+\begin{minipage}[t][15cm]{0.2\textwidth}
  \centering  \textbf{Elastodynamics}
   \begin{scriptsize}
 	\begin{conditions*}
@@ -173,17 +246,30 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 		-bodyforceconditions      &   \\  
 		-tractionconditions       &   \\
 		-parmetis\_worker         &   \\
+        -ksp\_max\_it             &   \\ 		
 		-dimension                &   \\    
 		-lagrange                 &   \\
+        -split                    &   \\
+        -np                       &   \\
+        -v                        &   \\ 		
 		 &   \\
 		 &   \\
-		
+
+      REAL TYPE &   \\ &   \\
+      -ksp\_rtol                &   \\
+      -ksp\_atol                &   \\
+      &   \\
+      &   \\		
 		
 		STRING TYPE &   \\ &   \\
 		-timediscretization        &   \\		 
 		-partitioner               &   \\
 		-postprocess               &   \\
-		-problem                   &   \\   		    
+        -sub\_pc\_type             &   \\		
+        -ksp\_type                 &   \\
+        -pc\_type                  &   \\		
+		-problem                   &   \\
+		-mesh                      &   \\		
 		-model                     &   \\
 		&   \\
 		&   \\
@@ -192,17 +278,19 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 		-sequential                &   \\
 		-timelog                   &   \\
 		-useGFP                    &   \\
-		-useRCM                    &   \\ 				   		
+		-useRCM                    &   \\
 		-debug                     &   \\
-		-help                      &   \\		
-
+		-help                      &   \\
+        -wg                        &   \\
+        -nw                        &   \\
+        -ns                        &   \\
 		
 		
 	\end{conditions*}
 \end{scriptsize}
 \end{minipage}
 }\hfill\fbox{
-\begin{minipage}[t][11cm]{0.2\textwidth}
+\begin{minipage}[t][15cm]{0.2\textwidth}
   \centering \textbf{Soildynamics}
   \begin{scriptsize}
 	\begin{conditions*}
@@ -213,38 +301,55 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 		-bodyforceconditions      &   \\  
 		-tractionconditions       &   \\
 		-parmetis\_worker         &   \\
+	    -ksp\_max\_it             &   \\ 	
 		-dimension                &   \\    
 		-lagrange                 &   \\
+        -split                    &   \\
+        -np                       &   \\
+        -v                        &   \\ 		
 		 &   \\
 		 &   \\
-		
+
+
+      REAL TYPE &   \\ &   \\
+      -ksp\_rtol                &   \\
+      -ksp\_atol                &   \\
+      &   \\
+      &   \\		
 		
 		STRING TYPE &   \\ &   \\
 		-doublecouple              &   \\
-		-postprocess               &   \\				 
+		-postprocess               &   \\
 		-partitioner               &   \\
 		-postprocess               &   \\
-		-problem                   &   \\   		    
+        -sub\_pc\_type             &   \\		
+        -ksp\_type                 &   \\
+        -pc\_type                  &   \\		
+		-problem                   &   \\
+		-mesh                      &   \\		
 		-model                     &   \\
 		 &   \\
 		 &   \\
 		
 		BOOL TYPE &   \\ &   \\	
-		-top2vol-meshing           &   \\					
+		-top2vol-meshing           &   \\
 		-sequential                &   \\
 		-timelog                   &   \\
 		-useGFP                    &   \\
-		-useRCM                    &   \\ 				   		
+		-useRCM                    &   \\
 		-debug                     &   \\
-		-help                      &   \\		
-		
-		
+		-help                      &   \\
+        -wg                        &   \\
+        -nw                        &   \\
+        -ns                        &   \\
 		
 	\end{conditions*}
 \end{scriptsize} 
 \end{minipage}
 }
 \end{small}
+
+\pagebreak
 \section{Functions in gofastplugins.cpp}
 
 \subsection{GFPeigen}

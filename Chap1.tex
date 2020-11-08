@@ -10,8 +10,16 @@ PSD has been maturing and evolving with time, following subsections present the 
 \textbf{Added}
 \begin{itemize}
     \item New accurate force calculations via matrix-vector product: new flag {\ttfamily -getreactionforce}.
-    \item New flag {\ttfamily -reactionforce} variational-based | stress-based to get reaction force on a surface.
-    \item New flag {\ttfamily -plotreactionforce} to activate real time pipe plotting using GnuPlot. 
+    \item New flag {\ttfamily  -reactionforce} variational-based | stress-based to get reaction force on a surface.
+    \item New flag {\ttfamily  -plotreactionforce} to activate real time pipe plotting using GnuPlot.
+    \item More verbos info on {\ttfamily -help}    
+    \item New flag {\ttfamily -mesh} to provide the name of mesh to {\ttfamily PSD\_Solve}.  
+    
+\end{itemize}
+\textbf{Changed}
+\begin{itemize}
+	\item Moved to FreeFEM 4.7-1.
+	\item Moved to PETSc 3.14.
 \end{itemize}
 \textbf{Removed}
 \begin{itemize}
