@@ -264,3 +264,55 @@ PSD has been maturing and evolving with time, following subsections present the 
 \item | [1.8]       |2f26292636c7248133e31ae912ee58113de2ef71 |
 \item | [2.0]       |1e1a4d7f10df30d106b52eba1c5caf69e8bc0f36 |
 \end{itemize}
+\pagebreak
+
+\begin{figure}
+    \centering
+		\begin{tikzpicture}
+		[
+		grow cyclic,
+		text=white,
+		every node/.style={concept, scale=.95},
+		level 1/.style={level distance = .1mm,scale=0.95},   
+		level 2/.style={level distance = 5mm}  
+		]
+		\path[mindmap,concept color=black,text=white, scale=0.95]
+		node[concept] {\textbf{PSD}}
+		[clockwise from=-8]
+		child[concept color=orange,clockwise from=26] {
+			node[concept] {\textbf{Meshing}}
+			[clockwise from=120]
+			child { node[concept color=orange] {\textbf{\underline{\scriptsize Gmsh} \\ {\tiny\color{blue} C++} \\{\tiny del2D/3D}\\{\tiny Netgen}}}}
+			child { node[concept color=orange] {\textbf{\underline{{\scriptsize Salome} }  \\ {\tiny\color{blue} Python} \\ {\tiny Netgen} \\ {\tiny MeshGems}  }}}
+			child { node[concept] {\textbf{\underline{\scriptsize MeshGem} \\ {\tiny\color{blue} C\# -- MPI} \\{\tiny del2D/3D}  }}}
+			child { node[concept] {\textbf{ \underline{\scriptsize top-ii-vol} \\ {\tiny\color{blue} C++ -- MPI-I/O} \\{\tiny Laplace based}   }} }			
+		}  
+		child[concept color=orange,clockwise from=10] {
+			node[concept] {\textbf{Partitioning}}
+			[clockwise from=20]
+			child { node[concept] {\textbf{\underline{\scriptsize ParMETIS}} \\ {\tiny\color{blue} C\#/C++ -- MPI}    } }
+			child { node[concept] {\textbf{\underline{\scriptsize PTSCOTCH} \\ {\tiny\color{blue} C\# -- MPI -- POSIX}    }   } }
+			child { node[concept] {\textbf{ \underline{\scriptsize top-ii-vol} \\ {\tiny\color{blue} C++ -- MPI-I/O} \\{\tiny Laplace based}   }} }				
+		}
+		child[concept color=orange] { 
+			node[concept] {\textbf{FEM}} 
+			[clockwise from=-160] 
+			child { node[concept] { \textbf{ \underline{\scriptsize FreeFEM } \\ {\tiny\color{blue} C/C++ -- MPI}   } }}
+			child { node[concept] {\textbf{\underline{\scriptsize GFPlib} \\ {\tiny\color{blue} C/C++ -- MPI} \\ {\tiny vectorial FEM}  \\ {\tiny Mech. Laws}       }  }}
+		}
+		child[concept color=orange] { 
+			node[concept] {\textbf{Solving \& precond.} } 
+			[clockwise from=-160] 
+			child { node[concept] {\textbf{\underline{\scriptsize PETSc} \\{\color{black}\tiny Krylov CG} \\{\color{black}\tiny Jac, AMG}     }}}
+			child { node[concept] {\textbf{\underline{\scriptsize MUMPS}  \\{\tiny\color{black} LU decomp.}       }}}
+		}
+		child[concept color=orange] { 
+			node[concept] {\textbf{Post-processing} } 
+			[clockwise from=-180] 
+			child { node[concept] {\textbf{\underline{\scriptsize ParaView} \\ {\tiny\color{blue} Python -- MPI} \\ {\tiny Pvpython} }}}
+		};
+	    		\end{tikzpicture}    \caption{PSD app architecture}
+    \label{fig:my_label}
+\end{figure}
+
+
