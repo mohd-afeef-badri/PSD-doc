@@ -38,11 +38,11 @@ autoreconf -i
 \begin{lstlisting}[style=Linux]
 ./configure
 \end{lstlisting}
-\textbf{Note}:   {\ttfamily ./configure will} install PSD in {\ttfamily  \$HOME/PSD } to change this directory use {\ttfamily  --prefix=Your/Own/Path } with {\ttfamily ./configure}. 
+\textbf{Note}:  \lstinline[style=Linux]!./configure! will install PSD in \lstinline[style=Linux]!/usr/local/bin! and you would need sudo rights to perform installation, for non sudo users or for local install consider chaning directory of installation. To change this directory use \lstinline[style=Linux]!--prefix=Your/Own/Path! with \lstinline[style=Linux]!./configure!. Remember to add \lstinline[style=Linux]!Your/Own/Path! to your  \lstinline[style=Linux]!PATH! variable, you can do so by \lstinline[style=Linux]! export PATH=$PATH:Your/Own/Path!
 
-\textbf{Note}:   {\ttfamily ./configure} will try to look for installation of {\ttfamily FreeFEM} and {\ttfamily Gmsh} in {\ttfamily usr/bin/} or {\ttfamily usr/local/bin/} directories. If you have these packages installed in some other directory this should be specified during {\ttfamily ./configure} by using flags {\ttfamily --with-FreeFEM=} and {\ttfamily --with-Gmsh=}. For example, if {\ttfamily FreeFEM} is installed at {\ttfamily home/FreeFem/bin} and {\ttfamily Gmsh} in {\ttfamily home/Gmsh/bin} then one should use
+\textbf{Note}:   \lstinline[style=Linux]! ./configure! will try to look for installation of \lstinline[style=Linux]! FreeFEM! and \lstinline[style=Linux]! Gmsh! in \lstinline[style=Linux]! usr/bin/! or \lstinline[style=Linux]! usr/local/bin/! directories. If you have these packages installed in some other directory this should be specified during \lstinline[style=Linux]! ./configure! by using flags \lstinline[style=Linux]! --with-FreeFEM=! and \lstinline[style=Linux]! --with-Gmsh=!. For example, if \lstinline[style=Linux]! FreeFEM! is installed at \lstinline[style=Linux]! home/FreeFem/bin! and \lstinline[style=Linux]! Gmsh! in \lstinline[style=Linux]!home/Gmsh/bin! then one should use
 
-\textbf{Note}: Please use the new version of {\ttfamily Gmsh} (greater than version 4.3.0) from their official website.
+\textbf{Note}: Please use the new version of \lstinline[style=Linux]!Gmsh! (greater than version 4.3.0) from their official website.
 
 \begin{lstlisting}[style=Linux]
 ./configure --with-FreeFEM=home/FreeFem/bin  --with-Gmsh=home/Gmsh/bin
@@ -56,18 +56,44 @@ make
 
 \item Install PSD
 \begin{lstlisting}[style=Linux]
-make install
+sudo make install
 \end{lstlisting}
 
-\textbf{Note:} To install a copy of PSD for developers use {\ttfamily make install-devl} instead of{\ttfamily make install} 
+\textbf{Note} : You should not use \lstinline[style=Linux]! sudo! if you have used \lstinline[style=Linux]!--prefix! during the \lstinline[style=Linux]! ./configure! simply use
 
+\begin{lstlisting}[style=Linux]
+make install
+\end{lstlisting} 
+ 
+
+
+\textbf{Note:} To install a copy of PSD for developers use the following instead of\lstinline[style=Linux]! sudo make install!  
+
+\begin{lstlisting}[style=Linux]
+make install-devel
+\end{lstlisting}
+
+
+\end{itemize}
+
+Now you should have the PSD solver installed in your machine. Note that, the solver will be installed at \lstinline[style=Linux]! usr/bin ! or \lstinline[style=Linux]! usr/local/bin ! directories if you used \lstinline[style=Linux]! sudo make install ! or else it will be in your \lstinline[style=Linux]! --prefix ! location.  
+
+
+\textbf{\large Additional steps (optional)}
+\begin{itemize}
 
 \item Check if installation is correct 
 \begin{lstlisting}[style=Linux]
 make check
 \end{lstlisting}
 
-Now you should have the solver at {\ttfamily \$HOME/PSD}. To use the solver please go to {\ttfamily \$HOME/PSD}.
+\item Install PSD tutorials
+
+\begin{lstlisting}[style=Linux]
+make tutorials
+\end{lstlisting}
+
+PSD tutorials will be installed in you \lstinline[style=Linux]!  home ! directory in a folder \lstinline[style=Linux]!  ${HOME}/PSD-tutorials !  
 
 \end{itemize}
 
