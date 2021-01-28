@@ -55,8 +55,6 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
   
   -sequential   & 	  To generate a sequential PSD solver. \\
   
-  -fastmethod    & 	  Produce a fast solver (more optimized).   \\ 
-  
   -pointprobe    & 	  Setup a point probe to record variables.   \\ 
 
   -energydecomp &     Hybrid phase-field energy decomposition. \\ 
@@ -65,7 +63,12 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
   
   -getreactionforce &  Extraction reactions at surface. \\ 
 
-  -plotreactionforce &  Live pipe plotting using GnuPlot.
+  -plotreactionforce &  Live pipe plotting using GnuPlot. \\
+
+  -withmaterialtensor  & Use material tensor to build stiffness matrix.   \\   
+  
+  -dirichletpointconditions  &  To activate pre-cracked surface Dirichlet.
+   
 \end{conditions*}
   
 \section{Flags for PSD\_Solve}    
@@ -161,8 +164,8 @@ Just like  {\ttfamily PSD\_PreProcess}, the solver in PSD {\ttfamily PSD\_Solve}
        
 
    BOOL TYPE &   \\ &   \\
+   -withmaterialtensor        &   \\   
    -sequential                &   \\
-   -fastmethod                &   \\
    -timelog                   &   \\
    -useGFP                    &   \\ 
    -useRCM                    &   \\         
@@ -217,6 +220,7 @@ Just like  {\ttfamily PSD\_PreProcess}, the solver in PSD {\ttfamily PSD\_Solve}
 		&   \\
 		
 		BOOL TYPE &   \\ &   \\
+    -crackdirichletcondition   &   \\				
     -plotreactionforce         &   \\		
     -getreactionforce          &   \\ 
 		-energydecomp              &   \\

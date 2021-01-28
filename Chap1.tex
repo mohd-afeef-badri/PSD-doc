@@ -14,12 +14,15 @@ PSD has been maturing and evolving with time, following subsections present the 
     \item New flag {\ttfamily  -plotreactionforce} to activate real time pipe plotting using GnuPlot.
     \item More verbos info on {\ttfamily -help}    
     \item New flag {\ttfamily -mesh} to provide the name of mesh to {\ttfamily PSD\_Solve}.  
-    \item New flag {\ttfamily -pointprobe} to postprocess point fields.    
+    \item New flag {\ttfamily -pointprobe} to postprocess point fields.
+    \item New flag {\ttfamily-crackdirichletcondition} to include a pre-cracked Dirichlet in damage models.
+    \item New tests for more advance top-ii-vol partitioning.     
 \end{itemize}
 \textbf{Changed}
 \begin{itemize}
 	\item Moved to FreeFEM 4.7-1.
 	\item Moved to PETSc 3.14.
+	\item New version of top-ii-vol v 1.2 support for exascale computing (includes new 2D 3D partitioning)
 \end{itemize}
 \textbf{Removed}
 \begin{itemize}

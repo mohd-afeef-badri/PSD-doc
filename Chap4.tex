@@ -33,7 +33,7 @@ In these formulations $\lambda$ and $\mu$ are the Lame's parameters, $\mathbf{f}
 
 \subsection{PSD simulation of 2D bar problem bending under own body weight \label{sec:2d-bar-load}}
 
-To showcase the usage of Linear elasticity, we shall discuss here an example of a 2D bar, which bends under its own load. The bar ---$5\times1$~\si{\square\meter} in area-- is made up of material with $\rho=8\text E3$, $E=200\text E9$, and $\nu=0.3$.
+To showcase the usage of Linear elasticity, we shall discuss here an example of a 2D bar, which bends under its own load. The bar ---$5\times1$~\si{\square\meter} in area-- is made up of material with $\rho=8\text e3$, $E=200\text e9$, and $\nu=0.3$.
 
 \begin{figure}[htbp]
     \centering
@@ -45,13 +45,13 @@ To showcase the usage of Linear elasticity, we shall discuss here an example of 
 
 \textbf{Step 1: Preprocessing}
 
-First step in a PSD simulation is ``PSD setup", at this step you tell PSD what kind of physics, boundary conditions, approximations, mesh, etc are you expecting to solve.
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch  {\ttfamily PSD\_PreProcess} from the terminal, to do so run the following command.
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -bodyforceconditions 1 -dirichletconditions 1 -postprocess u
+First step in a PSD simulation is ``PSD preprocessing'', at this step you tell PSD what kind of physics, boundary conditions, approximations, mesh, etc are you expecting to solve.
+For ``PSD Preprocessing'' go to any folder, launch \lstinline[style=Linux]!PSD_PreProcess! from the terminal with the following command:
+\begin{lstlisting}[style=Linux]  
+PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 1 -postprocess u
 \end{lstlisting}
 %
-After the ``PSD setup" runs successfully you should see many {\ttfamily .edp} files in your {\ttfamily PSD/Solver} folder. \textit{What do the arguments mean ?}  {\ttfamily -dimension 2} means it is a 2D simulation, {\ttfamily -bodyforceconditions 1} with body force; {\ttfamily -dirichletconditions 1} says we have one Dirichlet border; and {\ttfamily -postprocess u} means we would like to have ParaView post processing files. The input properties ``$E,\nu$" can be mentioned in {\ttfamily ControlParameters.edp}, change {\ttfamily E  = 200.e9}, and {\ttfamily nu = 0.3;}. The volumetric body force condition is mentioned in the same file via variable {\ttfamily Fbc0Fy -78480.0}, i.e ($\rho*g=8.e3*(-9.81)=-78480.0$). In addition variable {\ttfamily Fbc0On 1} has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in {\ttfamily ControlParameters.edp}. To provide the clamped boundary condition the variables   {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.}  are used, which means for Dirichlet border 2 ({\ttfamily Dbc0On 2}) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {{\ttfamily Dbc0Ux 0.}, {\ttfamily Dbc0Uy 0}} i.e., the clamped end condition ($u_x=u_y=0$).
+After the ``PSD Preprocessing'' runs successfully you should see many files with \lstinline[style=Linux]!.edp! extension in your folder. \textit{What do the arguments mean ?}   \lstinline[style=Linux]! -problem linear-elasticity! means that we will be solving linear-elasticity problem, \lstinline[style=Linux]! -dimension 2! means it is a 2D simulation, \lstinline[style=Linux]!-bodyforceconditions 1! with body force; \lstinline[style=Linux]!-dirichletconditions 1! says we have one Dirichlet border; and \lstinline[style=Linux]! -postprocess u! means we would like to have ParaView post processing files. The input properties ``$E,\nu$'' can be mentioned in \lstinline[style=Linux]! ControlParameters.edp!, change \lstinline[style=Linux]! E  = 200.e9!, and \lstinline[style=Linux]! nu = 0.3;!. The volumetric body force condition is mentioned in the same file via variable \lstinline[style=Linux]! Fbc0Fy -78480.0!, i.e ($\rho g=8\text e3\times (-9.81)=-78480.0$). In addition variable \lstinline[style=Linux]! Fbc0On 1! has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in \lstinline[style=Linux]! ControlParameters.edp!. To provide the clamped boundary condition the variables   \lstinline[style=Linux]! Dbc0On 2!, \lstinline[style=Linux]! Dbc0Ux 0.!, and \lstinline[style=Linux]! Dbc0Uy 0.!  are used, which means for Dirichlet border 2 (\lstinline[style=Linux]! Dbc0On 2!) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {\lstinline[style=Linux]! Dbc0Ux 0.!, {\lstinline[style=Linux]! Dbc0Uy 0!} i.e., the clamped end condition ($u_x=u_y=0$).
 
 \textbf{Step 2: Solving}
 
@@ -61,11 +61,11 @@ As PSD is a parallel solver, let us use  4 cores to solve the 2D bar case. To do
 PSD_Solve -np 4 Main.edp
 \end{lstlisting}
 
-Here {\ttfamily -np 4} denote the argument used to enter the number of cores. {\ttfamily PSD\_Solve} is a wrapper around {\ttfamily FreeFem++} or {\ttfamily FreeFem++-mpi}.  Note that if your problem is large use more cores. PSD has been tested upto 13,000 cores, surely you will now need that many for the 2D bar problem. 
+Here \lstinline[style=Linux]! -np 4! denote the argument used to enter the number of cores. \lstinline[style=Linux]! PSD_Solve! is a wrapper around \lstinline[style=Linux]! FreeFem++! or \lstinline[style=Linux]! FreeFem++-mpi!.  Note that if your problem is large use more cores. PSD has been tested upto 13,000 cores, surely you will now need that many for the 2D bar problem. 
 
 \textbf{Step 3: Postprocessing}
 
-PSD allows postprocessing of results in ParaView. After the step 2 mentioned above finishes. Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily PSD/Solver/VTUs\_DATE\_TIME} folder. 
+PSD allows postprocessing of results in ParaView. After the step 2 mentioned above finishes. Launch ParaView and have a look at the  \lstinline[style=Linux]! .pvd! file in the  {\lstinline[style=Linux]! VTUs_DATE_TIME! folder. 
 
 \begin{figure}[htbp]
     \centering
@@ -86,9 +86,9 @@ For this test the properties of the material are the same as used in \cref{sec:2
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -bodyforceconditions 1 -dirichletconditions 2 -postprocess u
+PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 2 -postprocess u
 \end{lstlisting}
 %
 Since basic nature of both the problems is same this is the exact same command used in preprocessing of \cref{sec:2d-bar-load}. The only difference of this problem compared to the one from \cref{sec:2d-bar-load} is that an additional Dirichlet condition needs to be supplied, notified to PSD by {\ttfamily -dirichletconditions 2}. To provide Dirichlet conditions of the left clamped end ($u_x=u_y=0$) in {\ttfamily ControlParameters.edp} set {\ttfamily Dbc0On 2}, {\ttfamily Dbc0Ux 0.}, and {\ttfamily Dbc0Uy 0.}. Similarly, for the right end set variables {\ttfamily Dbc1On 4}, {\ttfamily Dbc1Ux 0.}, and {\ttfamily Dbc1Uy 0}. Each one of these is a clamped border respectively labeled as 2  ({\ttfamily Dbc0On 2}) and 4 ({\ttfamily Dbc1On 4}) in the mesh.
@@ -144,9 +144,9 @@ In this section we showcase the 2D bar problem simulation with one end clamped w
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -dirichletconditions 2 -postprocess u
+PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 2 -postprocess u
 \end{lstlisting}
 %
 In comparison to preprocessing from \cref{sec:2d-bar-load,sec:2D-bar-clamped1}, notice that {\ttfamily -bodyforceconditions 1} is missing. This is due to the fact that for this problem we assume null body force. Just like in~\cref{sec:2D-bar-clamped1} {\ttfamily -dirichletconditions 2}, which notifies to PSD that there are two Dirichlet borders ---the clamped and the pulled ends of the bar--- in this simulation.
@@ -190,9 +190,9 @@ Similar simulation, as in \cref{sec:2d-bar-clamped2} is presented in this sectio
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -dirichletconditions 1 -tractionconditions 1 -postprocess u
+PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 %
 the comandline flag {\ttfamily -dirichletconditions 1}, notifies to PSD that there is one Dirichlet border ---the clamped end of the bar--- in this simulation. And the flag {\ttfamily -tractionconditions 1} notifies to PSD that there is one traction border ---the right end of the bar--- in this simulation. 
@@ -241,10 +241,10 @@ Similar simulations, as in \cref{sec:2d-bar-clamped2,sec:2d-bar-clamped3} is pre
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -dirichletconditions 1 -tractionconditions 1 \ 
--dirichletpointconditions 1 -postprocess u
+PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 1 -tractionconditions 1 \
+ -dirichletpointconditions 1 -postprocess u
 \end{lstlisting}
 
 Additional flag {\ttfamily -dirichletpointconditions 1} now appears, this notifies to PSD that there is one Dirichlet point boundary condition. Edit the  {\ttfamily ControlParameters.edp} to communicate the desired point boundary conditions, set the variables {\ttfamily Pbc0Ux  0.} and {\ttfamily Pbc0Uy  0.} to specify $u_x=0,u_y=0$, and variable {\ttfamily PbcCord = [[  0. , 0. ]];} to specify the point coordinates $(x,y)=(0,0)$. Via the flags we specified that {\ttfamily -dirichletconditions 1}, i.e., there is one Dirichlet border.
@@ -292,9 +292,9 @@ Here is how PSD simulation of this case can be performed.
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD setup'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
+PSD_PreProcess  -problem linear-elasticity -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 %
 the comandline flag {\ttfamily -dirichletconditions 1} notifies to PSD that there is one Dirichlet border ---the clamped end of the bar--- in this simulation; {\ttfamily -dimension 3} means the simulation is 3D. And the flag {\ttfamily -tractionconditions 1} notifies to PSD that there is one traction border ---the right end of the bar--- in this simulation. 
@@ -352,9 +352,9 @@ Place the generated mesh {\ttfamily piece.msh} in {\ttfamily /PSD/Meshes/3D/piec
 
 \textbf{Step 1: Preprocessing}
 
-For ``PSD setup" go to the {\ttfamily PSD/Solver} folder, launch the terminal there and run the following command.
+For ``PSD setup'' go to any folder, launch the terminal there and run the following command.
 \begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
+PSD_PreProcess  -problem linear-elasticity -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 Here, by using these parameters we have generated one Dirichlet condition and one traction condition, respectively to be applied to the small and the large holes in the mesh. Further, by using {\ttfamily -dimension 3} we have let PSD know that the problem is 3D .In the {\ttfamily /PSD/Meshes/3D/piece.msh} generated, the label 4 (resp.~3) corresponds to the Dirichlet (resp.~traction) border. 
 To provide Dirichlet conditions on label number 4 ($u_x=0,u_y=0,u_z=0$) in {\ttfamily ControlParameters.edp} use set {\ttfamily Dbc0On 4}, {\ttfamily Dbc0Ux 0.}, {\ttfamily Dbc0Uy 0.}, and {\ttfamily Dbc0Uz 0.}. To add the values and label numbers of the traction borders edit the  {\ttfamily ControlParameters.edp}, set  {\ttfamily Tbc0On 3} and {\ttfamily Tbc0Ty -1.e9}. For this end $\mathbf t=[t_x,t_y,t_z]=[0.,10^9,0.]$. Finally we use steel properties for the material, so in {\ttfamily ControlParameters.edp} the parameters {\ttfamily real E  = 200.e9;} and {\ttfamily real nu = 0.3;} should be used. These represent $E$ and $\nu$, respectively. With all the properties and boundary conditions set we now use  {\ttfamily string ThName = "../Meshes/3D/piece";} in the {\ttfamily ControlParameters.edp} file, this notifies PSD about the name of the mesh used for this simulation.  
@@ -429,7 +429,7 @@ On a meshed domain $\Omega^h\in\Omega\subset\mathbb{R}^n$, for damage mechanics 
 where $\kappa\ll1$ is a model parameter to prevent numerical singularity when $d \to 1$.
  %
  %
-In this formulation, the notation ``$:$" is used for the double contraction between tensors (i.e., component-wise tensor product) and $ \mathbb{V}^h $ is a  mixed third order vector valued finite element functional space to approximate vector test function~$\bvh$ and vector trial function~$\buh$:
+In this formulation, the notation ``$:$'' is used for the double contraction between tensors (i.e., component-wise tensor product) and $ \mathbb{V}^h $ is a  mixed third order vector valued finite element functional space to approximate vector test function~$\bvh$ and vector trial function~$\buh$:
  %
 \begin{equation}
 \mathbb{V}^h=\left\{ \bu^h\in [ {H}^1(\Omega^h) ]^3~~\forall t\in[0,T]~|~ \forall \bx\in\partial\Omega^h_{\text{D}}~\buh=\overline{\bu}\right\},
