@@ -6,7 +6,7 @@ PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements
 \section{PSD evolution}
 PSD has been maturing and evolving with time, following subsections present the highlights of  some key changes made to each PSD version. 
 
-\subsection{Version 2.1 (currently under development)}
+\subsection{Version 2.1 - 2021-01-27}
 \textbf{Added}
 \begin{itemize}
     \item New accurate force calculations via matrix-vector product: new flag {\ttfamily -getreactionforce}.
@@ -14,12 +14,19 @@ PSD has been maturing and evolving with time, following subsections present the 
     \item New flag {\ttfamily  -plotreactionforce} to activate real time pipe plotting using GnuPlot.
     \item More verbos info on {\ttfamily -help}    
     \item New flag {\ttfamily -mesh} to provide the name of mesh to {\ttfamily PSD\_Solve}.  
-    
+    \item New flag {\ttfamily -crackdirichletcondition} to include a pre-cracked Dirichlet in damage models.
+    \item New tests for more advance top-ii-vol partitioning.
+    \item New flag {\ttfamily -constrainHPF} to enable constrain conditions in hybrid phase-field (WIP).
+    \item New developments in parallel interpolations.
+    \item Tutorials added, use {\ttfamily make tutorials} to install.
+
 \end{itemize}
 \textbf{Changed}
 \begin{itemize}
 	\item Moved to FreeFEM 4.7-1.
 	\item Moved to PETSc 3.14.
+	\item New version of top-ii-vol v 1.3 support for exascale computing (includes new 2D 3D partitioning)
+	\item {\ttfamily-fastmethod}  now replaced by {\ttfamily-withmaterialtensor} (this is now inverse of {\ttfamily-fastmethod})	
 \end{itemize}
 \textbf{Removed}
 \begin{itemize}
