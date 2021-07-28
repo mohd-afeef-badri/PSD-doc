@@ -6,6 +6,25 @@ PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements
 \section{PSD evolution}
 PSD has been maturing and evolving with time, following subsections present the highlights of  some key changes made to each PSD version. 
 
+\subsection{ Version 2.2 - 2021-07-28} 
+\textbf{Added}
+\begin{itemize}
+    \item New and more verbose tutorials on fracture mechanics, soil-dynamics.
+    \item Fast and parallel post processing is now performed using \sh{pvtu} files.
+    \item New PETSc interface in plugins that supports pvtu output.
+    \item Error mechanism to signify wrong PSD flags. 
+\end{itemize}
+\textbf{Changed}
+\begin{itemize}
+    \item Flag values now donot contain hyphens \sh{-} use underscore instead \sh{\_}, e.g, 
+\sh{linear-elasticity} is now \sh{linear\_elasticity}
+    \item 4 CPU procs are now used for \sh{make check}, user can control this by \sh{make
+check NP=USER\_PROCS}.
+    \item Moved to FreeFEM 4.9 and PETSc 3.15.0 .
+    \item Moved to GitLab for hosting the repository.
+    \item New checks for wrong flag. Now if wrong flag or values is entered PSD will give error.
+    \item Boolean flags now also accept value 1|0|yes|no|on|off|true|false for turning on or off.
+\end{itemize}
 \subsection{Version 2.1 - 2021-01-27}
 \textbf{Added}
 \begin{itemize}

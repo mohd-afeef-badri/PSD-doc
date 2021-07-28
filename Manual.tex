@@ -101,6 +101,39 @@
   framesep=4pt, % quarter circle size of the round corners
 }
 
+\lstdefinestyle{BashInputStyle}
+{
+	backgroundcolor=\color{white},
+	basicstyle=\scriptsize\color{black}\ttfamily,
+	frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+	frameround=tttt, % make the frame round at all four corners
+	framesep=4pt, % quarter circle size of the round corners
+}
+
+    \lstdefinestyle{CppStyle}{
+	language=bash,
+	basicstyle=\small\sffamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=3pt,
+	morekeywords={real, macro, for, int, mpirank, abs},
+	morecomment=[l]{//},
+	morecomment=[s]{/*}{*/},
+	keywordstyle=\color{magenta}\ttfamily,
+	commentstyle=\color{blue}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	frame=tb,
+	columns=fullflexible,
+	backgroundcolor=\color{black!10},
+	linewidth=1.\linewidth,
+	xleftmargin=0.05\linewidth,
+	literate =
+	{"}{{\uprightquote}}1
+	{'}{{\textquotesingle}}1
+	{-}{{-}}1
+	,
+}
+
 \DeclareRobustCommand{\greektext}{%
   \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
 \DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
@@ -108,6 +141,8 @@
 
 \newcommand{\assemble}{%
   \mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
+
+\newcommand{\sh}[1]{{\ttfamily{#1}}}
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NEW COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bA}{\textbf{A}}

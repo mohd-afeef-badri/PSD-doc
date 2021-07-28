@@ -51,7 +51,16 @@ For ``PSD Preprocessing'' go to any folder, launch \lstinline[style=Linux]!PSD_P
 PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 1 -postprocess u
 \end{lstlisting}
 %
-After the ``PSD Preprocessing'' runs successfully you should see many files with \lstinline[style=Linux]!.edp! extension in your folder. \textit{What do the arguments mean ?}   \lstinline[style=Linux]! -problem linear-elasticity! means that we will be solving linear-elasticity problem, \lstinline[style=Linux]! -dimension 2! means it is a 2D simulation, \lstinline[style=Linux]!-bodyforceconditions 1! with body force; \lstinline[style=Linux]!-dirichletconditions 1! says we have one Dirichlet border; and \lstinline[style=Linux]! -postprocess u! means we would like to have ParaView post processing files. The input properties ``$E,\nu$'' can be mentioned in \lstinline[style=Linux]! ControlParameters.edp!, change \lstinline[style=Linux]! E  = 200.e9!, and \lstinline[style=Linux]! nu = 0.3;!. The volumetric body force condition is mentioned in the same file via variable \lstinline[style=Linux]! Fbc0Fy -78480.0!, i.e ($\rho g=8\text e3\times (-9.81)=-78480.0$). In addition variable \lstinline[style=Linux]! Fbc0On 1! has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in \lstinline[style=Linux]! ControlParameters.edp!. To provide the clamped boundary condition the variables   \lstinline[style=Linux]! Dbc0On 2!, \lstinline[style=Linux]! Dbc0Ux 0.!, and \lstinline[style=Linux]! Dbc0Uy 0.!  are used, which means for Dirichlet border 2 (\lstinline[style=Linux]! Dbc0On 2!) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {\lstinline[style=Linux]! Dbc0Ux 0.!, {\lstinline[style=Linux]! Dbc0Uy 0!} i.e., the clamped end condition ($u_x=u_y=0$).
+After the ``PSD Preprocessing'' runs successfully you should see many files with \lstinline[style=Linux]!.edp! extension in your folder.\\
+\noindent\textbf{What do the arguments mean ?}
+\begin{itemize}
+	\item \lstinline[style=Linux]! -problem linear-elasticity! means that we will be solving linear-elasticity problem,
+	\item \lstinline[style=Linux]! -dimension 2! means it is a 2D simulation, 
+	\item \lstinline[style=Linux]!-bodyforceconditions 1! with body force; \lstinline[style=Linux]!-dirichletconditions 1! says we have one Dirichlet border; and 
+	\item \lstinline[style=Linux]! -postprocess u! means we would like to have ParaView post processing files.
+\end{itemize}    
+
+The input properties ``$E,\nu$'' can be mentioned in \lstinline[style=Linux]! ControlParameters.edp!, change \lstinline[style=Linux]! E  = 200.e9!, and \lstinline[style=Linux]! nu = 0.3;!. The volumetric body force condition is mentioned in the same file via variable \lstinline[style=Linux]! Fbc0Fy -78480.0!, i.e ($\rho g=8\text e3\times (-9.81)=-78480.0$). In addition variable \lstinline[style=Linux]! Fbc0On 1! has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in \lstinline[style=Linux]! ControlParameters.edp!. To provide the clamped boundary condition the variables   \lstinline[style=Linux]! Dbc0On 2!, \lstinline[style=Linux]! Dbc0Ux 0.!, and \lstinline[style=Linux]! Dbc0Uy 0.!  are used, which means for Dirichlet border 2 (\lstinline[style=Linux]! Dbc0On 2!) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {\lstinline[style=Linux]! Dbc0Ux 0.!, {\lstinline[style=Linux]! Dbc0Uy 0!} i.e., the clamped end condition ($u_x=u_y=0$).
 
 \textbf{Step 2: Solving}
 
@@ -332,6 +341,50 @@ In~\cref{fig:3Dpart} there are four subdomais in the partitioned mesh since four
 
 \pagebreak
 
+\subsection{PSD sequential simulation  and CPU time logging \label{sec:seq-cpu}}
+
+To the problems detailed above can also be performed in sequential. Sequential solvers will always be slower than the parallel solvers however these are backbone for development cycle and ofcouse these are reference for the parallel solvers. Hence these interest the devlopment and validation process.
+
+To perform a sequential PSD simulation add \sh{-sequential} flag to \sh{PSD\_PreProcess} for sequential solver, but remember to use \sh{PSD\_Solve\_Seq} instead of \sh{PSD\_Solve}. So the work flow for the 2D problem would be:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -problem linear_elasticity -dimension 2 -bodyforceconditions 1 \
+	-dirichletconditions 1 -postprocess u -sequential
+\end{lstlisting}
+
+We solve the problem using the given mesh file \sh{bar.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve_Seq Main.edp -mesh ./../Meshes/2D/bar.msh -v 0
+\end{lstlisting}
+
+Similarly try out the 3D problem as well.
+
+\subsection{PSD  simulation with CPU time logging \label{sec:cpu}}
+
+PSD also provides mean to time log your solver via \sh{-timelog} flag. What this will do when you run your solver, on the terminal you will have information printed on what is the amount of time taken by each step of your solver. Warning, this will make your solver slower, as this action involves 'MPI\_Barrier' routines for correctly timing operation. 
+
+An example work flow of 2D solver with timelogging:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -problem linear_elasticity -dimension 2 -bodyforceconditions 1 \
+	-dirichletconditions 1 -postprocess u -timelog
+\end{lstlisting}
+
+We solve the problem using four MPI processes, with the given mesh file \sh{bar.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/bar.msh -v 0
+\end{lstlisting}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/le-time-par.png}
+	\caption{Time logging output produced for parallel run on 4 processes.\label{time-par-le}}
+\end{figure}
+
+The figure~\ref{time-par-le} shows the time logging output produced for parallel run on 4 processes using \sh{-timelog} flag. Take note of timings produced for different operations of the solver.
 
 \subsection{PSD simulation of 3D  mechanical piece (Dirichlet-Neumann case) with complex mesh\label{sec:3d-bar-clamped3-sub}}
 
@@ -399,6 +452,49 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
     \label{fig:mechapieceresult2}
 \end{figure}
 
+\subsubsection{Additional exercises on linear elasticity}
+\subsubsection{Exercise  1}
+
+There is a solver run level flag for mesh refinement \footnote{Mesh refinement is performed after partitioning.}. This flag is called \sh{-split [int]} which splits the triangles (resp. tetrahedrons) of your mesh into  four smaller  triangles (resp. tetrahedrons). As such \sh{-split 2} will produce a mesh with 4 times the elements of the input mesh. Similarly, \sh{-split n} where $n$ is a positive integer produces $2^n$ times more elements than the input mesh. You are encouraged to use this \sh{-split} flag to produce refined meshes and check, mesh convergence of a problem, computational time, etc. Use of parallel computing is recommended. You could try it out with \sh{PSD\_Solve} or \sh{PSD\_Solve\_Seq}, for example:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/bar.msh -v 0 -split 2
+\end{lstlisting}
+
+for splitting each triangle of the mesh  \sh{bar.msh} into 4. 
+
+
+\subsubsection{Exercise  2}
+
+There is a preprocess level flag \sh{-debug}, which as the name suggests should be used for debug proposes by developers. However, this flag will activate OpenGL live visualization of the problems displacement field. You are encouraged to try it out 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -problem linear_elasticity -dimension 2 -bodyforceconditions 1 \
+	-dirichletconditions 1 -postprocess u -timelog -debug
+\end{lstlisting}
+
+Then to run the problem we need traditional \sh{-wg} flag
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/bar.msh -v 0 -wg
+\end{lstlisting}
+
+\subsubsection{Exercise  3}
+
+There is a preprocess level flag \sh{-withmaterialtensor}, which introduces the full material tensor into the finite element variational formulation. You are encouraged to use this flag and see how the solver performs.
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -problem linear_elasticity -dimension 2 -bodyforceconditions 1 \
+	-dirichletconditions 1 -postprocess u -timelog -withmaterialtensor
+\end{lstlisting}
+
+Then to run the problem we need additional \sh{-wg} flag
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/bar.msh -v 0
+\end{lstlisting}
+
+To understand what the flag does, try to find out the difference between the files created by \sh{PSD\_PreProcess} when used with and without  \sh{-withmaterialtensor} flag. Especially, compare  \sh{ControlParameters.edp} and \sh{VariationalFormulations.edp} files produced by \sh{PSD\_PreProcess} step.
 
 
 \pagebreak
@@ -452,12 +548,729 @@ where,~${{V}}^h$ denotes the scalar finite element functional space to approxima
 {{V}}^h=\left\{\fih \in  {H}^1(\Omega^h)~~\forall t\in[0,T]~\middle|~\fih\in[0,1]  \right\}.
 \end{equation}
 
+
+\subsection{Tensile cracking of a pre-cracked plate: A 2D example of PSD parallel solver}
+
+A two dimensional test is introduced. The problem of interest is the typical single notch square plate cracking test under tensile loading. A unit square with a pre existing crack  is clamped at the bottom $u_1=u_2=0$ (first boundary condition) and is loaded quasi-statically $u_2=u_2 + \Delta u_2$ on its top surface till the crack propagates through its walls. So there are two Dirichlet conditions one on the top border and one on the bottom one.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.3\textwidth]{./Images/square-notch.png}
+	\caption{Domain of the single notch square cracking problem under tensile loading. \label{bar-sd}}
+\end{figure}
+
+To model this test PSD provides hybrid phase-field modelling  technique. We use ParaView post-processing of displacement $u$ and phase-field $d$ to visualise the cracking process. A PSD simulation is a two step process, with step one being the  \sh{ PSD\_PreProcess }:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem damage -model hybrid_phase_field \
+	-dirichletconditions 2 -postprocess ud
+\end{lstlisting}
+
+A note on flags. 
+
+- This is a two-dimensional problem, so we use the flag  \sh{-dimension 2}.
+- This problem indeed falls under the category of damage-mechanics, hence the flag \sh{ -problem damage}.
+- We wish to solve this problem by invoking the hybrid phase-field problem, which is signified by the flag  \sh{ -model hybrid\_phase\_field}.
+- Versed in the description above the problem contains two Dirichlet conditions, we signal this via the flag \sh{-dirichletconditions 2}. 
+- Finally for this problem we use the flag  \sh{-postprocess ud}  which enables post-processing of displacement $u$ and damage (phase-field)  $d$ fields.
+
+Once the step above has been performed, we solve the problem using four MPI processes, with the given mesh file \sh{tensile-crack.msh}. This is step two of the PSD simulation   \sh{ PSD\_Solve}.
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/tensile-crack.msh -v 0
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.24\textwidth]{./Images/u0.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u1.png} 
+	\includegraphics[width=0.24\textwidth]{./Images/u2.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u3.png}\\
+	\includegraphics[width=0.24\textwidth]{./Images/u4.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u5.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u6.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u7.png}
+	\caption{Finite element displacement visualised for the 2D problem with ParaView at different timesteps (quasi-statics). Time progresses from left to right in a row and top to bottom when comparing rows. \label{u-fem}}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.24\textwidth]{./Images/d0000.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d0010.png} 
+	\includegraphics[width=0.24\textwidth]{./Images/d0020.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d0030.png}\\
+	\includegraphics[width=0.24\textwidth]{./Images/d0040.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d0050.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d0060.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d0069.png}
+	\caption{Finite element damage visualised for the 2D problem with ParaView at different timesteps (quasi-statics). Time progresses from left to right in a row and top to bottom when comparing rows. \label{d-fem}}
+\end{figure}
+
+Figures \ref{u-fem} and \ref{d-fem} present the finite element displacement and damage field, which enable us to visualise the cracking of the square plate.
+
+
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.6\textwidth]{./Images/terminal1.png}
+	\caption{Applied traction, non-linear iterations to convergence, and residual being casted onto the terminal shell. \label{term}}
+\end{figure}
+
+While this test runs, you will see on your screen the amount of traction updated, non-linear iterations taken to converge per-quasi-time-step and residue of $u$ and $d$. See figure \ref{term} that shows the screenshot of the terminal while the test was running.  In order to construct your own test case try editing the  \sh{ControlParameters.edp} file   
+
+
+
+
+
+
+
+\subsection{Tensile cracking of a pre-cracked cube: A 3D example of PSD parallel solver}
+
+A three-dimensional test synonymous to its two-dimensional counterpart introduced above is used here as an tutorial example.   The problem of interest is now a unit extrusion (along $z$-axis) of the 2D case above. Cracking is initiated and propagated under tensile loading. The unit cube with its  pre existing crack  is clamped at the bottom $u_1=u_2=u_3=0$ (first boundary condition) and is loaded quasi-statically $u_2=u_2 + \Delta u_2$ on its top surface till the crack propagates through its walls. So there are two Dirichlet conditions one on the top border and one on the bottom one.
+
+Just like in the 2D case, to model this test PSD's' hybrid phase-field modelling  technique is used. We will again use ParaView post-processing of displacement $u$ and phase-field $d$ to visualise the cracking process. A PSD simulation is a two step process, with step one being the  \sh{ PSD\_PreProcess }:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem damage -model hybrid_phase_field  \
+	-dirichletconditions 2 -postprocess ud 
+\end{lstlisting}
+
+Notice that the flags used here are almost similar except for the   \sh{ -dimension 3 } flag, which indeed specifies three-dimensional problem.
+
+Once the step above has been performed, we solve the problem using four MPI processes, with the given mesh file \sh{tensile-crack.msh}. This is step two of the PSD simulation   \sh{ PSD\_Solve}.
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 3 Main.edp -mesh ./../Meshes/3D/tensile-crack.msh -v 0
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.24\textwidth]{./Images/u3d0.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u3d1.png} 
+	\includegraphics[width=0.24\textwidth]{./Images/u3d2.png}
+	\includegraphics[width=0.24\textwidth]{./Images/u3d3.png}
+	\caption{Finite element displacement visualised for the 3D problem with ParaView at different timesteps (quasi-statics). Time progresses from left to right in a row and top to bottom when comparing rows. \label{u3d-fem}}
+\end{figure}
+
+
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.24\textwidth]{./Images/d3d0.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d3d1.png} 
+	\includegraphics[width=0.24\textwidth]{./Images/d3d2.png}
+	\includegraphics[width=0.24\textwidth]{./Images/d3d3.png}
+	\caption{Finite element damage visualised for the 3D problem with ParaView at different timesteps (quasi-statics). Time progresses from left to right in a row and top to bottom when comparing rows. \label{d3d-fem}}
+\end{figure}
+
+Figures \ref{u3d-fem} and \ref{d3d-fem} present the finite element displacement and damage field of the 3D problem, which enable us to visualise the cracking of the cubic specimen.
+
+\subsection{Parallel 2D tensile cracking and calculate-ploting reaction-force}
+
+In solid mechanics often the quantities of interest includes plots such as reaction-force on a surface vs. the applied force. Often times these are experimental outputs and are used for validation. 
+
+PSD provides routines to calculate the reaction force on a surface and also provides means of live plotting (run-time)  of these results. Imagine the test case of tensile cracking of plate (2D) as discussed above. Considering we are now interested in seeing the plot of reaction force at surface vs. the applied tensile displacement, we would need to use two extra flags in the   \sh{ PSD\_PreProcess} step. These flags are \sh{-getreactionforce} and \sh{ -reactionforce  stress\_based } as read below:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem damage -model hybrid_phase_field \
+	-dirichletconditions 2 -getreactionforce -reactionforce stress_based
+\end{lstlisting}
+
+The flag  \sh{-getreactionforce} directs PSD to include the routines to get the reaction force and  \sh{ -reactionforce  stress\_based } is the method by which we get reaction force, in this case reaction force is calculated using integral of stress in $y$ direction $F_y=\int_{\partial\Omega_{top}} \sigma_y$. Other method \sh{ -reactionforce variational\_based} also exists within PSD, which is more accurate but slower, this method calculates reaction force based on matrix vector multiplication ${F_x,F_y}=\mathbf{A}{u_1,u_2}$ .
+
+Run the problem in the usual way bu using \sh{ PSD\_Solve} and appropriate number of processes and mesh.  While the PSD solver runs it will create a file \sh{ force.data} that contains the reaction force and the applied traction. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/tensile-crack.msh -v 0
+\end{lstlisting}
+
+You can then go ahead and plot \sh{ force.data} to see how $F_y$ and $F_x$  evolve  with $\Delta u_2$. Within the file the first column is the loading $\Delta u_2$, the second and the third columns are the forces $F_x$ and $F_y$.
+
+
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.4\textwidth]{./Images/plot-fd.png}
+	\caption{Applied traction vs. force in y direction. \label{fd-plot}}
+\end{figure}
+
+Optionally if you have GnuPlot configured with PSD you can see live ploting of this curve if you use option  \sh{-plotreactionforce} during the  \sh{ PSD\_PreProcess}. 
+
+\begin{figure}[h!]
+	\centering
+	
+	\includegraphics[width=0.3\textwidth]{./Images/gp0.png}\includegraphics[width=0.3\textwidth]{./Images/gp1.png}\includegraphics[width=0.3\textwidth]{./Images/gp2.png}
+	\caption{Applied traction vs. force in y direction plotted live using PSD. \label{gnuplot-plot}}
+\end{figure}
+
+
+
+\subsection{Parallel 3D and calculate reactionforce}
+
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem damage -model hybrid_phase_field \
+	-dirichletconditions 2 -getreactionforce -reactionforce stress_based
+\end{lstlisting}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 3 Main.edp -mesh ./../Meshes/3D/tensile-crack.msh -v 0
+\end{lstlisting}
+
+
+
+\subsection{L-shape cracking with point loading}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.3\textwidth]{./Images/fm-geometry.png}
+	\caption{Geometry of the L-shaped test used in this tutorial. \label{L-shape-geo}}
+\end{figure}
+
+\subsubsection{Preprocessing}
+
+You can either solver the problem using vectorial approach (recommended) or using staggered approach. To generate the solver use either from below.
+
+\textbf{Generation of solver (vectorial)}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem damage -model hybrid_phase_field \
+	-dirichletconditions 1 -dirichletpointconditions 1 -debug -postprocess ud \
+	-energydecomp -constrainHPF -vectorial -getreactionforce -plotreactionforce \
+	-reactionforce variational_based
+\end{lstlisting}
+
+\textbf{Generating solver (staggered)}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem damage -model hybrid_phase_field \
+	-dirichletconditions 1 -dirichletpointconditions 1 -debug -postprocess ud \
+	-energydecomp -constrainHPF -getreactionforce -plotreactionforce \
+	-reactionforce variational_based
+\end{lstlisting}
+
+
+\subsubsection{Edit Cycle}
+
+\textbf{Edit ControlParameter.edp:}
+
+\begin{itemize}
+	
+	\item Update physical parameter, change
+	
+	\begin{lstlisting}[style=CppStyle]
+		real lambda = 121.15e3 ,
+		mu     = 80.77e3  ,
+		Gc     = 2.7      ; 
+	\end{lstlisting}
+	
+	to
+	
+	\begin{lstlisting}[style=CppStyle]
+		real lambda = 6.16e3 ,
+		mu     = 10.95e3 ,
+		Gc     = 8.9e-2  ;
+	\end{lstlisting}
+	
+	\item Update solver parameter , change
+	
+	\begin{lstlisting}[style=CppStyle]
+		real lfac  = 2.0  ,
+		maxtr = 7e-3 ,
+		tr    = 1e-5 ,
+		dtr   = 1e-5 ,
+		lo           ; 
+	\end{lstlisting}
+	
+	to
+	
+	\begin{lstlisting}[style=CppStyle]
+		real lfac  = 2.0  ,
+		maxtr = 1    ,
+		tr    = 1e-2 ,
+		dtr   = 1e-2 ,
+		lo           ; 
+	\end{lstlisting}
+	
+	
+	\item Enter the correct Point boundary condition, change
+	
+	\begin{lstlisting}[style=CppStyle]
+		real[int,int] PbcCord = [
+		//-------------------- [  x  , y  ] --------------------//
+		[  0. , 0. ]    // point 0                       
+		//------------------------------------------------------//
+		];
+		
+		macro Pbc0Ux  -0. //
+		macro Pbc0Uy  -0. //
+	\end{lstlisting}
+	
+	to 
+	
+	\begin{lstlisting}[style=CppStyle]
+		real[int,int] PbcCord = [
+		//-------------------- [  x  , y  ] --------------------//
+		[  470., 250. ]    // point 0                       
+		//------------------------------------------------------//
+		]
+		;
+		macro Pbc0Uy  tr //
+	\end{lstlisting}
+	
+\end{itemize}
+
+
+\textbf{Edit LinearFormBuilderAndSolver.edp:}
+
+\begin{itemize}
+	
+	\item To postprocess correct reaction forces in LinearFormBuilderAndSolver.edp for vectorial solver, change
+	
+	\begin{lstlisting}[style=CppStyle]
+		for(int i=0; i < Th.nv; i++){
+			if(abs(Th(i).y-1.)<.000001){
+				forcetotx = forcetotx + F[][i*3]*DP[i*3];           
+				forcetoty = forcetoty + F[][i*3+1]*DP[i*3+1];       
+			}
+		} 
+	\end{lstlisting}
+	
+	to
+	
+	\begin{lstlisting}[style=CppStyle]
+		if(mpirank==mpirankPCi[0]){
+			forcetotx = forcetotx + F[][PCi[0]*3+0]*DP[PCi[0]*3+0];
+			forcetoty = forcetoty + F[][PCi[0]*3+1]*DP[PCi[0]*3+1]; 
+		} 
+	\end{lstlisting}
+	
+	\item To postprocess correct reaction forces in LinearFormBuilderAndSolver.edp for staggered solver, change
+	
+	\begin{lstlisting}[style=CppStyle]
+		for(int i=0; i < Th.nv; i++){
+			if(abs(Th(i).y-1.)<.000001){
+				forcetotx = forcetotx + F[][i*2]*DP[i*2];           
+				forcetoty = forcetoty + F[][i*2+1]*DP[i*2+1];       
+			}
+		}
+	\end{lstlisting}
+	
+	to
+	
+	\begin{lstlisting}[style=CppStyle]
+		if(mpirank==mpirankPCi[0]){
+			forcetotx = forcetotx + F[][PCi[0]*2+0]*DP[PCi[0]*2+0];
+			forcetoty = forcetoty + F[][PCi[0]*2+1]*DP[PCi[0]*2+1]; 
+		} 
+	\end{lstlisting}
+	
+	\item Finally to include cyclic loading, change
+	
+	\begin{lstlisting}[style=CppStyle]
+		//-----------------updating traction----------------//
+		
+		tr += dtr; 
+	\end{lstlisting}
+	
+	
+	to
+	
+	\begin{lstlisting}[style=CppStyle]
+		//-----------------updating traction----------------//
+		
+		if(iterout<50)
+		tr += dtr;
+		if(iterout>=51 && iterout<110) 
+		tr -= dtr; 
+		if(iterout>=111)
+		tr += dtr; 
+	\end{lstlisting}
+	
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.3\textwidth]{./Images/fm-mesh.png}
+		\caption{Finite element mesh of the L-shaped test. \label{L-shape-mesh}}
+	\end{figure}
+	
+\end{itemize}
+
+
+\subsection{Solving}
+
+Irrespective of weather vectorial or staggered mode is used solve the problem using \sh{PSD\_Solve}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -wg -v 0 -mesh ./../Meshes/2D/L-shaped-crack.msh
+\end{lstlisting}
+
+\subsubsection{Postprocessing}
+
+Use ParaView to post process results. 
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.3\textwidth]{./Images/fm-d1.png}
+	\includegraphics[width=0.3\textwidth]{./Images/fm-d2.png}
+	\includegraphics[width=0.3\textwidth]{./Images/fm-d3.png}
+	\caption{Finite element solution showing: Crack initiation,  movement, and  development. \label{L-shape-mesh-crack}}
+\end{figure}
+
+On you screen, the force displacement curve which plots \sh{force.data} should look something like this
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./Images/fm-force-displacement.png}
+	\caption{Force-displacement curve with cyclic loading. \label{L-shape-fd-curve}}
+\end{figure}
+
+\subsection{Exercise 1}
+
+Optionally try changing \sh{-reactionforce stress\_based} to \sh{-reactionforce variational\_based} for changing the method to extract reaction force, note that stress based method is way faster.
+
+\subsection{Exercise 2}
+
+Optionally try using  \sh{-useGFP} flag with \sh{PSD\_PreProcess} optimized solver
+
+\subsection{Exercise 3}
+
+Add \sh{-sequential} flag to \sh{PSD\_PreProcess} for sequential solver, but remember to use \sh{PSD\_Solve\_Seq} instead of \sh{PSD\_Solve}
+
+\subsection{Advanced Exercise 1}
+try the \sh{-vectorial} flag for vectorial finite element method
+
+\subsection{Advanced Exercise 2}
+try the \sh{-energydecomp} flag for using split of tensile energy
+
+\subsection{Advanced Exercise 3}
+try using \sh{-constrainHPF} flag for using the constrain condition in hybrid phase field model
+
 \pagebreak
 
 \section{Elastodynamics}
+
+\subsection{Parallel 2D}
+
+The problem of interest is a single Dirichlet condition (clamped end bar) and traction loading. For this example we use Newmark-$\beta$ time discretization. Additionally postrocessing is demanded for displacement, acceleration, and velocity ($u,a,v$). 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta -postprocess uav
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using two MPI processes, with the given mesh file \sh{bar-dynamic.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\includegraphics[width=0.19\textwidth]{./Images/ed-u0.png}
+	\includegraphics[width=0.19\textwidth]{./Images/ed-u2.png}
+	\includegraphics[width=0.19\textwidth]{./Images/ed-u3.png}
+	\includegraphics[width=0.19\textwidth]{./Images/ed-u4.png}
+	\includegraphics[width=0.19\textwidth]{./Images/ed-u5.png}
+	\caption{Finite element displacement field on warped mesh shown at different time steps. \label{bar-ed}}
+\end{figure}
+
+Using ParaView for postprocessing the results that are provided in the \sh{VTUs...} folder, results such as those shown in figure~\ref{bar-ed} can be extracted. 
+
+\subsection{Parallel 3D}
+
+The problem of interest is a single Dirichlet condition (clamped end bar) and traction loading. For this example we use Newmark-$\beta$ time discretization. Additionally postrocessing is demanded for displacement, acceleration, and velocity ($u,a,v$). 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using four MPI processes, with the given mesh file \sh{bar-dynamic.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/3D/bar-dynamic.msh -v 0
+\end{lstlisting}
+
+
+\subsection{Sequential problems}
+
+To the same problems above Add \sh{-sequential} flag to \sh{PSD\_PreProcess} for sequential solver, but remember to use \sh{PSD\_Solve\_Seq} instead of \sh{PSD\_Solve}. So the work flow for the 2D problem would be:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta -postprocess uav -sequential
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using the given mesh file \sh{bar-dynamic.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve_Seq -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0
+\end{lstlisting}
+
+Similarly try out the 3D problem as well.
+
+\subsection{Different time discretization}
+
+PSD offers different time discretization techniques for solving time dependent problems. For this example instead of using Newmark-$\beta$ time  discretization let us switch to more advanced Generalized-$\alpha$ one. This can be done by \sh{-timediscretization generalized\_alpha}, so for example for a 2D problem we use:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization generalized_alpha -postprocess uav
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using three MPI processes, with the given mesh file \sh{bar-dynamic.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 3 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0
+\end{lstlisting}
+
+Similarly try out the 3D problem as well.
+
+\subsection{Comparing CPU time}
+
+PSD provides mean to time log your solver via \sh{-timelog} flag. What this will do when you run your solver, on the terminal you will have information printed on what is the amount of time taken by each step of your solver. Warning, this will make your solver slower, as this action involves MPIbarrier routines for correctly timing operation. 
+
+An example work flow of 2D solver with timelogging:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta -postprocess uav -timelog
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using two MPI processes, with the given mesh file \sh{bar-dynamic.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0
+\end{lstlisting}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/ed-time-par.png}
+	\caption{Time logging output produced for parallel run on 2 processes.\label{time-par-ed}}
+\end{figure}
+
+The figure~\ref{time-par-ed} shows the time logging output produced for parallel run on 2 processes using \sh{-timelog} flag. Similar output is produced for sequential solver of the same problem shown in figure~\ref{time-seq-ed}. Take note of the speed up, which should be two folds - parallel solver solves the full problem in half the time (1.5 sec) than that of sequential solver (3.3 sec). This is due to the fact we used 2 MPI processes.
+
+Also take note of timings produced for different operations of the solver. Note that in figures~\ref{time-par-ed}, \ref{time-seq-ed}, we only see the final time step of the solved problem. 
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/ed-time-seq.png}
+	\caption{Time logging output produced for parallel run on 2 processes.\label{time-seq-ed}}
+\end{figure}
+
+\subsection{Exercise 1}
+
+You are encouraged to try out timelogging and find out if the code (parallel/sequential) is any faster when we use Newmark-$\beta$ or Generalized-$\alpha$. Read the documentation for other types of time discretizations that can be performed with PSD, try each one out with \sh{-timelog} and compare. 
+
+\subsection{Exercise  2}
+
+There is a solver run level flag for mesh refinement \footnote{Mesh refinement is performed after partitioning.}. This flag is called \sh{-split [int]} which splits the triangles (resp. tetrahedrons) of your mesh into  four smaller  triangles (resp. tetrahedrons). As such \sh{-split 2} will produce a mesh with 4 times the elements of the input mesh. Similarly, \sh{-split n} where $n$ is a positive integer produces $2^n$ times more elements than the input mesh. You are encouraged to use this \sh{-split} flag to produce refined meshes and check, mesh convergence of a problem, computational time, etc. Use of parallel computing is recommended. You could try it out with \sh{PSD\_Solve} or \sh{PSD\_Solve\_Seq}, for example:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0 -split 2
+\end{lstlisting}
+
+for splitting each triangle of the mesh  \sh{bar-dynamic.msh} into 4. 
+
+
+\subsection{Exercise  3}
+
+There is a preprocess level flag \sh{-debug}, which as the name suggests should be used for debug proposes by developers. However, this flag will activate OpebGL live plotting of the problem, with displaced mesh. You are encouraged to try it out 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta -postprocess uav -timelog -debug
+\end{lstlisting}
+
+Then to run the problem we need aditional \sh{-wg} flag
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0 -wg
+\end{lstlisting}
+
+\subsection{Exercise  4}
+
+PSD comes with additional set of plugins/functions that are highly optimized for performing certain operations during solving. These operations are handled by GoFast Plugins (GFP) kernel of PSD (optimize C++ classes/templates/structures), by default this functionality is turned off and not used. You are encouraged to try out using GFP functions in a solver by using \sh{-useGFP} flag flag to \sh{PSD\_PreProcess} For example, the PSD solver workflow for the first 2D example in this tutorial would be:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+	-timediscretization newmark_beta -postprocess uav -useGFP
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using, with the given mesh file \sh{bar-dynamic}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -mesh ./../Meshes/2D/bar-dynamic.msh -v 0 -wg
+\end{lstlisting}
+
+Try it out for other problems of this tutorial. \sh{-useGFP} should lead to a faster solver, it might be a good idea to always use this option. To go one step further, use \sh{-timelog} flag and determine if you have some speed up.
+
+
 \pagebreak
 
 \section{Soil dynamics}
+
+\subsection{Parallel 2D}
+
+The problem of interest is a single Dirichlet condition problem of soildynamics in 2D. For this problem we use Newmark-$\beta$ time discretization. Additionally postrocessing is demanded for displacement, acceleration, and velocity ($u,a,v$).
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem soildynamics -dirichletconditions 1 -timediscretization newmark_beta \
+	-postprocess uav
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using four MPI processes, with the given mesh file \sh{soil.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/soil.msh -v 0
+\end{lstlisting}
+
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/sd-u0.png}
+	\includegraphics[width=0.4\textwidth]{./Images/sd-u1.png}\\
+	\includegraphics[width=0.4\textwidth]{./Images/sd-u2.png}
+	\includegraphics[width=0.4\textwidth]{./Images/sd-u3.png}\\
+	\includegraphics[width=0.4\textwidth]{./Images/sd-u4.png}
+	\caption{Finite element displacement and velocity fields visualized for the 2D problem with ParaView at different timesteps. \label{bar-sd}}
+\end{figure}
+
+Using ParaView for postprocessing the results that are provided in the \sh{VTUs...} folder, results such as those shown in figure~\ref{bar-sd} can be extracted.
+
+
+\subsection{Parallel 3D}
+
+The problem of interest is a single Dirichlet condition problem of soildynamics in 3D. For this problem we use Newmark-$\beta$ time discretization. Additionally postrocessing is demanded for displacement, acceleration, and velocity ($u,a,v$).
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem soildynamics -dirichletconditions 1 -timediscretization newmark_beta \
+	-postprocess uav
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using three MPI processes, with the given mesh file \sh{soil.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 3 Main.edp -mesh ./../Meshes/3D/soil.msh -v 0
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.4\textwidth]{./Images/sd-3du0.png}
+	\includegraphics[width=0.4\textwidth]{./Images/sd-3du1.png}\\
+	\includegraphics[width=0.4\textwidth]{./Images/sd-3du2.png}
+	\includegraphics[width=0.4\textwidth]{./Images/sd-3du3.png}\\
+	\includegraphics[width=0.4\textwidth]{./Images/sd-3du4.png}
+	\caption{Finite element displacement and velocity fields visualized for the 3D problem with ParaView at different timesteps. \label{bar3d-sd}}
+\end{figure}
+
+Using ParaView for postprocessing the results that are provided in the \sh{VTUs...} folder, results such as those shown in figure~\ref{bar3d-sd} can be extracted.
+
+\subsection{Parallel 2D with double couple}
+
+In the 2D problem above seismic sources was supplied on the border, in the current one the source is more realistic and comes from a double couple (point Dirichlet condition). The double couple boundary condition is a way to impose moments caused by faults that create earthquakes, here in this problem double couple is imposed using displacement based. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem soildynamics -model linear -timediscretization newmark-beta \
+	-useGFP -doublecouple displacement-based -postprocess uav
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using two MPI processes, with the given mesh file \sh{soil-dc.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 2 Main.edp -v 1 -ns -nw -mesh ./../Meshes/2D/soil-dc.msh
+\end{lstlisting}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=0.45\textwidth]{./Images/sd-2ddcu0.png}
+	\includegraphics[width=0.45\textwidth]{./Images/sd-2ddcu1.png}\\
+	\includegraphics[width=0.45\textwidth]{./Images/sd-2ddcu2.png}
+	\caption{Finite element displacement and acceleration fields visualized for the 2D problem with ParaView at different timesteps. \label{bar2ddc-sd}}
+\end{figure}
+
+Using ParaView for postprocessing the results that are provided in the \sh{VTUs...} folder, results such as those shown in figure~\ref{bar2ddc-sd} can be extracted.
+
+Similarly try out the 3D problem. However take note that a the mesh \sh{./../Meshes/2D/soil-dc.msh} is not provided, so you will have to create your own mesh. 
+
+
+\subsection{Parallel 3D with top-ii-vol meshing}
+
+Single Dirichlet at the bottom and using GFP.
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem soildynamics -model linear -timediscretization newmark_beta \
+	-useGFP -top2vol-meshing -timediscretization newmark-beta -postprocess uav
+\end{lstlisting}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -v 0 -ns -nw 
+\end{lstlisting}
+
+
+\subsection{Parallel 3D with top-ii-vol meshing and double couple source}
+
+Single Dirichlet via double couple and using GFP. Double couple is displacement based. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 3 -problem soildynamics -model linear -timediscretization newmark_beta \
+	-useGFP -top2vol-meshing -doublecouple displacement-based -postprocess uav
+\end{lstlisting}
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 3 Main.edp -v 0 -ns -nw 
+\end{lstlisting}
+
+\subsection{Exercise  1}
+
+You are encouraged to try out sequential PSD solver, to do so used add \sh{-sequential} flag to \sh{PSD\_PreProcess} step and run the solver with \sh{PSD\_Solve\_Seq} instead of \sh{PSD\_Solve}. For example, the PSD sequential solver workflow for the first 2D example in this tutorial would be:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem soildynamics -dirichletconditions 1 -timediscretization newmark_beta \
+	-postprocess uav -sequential
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using \sh{PSD\_Solve\_Seq}, with the given mesh file \sh{soil.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve_Seq  Main.edp -mesh ./../Meshes/2D/soil.msh -v 0
+\end{lstlisting}
+
+Try it out for other problems of this tutorial. 
+
+\subsection{Exercise 2}
+
+For soildynamic problems with double couple source, the double couple source can be introduced into the solver either by displacement-based operator -- providing displacements at the double couple points that will be converted to moments -- or by force-based operators -- providing forces at the double couple points that  will be converted to moments. In the tutorials above we already tried displacement-based way of introducing double couple source by using \sh{-doublecouple displacement\_based}. You are encouraged to try out the force-based double couple source by using \sh{-doublecouple force\_based}.
+
+\subsection{Exercise 3}
+
+You are encouraged to try out timelogging and find out if the code (parallel/sequential) is any faster when we use Newmark-$\beta$ or Generalized-$\alpha$. Read the documentation for other types of time discretizations that can be performed with PSD, try each one out with \sh{-timelog} and compare.
+
+\subsection{Exercise  4}
+
+PSD comes with additional set of plugins/functions that are highly optimized for performing certain operations during solving. These operations are handled by GoFast Plugins (GFP) kernel of PSD (optimize C++ classes/templates/structures), by default this functionality is turned off and not used. You are encouraged to try out using GFP functions in a solver by using \sh{-useGFP} flag flag to \sh{PSD\_PreProcess} For example, the PSD solver workflow for the first 2D example in this tutorial would be:
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_PreProcess -dimension 2 -problem soildynamics -dirichletconditions 1 -timediscretization newmark\_beta \
+	-postprocess uav -useGFP
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using, with the given mesh file \sh{soil.msh}. 
+
+\begin{lstlisting}[style=BashInputStyle]
+	PSD_Solve -np 4 Main.edp -mesh ./../Meshes/2D/soil.msh -v 0
+\end{lstlisting}
+
+Try it out for other problems of this tutorial. \sh{-useGFP} should lead to a faster solver, it might be a good idea to always use this option. To go one step further, use \sh{-timelog} flag and determine if you have some speed up. 
 
 
 

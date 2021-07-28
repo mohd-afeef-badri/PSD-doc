@@ -20,6 +20,8 @@ $(FILE).bbl: $(FILE).tex $(TEXDEP)
 clean:
 	rm -f *.bbl
 	rm -f *.blg
+	rm -f *.bcf
+	rm -f *.xml		
 	rm -f *.glo
 	rm -f *.gls
 	rm -f *.idx
