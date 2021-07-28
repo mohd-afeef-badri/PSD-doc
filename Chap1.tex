@@ -1,7 +1,7 @@
 \chapter{Introduction} 
 
 \section{Introduction} 
-PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements-based solid mechanics solver with capabilities of performing High Performance Computing (HPC) simulations with billions of unknowns. The kernel of PSD is wrapped around FreeFEM for finite element discretization, and PETSc for linear algebra/Preconditioning. PSD solver contains straightforward supports for static or dynamic simulations with linear  and nonlinear solid mechanics problems. Besides these hybrid-phase field fracture mechanics models have also been incorporated within PSD. For dynamics the generalized-$\alpha$ model  for time discretization is used, this models enable straightforward use of Newmark-$\beta$, central difference, or HHT as time discretization. PSD uses sate-of-the art domain-decomposition paradigm via vectorial finite elements for parallel computing and all solvers are  proven to scale quasi-optimally. PSD has proven scalabilty uptill 13,000 cores with largest problem solved containing over 5 Billion unknowns.
+PSD acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite elements-based solid mechanics solver with capabilities of performing High Performance Computing (HPC) simulations with billions of unknowns. The kernel of PSD is wrapped around FreeFEM for finite element discretization, and PETSc for linear algebra/Preconditioning. PSD solver contains straightforward supports for static or dynamic simulations with linear  and nonlinear solid mechanics problems. Besides these hybrid-phase field fracture mechanics models have also been incorporated within PSD. For dynamics the generalized-$\alpha$ model  for time discretization is used, this models enable straightforward use of Newmark-$\beta$, central difference, or HHT as time discretization. PSD uses sate-of-the art domain-decomposition paradigm via vectorial finite elements for parallel computing and all solvers are  proven to scale quasi-optimally. PSD has proven scalability uptill 13,000 cores with largest problem solved containing over 5 Billion unknowns.
 
 \section{PSD evolution}
 PSD has been maturing and evolving with time, following subsections present the highlights of  some key changes made to each PSD version. 
@@ -280,6 +280,7 @@ PSD has been maturing and evolving with time, following subsections present the 
 \item | [1.7]       |aee9bfec868a70b3d9974d7692bc19f9739ab7dc |
 \item | [1.8]       |2f26292636c7248133e31ae912ee58113de2ef71 |
 \item | [2.0]       |1e1a4d7f10df30d106b52eba1c5caf69e8bc0f36 |
+\item | [2.1]       |8b9d84f25aedbd684eb0f06cdd4ffbbf9a60a0e2 |
 \end{itemize}
 \pagebreak
 

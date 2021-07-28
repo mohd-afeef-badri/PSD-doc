@@ -47,7 +47,7 @@ To showcase the usage of Linear elasticity, we shall discuss here an example of 
 
 First step in a PSD simulation is ``PSD preprocessing'', at this step you tell PSD what kind of physics, boundary conditions, approximations, mesh, etc are you expecting to solve.
 For ``PSD Preprocessing'' go to any folder, launch \lstinline[style=Linux]!PSD_PreProcess! from the terminal with the following command:
-\begin{lstlisting}[style=Linux]  
+\begin{lstlisting}[style=BashInputStyle]  
 PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 1 -postprocess u
 \end{lstlisting}
 %
@@ -57,7 +57,7 @@ After the ``PSD Preprocessing'' runs successfully you should see many files with
 
 As PSD is a parallel solver, let us use  4 cores to solve the 2D bar case. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 4 Main.edp
 \end{lstlisting}
 
@@ -87,7 +87,7 @@ For this test the properties of the material are the same as used in \cref{sec:2
 \textbf{Step 1: Preprocessing}
 
 For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 2 -postprocess u
 \end{lstlisting}
 %
@@ -97,7 +97,7 @@ Since basic nature of both the problems is same this is the exact same command u
 
 Let us now use  3 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 3 Main.edp
 \end{lstlisting}
 %
@@ -145,7 +145,7 @@ In this section we showcase the 2D bar problem simulation with one end clamped w
 \textbf{Step 1: Preprocessing}
 
 For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 2 -postprocess u
 \end{lstlisting}
 %
@@ -156,7 +156,7 @@ To provide these Dirichlet conditions of the two ends in {\ttfamily ControlParam
 
 Let us now use 2 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 2 Main.edp
 \end{lstlisting}
 %
@@ -191,7 +191,7 @@ Similar simulation, as in \cref{sec:2d-bar-clamped2} is presented in this sectio
 \textbf{Step 1: Preprocessing}
 
 For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 %
@@ -203,7 +203,7 @@ To provide the clamped boundary condition ($u_1=0,u_2=0$) set the variables  {\t
 
 Let us now use 5 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 5 Main.edp
 \end{lstlisting}
 %
@@ -242,9 +242,9 @@ Similar simulations, as in \cref{sec:2d-bar-clamped2,sec:2d-bar-clamped3} is pre
 \textbf{Step 1: Preprocessing}
 
 For ``PSD preprocessing'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -problem linear-elasticity -dimension 2 -dirichletconditions 1 -tractionconditions 1 \
- -dirichletpointconditions 1 -postprocess u
+-dirichletpointconditions 1 -postprocess u
 \end{lstlisting}
 
 Additional flag {\ttfamily -dirichletpointconditions 1} now appears, this notifies to PSD that there is one Dirichlet point boundary condition. Edit the  {\ttfamily ControlParameters.edp} to communicate the desired point boundary conditions, set the variables {\ttfamily Pbc0Ux  0.} and {\ttfamily Pbc0Uy  0.} to specify $u_x=0,u_y=0$, and variable {\ttfamily PbcCord = [[  0. , 0. ]];} to specify the point coordinates $(x,y)=(0,0)$. Via the flags we specified that {\ttfamily -dirichletconditions 1}, i.e., there is one Dirichlet border.
@@ -254,7 +254,7 @@ To provide the Dirichlet condition ($u_x=0$) set the variables {\ttfamily Dbc0On
 
 Let us now use 6 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 6 Main.edp
 \end{lstlisting}
 %
@@ -293,7 +293,7 @@ Here is how PSD simulation of this case can be performed.
 \textbf{Step 1: Preprocessing}
 
 For ``PSD setup'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess  -problem linear-elasticity -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 %
@@ -305,7 +305,7 @@ To provide Dirichlet conditions of the  clamped end ($u_x=0,u_y=0,u_z=0$) in {\t
 
 Let us now use 4 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 4 Main.edp
 \end{lstlisting}
 %
@@ -338,7 +338,7 @@ In~\cref{fig:3Dpart} there are four subdomais in the partitioned mesh since four
 So far in the previous cases we only concentrated on bar simulations, which were more or less trivial cases. Moreover, the bar meshes are provided with the PSD solver. In this section we now turn towards  3D simulation of a mechanical piece, the geometry of which is shown in~\cref{fig:mechanicalpiecegeo}. The left (small) hole is fixed: $u_1=u_2=u_3=0$, while as traction force $t_x=10^9$ is applied on the large hole.
 
 You can grab a copy of CAD geometry for the mechanical piece (the Gmsh {\ttfamily .geo}) your local Gmsh installation folder  {\ttfamily gmsh/share/doc/gmsh/demos/simple\_geo/{piece}.geo}. The listing of the file is also given in @. To generate the mesh {\ttfamily piece.msh} simply do 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 gmsh -3 piece.geo
 \end{lstlisting}
 Place the generated mesh {\ttfamily piece.msh} in {\ttfamily /PSD/Meshes/3D/piece.msh}. Now the PSD simulation can be performed.
@@ -353,7 +353,7 @@ Place the generated mesh {\ttfamily piece.msh} in {\ttfamily /PSD/Meshes/3D/piec
 \textbf{Step 1: Preprocessing}
 
 For ``PSD setup'' go to any folder, launch the terminal there and run the following command.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess  -problem linear-elasticity -dimension 3 -dirichletconditions 1 -tractionconditions 1 -postprocess u
 \end{lstlisting}
 Here, by using these parameters we have generated one Dirichlet condition and one traction condition, respectively to be applied to the small and the large holes in the mesh. Further, by using {\ttfamily -dimension 3} we have let PSD know that the problem is 3D .In the {\ttfamily /PSD/Meshes/3D/piece.msh} generated, the label 4 (resp.~3) corresponds to the Dirichlet (resp.~traction) border. 
@@ -363,7 +363,7 @@ To provide Dirichlet conditions on label number 4 ($u_x=0,u_y=0,u_z=0$) in {\ttf
 
 Let us now use 2 cores to solve this problem. To do so enter the following command:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_Solve -np 2 Main.edp
 \end{lstlisting}
 
@@ -467,7 +467,7 @@ where,~${{V}}^h$ denotes the scalar finite element functional space to approxima
  *============================================================*\\
   \textbf{Sequential  2D linear-elasticity}\\                   
  *============================================================*\\
-\begin{lstlisting}[style=Linux] 
+\begin{lstlisting}[style=BashInputStyle] 
 PSD_PreProcess -dimension 2 -bodyforceconditions 1 conditions 1 -sequential -dirichletconditions 1 
 	
 PSD_Solve_Seq Main.edp -v 0 -ns -nw 
@@ -477,7 +477,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================*\\
  \textbf{Sequential  3D linear-elasticity}                   \\
 *============================================================*\\
-\begin{lstlisting}[style=Linux] 
+\begin{lstlisting}[style=BashInputStyle] 
 PSD_PreProcess -dimension 3 -bodyforceconditions 1 -sequential -dirichletconditions 1
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw
@@ -487,7 +487,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================*\\
 \textbf{ Sequential  2D linear-elasticity fastmethod }      \\
 *============================================================*\\
-\begin{lstlisting}[style=Linux] 
+\begin{lstlisting}[style=BashInputStyle] 
 PSD_PreProcess -dimension 2 -bodyforceconditions 1 -sequential -dirichletconditions 1 -fastmethod 
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw	
@@ -495,7 +495,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================*\\
 \textbf{ Sequential  3D linear-elasticity   fastmethod }     \\
 *============================================================*\\
-\begin{lstlisting}[style=Linux] 
+\begin{lstlisting}[style=BashInputStyle] 
 PSD_PreProcess -dimension 3 -bodyforceconditions 1 -sequential -dirichletconditions 1 -fastmethod 
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw  	
@@ -507,7 +507,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D linear-elasticity }                  \\
 *============================================================*\\
 	
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 1 
 
 ff-mpirun-np 2  Main.edp -v 0 -ns -nw
@@ -516,7 +516,7 @@ ff-mpirun-np 2  Main.edp -v 0 -ns -nw
 \textbf{ Parallel 3D linear-elasticity  }                 \\
 *============================================================\\
 	
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -bodyforceconditions 1  -dirichletconditions 1 
 
 ff-mpirun-np 2  Main.edp -v 0 -ns -nw
@@ -525,7 +525,7 @@ ff-mpirun-np 2  Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D linear-elasticity     fastmethod  }            \\
 *============================================================\\
 	
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -bodyforceconditions 1  -dirichletconditions 1 -fastmethod  
 
 ff-mpirun-np 2  Main.edp -v 0 -ns -nw	
@@ -534,7 +534,7 @@ ff-mpirun-np 2  Main.edp -v 0 -ns -nw
 \textbf{ Parallel 3D linear-elasticity     fastmethod }             \\
 *============================================================\\
 	
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -bodyforceconditions 1  -dirichletconditions 1 -fastmethod  
 
 ff-mpirun-np 2  Main.edp -v 0 -ns -nw
@@ -545,7 +545,7 @@ ff-mpirun-np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential  2D phase-field fracture mechanics }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2   
 
 PSD_Solve Main.edp -v 0 -ns -nw   
@@ -554,7 +554,7 @@ PSD_Solve Main.edp -v 0 -ns -nw
 \textbf{ Sequential  3D phase-field fracture mechanics}\\ 
 *============================================================\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2   
 
 PSD_Solve Main.edp -v 0 -ns -nw   
@@ -563,7 +563,7 @@ PSD_Solve Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D phase-field fracture mechanics} \\
 *============================================================\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -571,7 +571,7 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -580,7 +580,7 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D phase-field fracture mechanics with vectorial FEM } \\
 *============================================================\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -588,7 +588,7 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics  with vectorial FEM} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -596,8 +596,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential 2D  phase-field fracture mechanics energydecomp }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 \
 -energydecomp   
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw   
@@ -605,8 +605,8 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential 3D phase-field fracture mechanics energydecomp }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 \
 -energydecomp   
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw   
@@ -614,26 +614,24 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 2D phase-field fracture mechanics energydecomp }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 
--energydecomp   
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 -energydecomp   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
 \end{lstlisting}
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics energydecomp }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 
--energydecomp   
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 -energydecomp   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
 \end{lstlisting}
 *============================================================\\
 \textbf{ Parallel 2D phase-field fracture mechanics energydecomp \& vectorial}\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -energydecomp   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -641,8 +639,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics energydecomp }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -energydecomp   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -650,8 +648,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential 2D phase-field fracture mechanics with GFP }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field  -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field  -dirichletconditions 2 \
 -sequential -useGFP   
 
 PSD_Solve Main.edp -v 0 -ns -nw   
@@ -659,8 +657,8 @@ PSD_Solve Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential 3D phase-field fracture mechanics with GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field  -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field  -dirichletconditions 2 \
 -sequential -useGFP   
 
 PSD_Solve Main.edp -v 0 -ns -nw   
@@ -668,7 +666,7 @@ PSD_Solve Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 2D phase-field fracture mechanics with GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -676,7 +674,7 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with GFP }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -684,26 +682,24 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 2D phase-field fracture mechanics with GFP \& vectorial} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
--useGFP   
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
 \end{lstlisting}
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with GFP \& vectorial }\\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
--useGFP   
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
 \end{lstlisting}
 *============================================================\\
  \textbf{Sequential 2D phase-field fracture mechanics with energydecomp \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 \
 -energydecomp -useGFP   
 
 PSD_Solve Main.edp -v 0 -ns -nw   
@@ -711,8 +707,8 @@ PSD_Solve Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Sequential 3D phase-field fracture mechanics with energydecomp \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -sequential -dirichletconditions 2 \
 -energydecomp -useGFP   
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw   
@@ -720,8 +716,8 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 *============================================================\\
  \textbf{Parallel 2D phase-field fracture mechanics with energydecomp \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -dirichletconditions 2 \
 -energydecomp -useGFP  
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -729,8 +725,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with energydecomp \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -dirichletconditions 2 \
 -energydecomp -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
@@ -738,8 +734,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
  \textbf{Parallel 2D phase-field fracture mechanics with energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -energydecomp -useGFP  
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -747,8 +743,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -energydecomp -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
@@ -756,8 +752,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
  \textbf{Parallel 2D phase-field fracture mechanics with reaction-force, energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -getreactionforce -energydecomp -useGFP  
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -765,8 +761,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with reaction-force, energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -getreactionforce -energydecomp -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
@@ -774,8 +770,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
  \textbf{Parallel 2D phase-field fracture mechanics with live reaction-force plotting, energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -getreactionforce -plotreactionforce -energydecomp -useGFP  
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   
@@ -783,8 +779,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 *============================================================\\
 \textbf{ Parallel 3D phase-field fracture mechanics with live reaction-force plotting, energydecomp, vectorial \& GFP} \\
 *============================================================\\
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem damage -model hybrid-phase-field -vectorial -dirichletconditions 2 \
 -getreactionforce -plotreactionforce -energydecomp -useGFP   
 
 PSD_Solve -np 2  Main.edp -v 0 -ns -nw   	
@@ -796,9 +792,8 @@ PSD_Solve -np 2  Main.edp -v 0 -ns -nw
 \textbf{ Sequential 2D Elastodynamics}  \\                    
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 2 -problem elastodynamics -sequential -dirichletconditions 1  
--tractionconditions 1 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 2 -problem elastodynamics -sequential -dirichletconditions 1 -tractionconditions 1 
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \end{lstlisting}
@@ -806,9 +801,8 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \textbf{ Sequential 3D Elastodynamics}  \\                    
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
-PSD_PreProcess -dimension 3 -problem elastodynamics -sequential -dirichletconditions 1 
--tractionconditions 1 
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem elastodynamics -sequential -dirichletconditions 1 -tractionconditions 1 
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \end{lstlisting}
@@ -816,7 +810,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D Elastodynamics}   \\                   
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 
 
 PSD_Solve  -np 2 Main.edp -v 0 -ns -nw
@@ -825,7 +819,7 @@ PSD_Solve  -np 2 Main.edp -v 0 -ns -nw
 \textbf{ Parallel 3D Elastodynamics } \\                    
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 
 
 PSD_Solve  -np 2 Main.edp -v 0 -ns -nw
@@ -837,7 +831,7 @@ PSD_Solve  -np 2 Main.edp -v 0 -ns -nw
 \textbf{ Sequential 2D Soildynamics }    \\                   
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem soildynamics -sequential -dirichletconditions 1  
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw
@@ -846,7 +840,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \textbf{ Sequential 3D Soildynamics  }  \\                    
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem soildynamics -sequential -dirichletconditions 1  
 
 PSD_Solve_Seq Main.edp -v 0 -ns -nw
@@ -855,7 +849,7 @@ PSD_Solve_Seq Main.edp -v 0 -ns -nw
 \textbf{ Parallel 2D Soildynamics  }  \\                    
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 2 -problem soildynamics -dirichletconditions 1  
 
 PSD_Solve -np 2 Main.edp -v 0 -ns -nw
@@ -864,7 +858,7 @@ PSD_Solve -np 2 Main.edp -v 0 -ns -nw
 \textbf{ Parallel 3D Soildynamics  }     \\                 
 *============================================================*\\
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 PSD_PreProcess -dimension 3 -problem soildynamics -dirichletconditions 1  
 
 PSD_Solve -np 2 Main.edp -v 0 -ns -nw 

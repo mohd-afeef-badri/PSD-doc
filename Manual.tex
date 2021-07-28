@@ -101,6 +101,29 @@
   framesep=4pt, % quarter circle size of the round corners
 }
 
+\usepackage{textcomp}
+
+\lstdefinestyle{BashInputStyle}{
+	language=bash,
+	basicstyle=\small\sffamily,
+	numbers=left,
+	numberstyle=\tiny,
+	numbersep=3pt,
+	frame=tb,
+	columns=fullflexible,
+	backgroundcolor=\color{yellow!20},
+	linewidth=1.\linewidth,
+	xleftmargin=0.05\linewidth,
+	literate =
+	{"}{{\uprightquote}}1
+	{'}{{\textquotesingle}}1
+	{-}{{-}}1
+	{~}{{\centeredtilde}}1
+	,
+}
+
+\newcommand{\backslashhh}{\char`\\}
+
 \DeclareRobustCommand{\greektext}{%
   \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
 \DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
