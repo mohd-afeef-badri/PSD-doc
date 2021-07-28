@@ -24,18 +24,24 @@ Now that I have all the dependencies what next ?
 \begin{itemize}
 \item  Go ahead and grab the latest copy of PSD. The code is hosted on CEA's internal git repository.
 
-\begin{lstlisting}[style=Linux]
-git clone https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem.git  PSD-Sources
+\begin{lstlisting}[style=BashInputStyle]
+git clone https://gitlab.com/PsdSolver/psd_sources.git PSD-Sources
+\end{lstlisting}
+
+Note: You can also use SSH protocol if your key had been added to the repo in that case use
+
+\begin{lstlisting}[style=BashInputStyle]
+git clone git@gitlab.com:PsdSolver/psd_sources.git
 \end{lstlisting}
 
 \item  Now goto the \lstinline[style=Linux]! PSD-Sources! folder and autoconf PSD within the  cloned folder
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 autoreconf -i
 \end{lstlisting}
 
 \item Configure  PSD within the  cloned folder.
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 ./configure
 \end{lstlisting}
 \textbf{Note}:  \lstinline[style=Linux]!./configure! will install PSD in \lstinline[style=Linux]!/usr/local/bin! and you would need sudo rights to perform installation, for non sudo users or for local install consider chaning directory of installation. To change this directory use \lstinline[style=Linux]!--prefix=Your/Own/Path! with \lstinline[style=Linux]!./configure!. Remember to add \lstinline[style=Linux]!Your/Own/Path! to your  \lstinline[style=Linux]!PATH! variable, you can do so by \lstinline[style=Linux]! export PATH=$PATH:Your/Own/Path!
@@ -44,24 +50,24 @@ autoreconf -i
 
 \textbf{Note}: Please use the new version of \lstinline[style=Linux]!Gmsh! (greater than version 4.3.0) from their official website.
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 ./configure --with-FreeFEM=home/FreeFem/bin  --with-Gmsh=home/Gmsh/bin
 \end{lstlisting}
 
 \item Make PSD directives
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make 
 \end{lstlisting}
 
 
 \item Install PSD
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 sudo make install
 \end{lstlisting}
 
 \textbf{Note} : You should not use \lstinline[style=Linux]! sudo! if you have used \lstinline[style=Linux]!--prefix! during the \lstinline[style=Linux]! ./configure! simply use
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make install
 \end{lstlisting} 
  
@@ -69,7 +75,7 @@ make install
 
 \textbf{Note:} To install a copy of PSD for developers use the following instead of\lstinline[style=Linux]! sudo make install!  
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make install-devel
 \end{lstlisting}
 
@@ -83,13 +89,13 @@ Now you should have the PSD solver installed in your machine. Note that, the sol
 \begin{itemize}
 
 \item Check if installation is correct 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make check
 \end{lstlisting}
 
 \item Install PSD tutorials
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make tutorials
 \end{lstlisting}
 
@@ -101,13 +107,13 @@ PSD tutorials will be installed in you \lstinline[style=Linux]!  home ! director
 
 If you are a PSD user and would like to update your old PSD source to a new one. Go to your \lstinline[style=Linux]! PSD-Sources! folder and
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 git pull origin master
 \end{lstlisting}
 
 After this step simply
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 ./reconfigure;  make;  make install;  make check
 \end{lstlisting}
 
@@ -115,6 +121,6 @@ After this step simply
 
 If you would like to install  a developers copy  of PSD use:
 
-\begin{lstlisting}[style=Linux]
+\begin{lstlisting}[style=BashInputStyle]
 make install-devel;
 \end{lstlisting}

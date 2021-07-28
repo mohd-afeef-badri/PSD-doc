@@ -92,6 +92,8 @@
   morestring=[b]" % defines that strings are enclosed in double quotes
 }
 
+\usepackage{textcomp}
+
 \lstdefinestyle{Linux}
 {
  backgroundcolor=\color{white},
@@ -109,6 +111,10 @@
 	frameround=tttt, % make the frame round at all four corners
 	framesep=4pt, % quarter circle size of the round corners
 }
+
+    \lstdefinestyle{CppStyle}{
+
+
 
     \lstdefinestyle{CppStyle}{
 	language=bash,
@@ -132,7 +138,9 @@
 	{'}{{\textquotesingle}}1
 	{-}{{-}}1
 	,
-}
+    }
+
+\newcommand{\backslashhh}{\char`\\}
 
 \DeclareRobustCommand{\greektext}{%
   \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
