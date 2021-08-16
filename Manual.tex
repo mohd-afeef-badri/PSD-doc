@@ -5,7 +5,7 @@
 
     \usepackage{fancyhdr}
     \pagestyle{fancy}
-    \lhead{PSD 2.1}
+    \lhead{PSD 2.3}
     \chead{}
     \rhead{\fancyplain{}{\textit{\leftmark}}}
  
@@ -36,7 +36,9 @@
 \usepackage{tikz}
 \usetikzlibrary{mindmap,trees}
 
-
+\usepackage{longtable}
+\usepackage{framed}
+\usepackage{fancyvrb}
 
 \lstset{columns=flexible}
 \lstset{keepspaces=true}
@@ -103,6 +105,18 @@
   framesep=4pt, % quarter circle size of the round corners
 }
 
+\def\inline{\lstinline[basicstyle=\scriptsize\color{black}\ttfamily,keywordstyle={},frame=trb,]}
+
+
+\lstdefinelanguage{bash}
+{
+	backgroundcolor=\color{white},
+	basicstyle=\scriptsize\color{black}\ttfamily,
+	frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+	frameround=tttt, % make the frame round at all four corners
+	framesep=4pt, % quarter circle size of the round corners
+}
+
 \lstdefinestyle{BashInputStyle}
 {
 	backgroundcolor=\color{white},
@@ -147,6 +161,9 @@
   \mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
 
 \newcommand{\sh}[1]{{\ttfamily{#1}}}
+
+\providecommand{\tightlist}{%
+	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
   
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NEW COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\bA}{\textbf{A}}
@@ -332,7 +349,7 @@ h				L2u1				L2u2				Linfu1			Linfu2
 
 \addbibresource{biblio.bib}
 
-\title{\Huge \textbf{PSD v 2.2}}
+\title{\Huge \textbf{PSD v 2.3}}
 \author{}
 %\author{Mohd Afeef Badri,~Giuseppe Rastiello}
 \setcounter{tocdepth}{2}
@@ -356,7 +373,6 @@ h				L2u1				L2u2				Linfu1			Linfu2
     \pagebreak
     \tableofcontents
     \pagebreak
-
 
     \include{Chap1}
     \include{Chap2}

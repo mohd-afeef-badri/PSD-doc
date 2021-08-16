@@ -1,0 +1,671 @@
+\section{Changelog}\label{changelog}
+
+PSD has been maturing and evolving with time, following subsections
+present the highlights of some key changes made to each PSD version.
+
+\subsection{Rolling Release (2.3)}\label{rolling-release-2.3}
+
+\paragraph{Added}\label{added}
+
+\begin{itemize}
+\tightlist
+\item
+  More tests for each plugin and physics, now added in their respective
+  folders.
+\item
+  Support for Mfront and Mgis interface for non-linear material laws
+\item
+  New plugin \lstinline!mfront! can now be loaded in PSD.
+\item
+  \lstinline!-withmaterialtensor! now uses Quadrature finite elements to
+  build the material tensor.
+\item
+  New variational formulation for handling Linear mechanics problems,
+  Quadrature point wise material tensor is built.
+\item
+  \lstinline!pseudo_nonlinear! implementation of Linear Elasticity now
+  works.
+\item
+  New \lstinline!Notes! section added in the source repo, to help with
+  mathematical and algorithimic resoning.
+\end{itemize}
+
+\paragraph{Changed}\label{changed}
+
+\begin{itemize}
+\item
+\end{itemize}
+
+\paragraph{Bug}\label{bug}
+
+\begin{itemize}
+\tightlist
+\item
+  Bug in top-ii-vol meshing due to MPI communication removed.
+\item
+  Bug in \lstinline!pseudo_nonlinear! model for
+  Elastodynamics/soildynamics fixed.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.2}{2.2}
+- 2021-07-28}{2.2 - 2021-07-28}}\label{section}
+
+\subsubsection{Added}\label{added-1}
+
+\begin{itemize}
+\tightlist
+\item
+  New and more verbose tutorials on fracture mechanics, soil-dynamics.
+\item
+  Fast and parallel post processing is now performed using
+  \lstinline!pvtu! files.
+\item
+  New PETSc interface in plugins that supports pvtu output.
+\item
+  Error mechanism to signify wrong PSD flags.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Flag values now donot contain hyphens `-' use underscore instead '\_',
+  e.g, \lstinline!linear-elasticity! is now
+  \lstinline!linear_elasticity!
+\item
+  4 CPU procs are now used for \lstinline!make check!, user can control
+  this by \lstinline!make check NP=USER_PROCS!.
+\item
+  Moved to FreeFEM 4.9 and PETSc 3.15.0 .
+\item
+  Moved to GitLab for hosting the repository.
+\item
+  New checks for wrong flag. Now if wrong flag or values is entered PSD
+  will give error.
+\item
+  Boolean flags now also accept value
+  1\textbar{}0\textbar{}yes\textbar{}no\textbar{}on\textbar{}off\textbar{}true\textbar{}false
+  for turning on or off.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.1}{2.1}
+- 2021-01-27}{2.1 - 2021-01-27}}\label{section-1}
+
+\subsubsection{Added}\label{added-2}
+
+\begin{itemize}
+\tightlist
+\item
+  New accurate force calculations via matrix-vector product: new flag
+  \lstinline!-getreactionforce!.
+\item
+  New flag \lstinline!-reactionforce! variational-based \textbar{}
+  stress-based to get reaction force on a surface.
+\item
+  New flag \lstinline!-plotreactionforce! to activate real time pipe
+  plotting using GnuPlot.
+\item
+  More verbos info on \lstinline!-help!
+\item
+  New flag \lstinline!-mesh! to provide the name of mesh to
+  \lstinline!PSD_Solve!.
+\item
+  New flag \lstinline!-probe! to postprocess FE variables at a point.
+\item
+  New flag \lstinline!-crackdirichletcondition! to include a pre-cracked
+  Dirichlet in damage models.
+\item
+  New tests for more advance top-ii-vol partitioning.
+\item
+  New flag \lstinline!-constrainHPF! to enable constrain conditions in
+  hybrid phase-field (WIP).
+\item
+  New developments in parallel interpolations.
+\item
+  Tutorials added, use \lstinline!make tutorials! to install
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Moved to FreeFEM 4.7-1.
+\item
+  Moved to PETSc 3.14.
+\item
+  New version of top-ii-vol v 1.3 support for exascale computing
+  (includes new 2D 3D partitioning)
+\item
+  \lstinline!-fastmethod! now replaced by
+  \lstinline!-withmaterialtensor! (this is now inverse of
+  \lstinline!-fastmethod!)
+\end{itemize}
+
+\subsubsection{Removed}\label{removed}
+
+\begin{itemize}
+\tightlist
+\item
+  Flag \lstinline!-pipegnu! not supported for damage mechanics (to be
+  further deprecated from elsto/soildynamics)
+\end{itemize}
+
+\subsubsection{Bugs removed}\label{bugs-removed}
+
+\begin{itemize}
+\tightlist
+\item
+  Stain vector incorrect numbering in split function of GFP
+\end{itemize}
+
+( see hash
+\href{https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem?a=commit\&h=5ec7b882494f71984d07f468b518ec886e942d32}{5ec7b882494f71984d07f468b518ec886e942d32})
+
+\begin{itemize}
+\tightlist
+\item
+  Hybrid phase-field with constrain with wrong update
+\end{itemize}
+
+(see has
+\href{https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem?a=commit\&h=20ebfbc3cc58b9f1407658543bf3b239e74bd089}{20ebfbc3cc58b9f1407658543bf3b239e74bd089})
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.0}{2.0}
+- 2020-08-18}{2.0 - 2020-08-18}}\label{section-2}
+
+\subsubsection{Added}\label{added-3}
+
+\begin{itemize}
+\tightlist
+\item
+  New processing via C++, \lstinline!PSD_PreProcess! binary (MAJOR
+  CHANGE).
+\item
+  New solving via shell wrapper \lstinline!PSD_Solve! instead of
+  \lstinline!FreeFem++! or \lstinline!FreeFem++-mpi!.
+\item
+  New examples of using the solver.
+\item
+  New Pdf documentation containing tutorials, function definitions,
+  verbos on PSD C++ library.
+\item
+  New option \lstinline!-nonlinearmethod!
+  (Picard\textbar{}Newton-Raphsons).
+\item
+  New time discretization option \lstinline!-timediscretization!.
+\item
+  New point boundary conditions.
+\item
+  New dummy city mesh and analysis 2D for soil dynamics.
+\item
+  Automatic identification of FreeFEM and Gmsh during
+  \lstinline!./configure!.
+\item
+  New flags for \lstinline!--with-FreeFEM=! and \lstinline!--with-Gmsh=!
+  during \lstinline!./configure!.
+\item
+  New flag \lstinline!-bodyforceconditions! {[}int{]} to include body
+  force.
+\item
+  New flag \lstinline!-problem! linear-elasticity \textbar{} damage
+  \textbar{} elastodynamics \textbar{} soildynamics to define physics.
+\item
+  New flag \lstinline!-model! to set approximation for damage mechanics
+  hybrid-phase-field \textbar{} Mazar \textbar{} pseudo-nonlinear
+  \textbar{} Hujeux.
+\item
+  Better energy splitting included Hybrid phase-field compressibility vs
+  tensile energy condition.
+\item
+  Introduce boundary conditions via \lstinline!-dirichletconditions!
+  {[}int{]} flag.
+\item
+  Introduce point boundary conditions via
+  \lstinline!-dirichletpointcondition! {[}int{]} flag.
+\item
+  Introduce traction boundary conditions via
+  \lstinline!-tractionconditions! {[}int{]} flag.
+\item
+  New folder \lstinline!tests! containing unit-tests for modules.
+\item
+  New Hujeux law (nonlinear soil law) interface using C++ class (Thanks
+  to Evelyne Foerster).
+\item
+  New pseudo-nonlinear model for solving elastodynamics and soildynamics
+  with nonlinear Newton-Raphsons.
+\item
+  Introduced double couple earthquake source boundary condition for
+  soildynamics.
+\item
+  New flag \lstinline!-doublecouple! force-based \textbar{}
+  displacement-based to use double couple source for soildynamics.
+\item
+  New top-ii-vol parallel meshing via \lstinline!-top2vol-meshing! flag
+  (compatible with soildynamics).
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Moved to FreeFEM 4.6.
+\item
+  Moved to PETSc 13.13.
+\item
+  Moved to C++ for preprocessing.
+\item
+  Moved to shell wrapper PSD\_Solve for solving.
+\item
+  Changes to GFP energydecopostion plugin `DecompEnergy\_Op', now
+  includes compressibility history.
+\item
+  Replaced GFPDecompEnergy2D/GFPDecompEnergy3D by a generic 2D/3D
+  function
+  GFPSplitEnergy(Eps1{[}{]},PsiPlus{[}{]},PsiMinus{[}{]},HistPlus{[}{]},HistMinus{[}{]},par);.
+\item
+  Postprocessing flag \lstinline!-postprocess! options now support
+  \lstinline!u! , \lstinline!v!, \lstinline!a! , \lstinline!uv!,
+  \lstinline!ua!, \lstinline!av! or \lstinline!uav!.
+\end{itemize}
+
+\subsubsection{Removed}\label{removed-1}
+
+\begin{itemize}
+\tightlist
+\item
+  No more \lstinline!FFINSTALLDIR! and \lstinline!GMSH! variables during
+  \lstinline!make! and \lstinline!make check!.
+\item
+  No more \lstinline!-plot! flag now handled by
+  \lstinline!-postprocess!.
+\item
+  No more \lstinline!-nonlinear! flag now handled by
+  \lstinline!-problem! and \lstinline!-model!.
+\item
+  No more \lstinline!-bodyforce! flag now handled by an \lstinline!int!
+  valued \lstinline!-bodyforceconditions!.
+\item
+  No more \lstinline!-dynamic! flag now handled by \lstinline!-problem!
+  and \lstinline!-model!.
+\item
+  No more \lstinline!-soildynamic! flag now handled by
+  \lstinline!-problem! and \lstinline!-model!.
+\item
+  No more \lstinline!-quasistatic! flag now handled by
+  \lstinline!-problem! and \lstinline!-model!.
+\item
+  No more \lstinline!-dirichletbc! flag now handled by
+  \lstinline!-dirichletconditions!.
+\end{itemize}
+
+\subsubsection{Bugs removed}\label{bugs-removed-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Bug in 3D paraxial loading (see hash
+  \href{https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem?a=blobdiff\&h=f23846d41b3eee27b9f2c3b852b9c5e2f90080c5\&hp=0af4cfcc1355b98cc09a94e42c8ec521c6c0bb00\&hb=8fcbe7390e526423cd24b5f0ab1c06899b36c67f\&f=src\%2Fpsd-preprocessor\%2FMacros.hpp}{8fcbe7390e526423cd24b5f0ab1c06899b36c67f})
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.8}{1.8}
+- 2020-01-21}{1.8 - 2020-01-21}}\label{section-3}
+
+\subsubsection{Added}\label{added-4}
+
+\begin{itemize}
+\tightlist
+\item
+  New soil dynamic module \lstinline!-soildynamics!
+\item
+  New paraxial element support in 2D.
+\item
+  New timeplotting support \lstinline!-timepvd!
+\item
+  New \lstinline!-postprocess! option for postprocessing \lstinline!u! ,
+  \lstinline!v!, \lstinline!a! , or \lstinline!uav!.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Moved to FreeFEM 4.4.2.
+\item
+  Moved to PETSc 13.12.
+\item
+  New simpler way of plotting \lstinline!savevtk! in parallel with
+  \lstinline!append! flag for iterative solutions.
+\item
+  VTU files get stored with a date and time stamp.
+\item
+  New way of maintaining a logfile for all simulations
+  (date,time,case,..) in \lstinline!simulation-log.csv!.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.7}{1.7}
+- 2019-11-08}{1.7 - 2019-11-08}}\label{section-4}
+
+\subsubsection{Added}\label{added-5}
+
+\begin{itemize}
+\tightlist
+\item
+  New mesh reordering via Reverse Cuthill-Mackee via
+  \lstinline!-useRCM!.
+\item
+  New quasi-static parallel solver (Extension of B.Masseron \&
+  G.Rastiello sequential version).
+\item
+  New GFP plugin for Mazar's damage update for 2D/3D problems
+  \lstinline!GFPMazarsDamageUpdate(...)!.
+\item
+  New MPI plotting routine \lstinline!plotJustMeshMPI()!.
+\item
+  New option \lstinline!-fastmethod! to switch back to default
+  variational formulation.
+\item
+  New make flag for compiling on supercomputer.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Changed variational formulation now using
+  \(\epsilon(u):A:\epsilon(v)\).
+\item
+  Using GFP becomes optional \lstinline!-useGFP!.
+\item
+  Better documentation via \lstinline!.md! and \lstinline!.html! files.
+\item
+  Better plotting support for \lstinline!PlotMPI()!.
+\item
+  Moved to FreeFEM 4.4.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.6}{1.6}
+- 2019-06-11}{1.6 - 2019-06-11}}\label{section-5}
+
+\subsubsection{Added}\label{added-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Dynamic linear solver in 2D and 3D parallel/sequential.
+\item
+  New finite element variable for partition of unity-- for fixing
+  integrals.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Better documentation via \lstinline!.md! and \lstinline!.html! files.
+\item
+  Correct quadrature order for faster computations.
+\item
+  Major changes/splitting of \lstinline!.script! files.
+\end{itemize}
+
+\subsubsection{Removed}\label{removed-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Removed the \lstinline!BoundaryAndSourceConditions.script! merged with
+  \lstinline!ControlParameters.script!.
+\end{itemize}
+
+\subsubsection{Bugs}\label{bugs}
+
+\begin{itemize}
+\tightlist
+\item
+  Bug in integrals fixed.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.5}{1.5}
+- 2019-05-29}{1.5 - 2019-05-29}}\label{section-6}
+
+\subsubsection{Added}\label{added-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Dynamic linear solver in 2D and 3D sequential.
+\item
+  New meshes for dynamics tests \lstinline!bar-dynamic.msh!.
+\item
+  Checking modules \lstinline!make check!.
+\item
+  Faster sparsity pattern calculations.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Better documentation via \lstinline!.md! and \lstinline!.html! files.
+\item
+  Major restructuring of the codes.
+\item
+  Moved to \lstinline!automake! for solver installation.
+\item
+  Mesh building via \lstinline!make!.
+\end{itemize}
+
+\subsubsection{Removed}\label{removed-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Removed the manufactured solution codes.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.4}{1.4}
+- 2019-05-14}{1.4 - 2019-05-14}}\label{section-7}
+
+\subsubsection{Added}\label{added-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Fully vectorial finite element solver for phase-filed
+  \lstinline!-vectorial!.
+\item
+  New \lstinline!-supercomp! for avoiding xterm issues on super
+  computers.
+\item
+  New \lstinline!MatViz()! function for matrix sparsity visualization.
+\item
+  Introduced \lstinline!GFP! plugin support (Go Fast Plugins).
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Elastic energy decomposition is now optional
+  \lstinline!-energydecomp!.
+\item
+  Force calculation using integrals (Thanks to G.Rastiello).
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.3}{1.3}
+- 2019-04-08}{1.3 - 2019-04-08}}\label{section-8}
+
+\subsubsection{Added}\label{added-9}
+
+\begin{itemize}
+\tightlist
+\item
+  New meshes in 2D/3D\lstinline!Notched-plate! ,
+  \lstinline!square-crack!, etc.
+\item
+  New fracture mechanics module.
+\item
+  New \lstinline!-nonlinear! flag to activate phase-field model for
+  brittle fracture.
+\item
+  New \lstinline!-timelog! for time logging the solver.
+\item
+  New \lstinline!-pipegnu! for GNUplot piping.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-9}
+
+\begin{itemize}
+\tightlist
+\item
+  Scripting now performed using \lstinline!.script! files:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \lstinline!BoundaryAndSourceConditions.script!
+  \item
+    \lstinline!LinearFormBuilderAndSolver.script!
+  \item
+    \lstinline!Macros.script!
+  \item
+    \lstinline!Main.script!
+  \item
+    \lstinline!VariationalFormulation.script!
+  \item
+    \ldots{}.
+  \end{itemize}
+\item
+  Move to FreeFEM version 4.0.
+\item
+  Move to PETSc version 3.11.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.1}{1.2}
+- 2019-03-18}{1.2 - 2019-03-18}}\label{section-9}
+
+\subsubsection{Added}\label{added-10}
+
+\begin{itemize}
+\tightlist
+\item
+  Support for Gmsh's \lstinline!.msh! or Medit's \lstinline!.mesh!
+  meshes in folder \lstinline!Meshes!.
+\item
+  Advance to 3D physics.
+\item
+  New MPI based parallel solver linear elasticity.
+\item
+  New approach for solver generation via scripting (PhD thesis MA Badri)
+  with \lstinline!scriptGenerator.edp!.
+\item
+  Integrated Domain decomposition macro (PhD thesis MA Badri).
+\item
+  Customized \lstinline!.vtk! support for ParaView post-processing.
+\item
+  New point boundary condition macro
+  \lstinline!pointbc(Real[int], fespace, matrix)!.
+\item
+  New flags for communicating with the solver: \lstinline!-dimension!,
+  \lstinline!-plot!, \lstinline!-bodyforce!, \lstinline!-lagrange!, etc.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-10}
+
+\begin{itemize}
+\tightlist
+\item
+  More advance README.MD.
+\item
+  Sequential solver now merged within scripting via flag
+  \lstinline!-sequential!.
+\item
+  Move to FreeFEM version 3.62.
+\item
+  Moved manufactured solutions to \lstinline!validation-test! folder.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.1}{1.1}
+- 2019-03-04}{1.1 - 2019-03-04}}\label{section-10}
+
+\subsubsection{Added}\label{added-11}
+
+\begin{itemize}
+\tightlist
+\item
+  Initial FreeFEM files for sequential linear elasticity in 2D (case of
+  constrained bar).
+\item
+  More cases of manufactured solution for linear elasticity in 2D.
+\item
+  Added README.MD for explaining the solver.
+\item
+  ParaView plotting activated.
+\end{itemize}
+
+\subsubsection{Changed}\label{changed-11}
+
+\begin{itemize}
+\tightlist
+\item
+  Moved to Tuleap git hosting from CEA.
+\item
+  Separate folder of manufactured solutions and the linear elastic
+  solver.
+\item
+  Move to FreeFEM version 3.61.
+\end{itemize}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.0}{1.0}
+- 2019-02-15}{1.0 - 2019-02-15}}\label{section-11}
+
+\subsubsection{Added}\label{added-12}
+
+\begin{itemize}
+\tightlist
+\item
+  Initial FreeFEM files Method of manufactured solution for linear
+  elasticity in 2D.
+\end{itemize}
+
+\subsection{Version git tags}\label{version-git-tags}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+Version & Git tag\tabularnewline
+\midrule
+\endhead
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.0}{1.0} &
+8a8ecb2746b7da792073358c60df33bae647f788\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.1}{1.1} &
+a667e6085ba1f92f8dd619bd40e18f85c593bc0a\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.2}{1.2} &
+e48b7b3a30c05ad4c343efa6a17fee386031f437\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.3}{1.3} &
+39f4324550365849852c5264b8d4535aae05e30d\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.4}{1.4} &
+f51f678630eb9b2fed355e5cedf976ce8b5fa341\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.5}{1.5} &
+07293ba09a69d3d6a16278220a0b4a7a9f318f96\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.6}{1.6} &
+f359dd049fb1ddde376e8ad8e5177c663e430418\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.7}{1.7} &
+aee9bfec868a70b3d9974d7692bc19f9739ab7dc\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.8}{1.8} &
+2f26292636c7248133e31ae912ee58113de2ef71\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.0}{2.0} &
+1e1a4d7f10df30d106b52eba1c5caf69e8bc0f36\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.1}{2.1} &
+8b9d84f25aedbd684eb0f06cdd4ffbbf9a60a0e2\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.2}{2.2} &
+5e0368f990d505d3bf1960122cb99a23e08567b0\tabularnewline
+\bottomrule
+\end{longtable}
