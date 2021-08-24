@@ -31,62 +31,13 @@ here,  $\buh$ is in fact the FE trial function and $\bvh=\{v^h_j\}^n_{j=1}$ is t
 
 In these formulations $\lambda$ and $\mu$ are the Lame's parameters, $\mathbf{f}$ is the body force vector.  
 
-\subsection{PSD simulation of 2D bar problem bending under own body weight \label{sec:2d-bar-load}}
+\subsection{PSD simulation of bar problem bending under own body weight \label{sec:2d-bar-load}}
 
-To showcase the usage of Linear elasticity, we shall discuss here an example of a 2D bar, which bends under its own load. The bar ---$5\times1$~\si{\square\meter} in area-- is made up of material with $\rho=8\text e3$, $E=200\text e9$, and $\nu=0.3$.
+{
+	\renewcommand{\subsection}{\subsubsection}
+	\input{./tutorials/le-tutorial-1.tex}
+}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar.png}\hspace{.1\textwidth}
-    \includegraphics[align=t,width=.44\textwidth]{./Images/2d-bar-mesh.png}
-    \caption{2D bar clamped at left end and bending under own load. Geometry (left) and mesh (right).}
-    \label{fig:2Dbar}
-\end{figure} 
-
-\textbf{Step 1: Preprocessing}
-
-First step in a PSD simulation is ``PSD preprocessing'', at this step you tell PSD what kind of physics, boundary conditions, approximations, mesh, etc are you expecting to solve.
-For ``PSD Preprocessing'' go to any folder, launch \lstinline[style=Linux]!PSD_PreProcess! from the terminal with the following command:
-\begin{lstlisting}[style=BashInputStyle]  
-PSD_PreProcess -problem linear-elasticity -dimension 2 -bodyforceconditions 1 -dirichletconditions 1 -postprocess u
-\end{lstlisting}
-%
-After the ``PSD Preprocessing'' runs successfully you should see many files with \lstinline[style=Linux]!.edp! extension in your folder.\\
-\noindent\textbf{What do the arguments mean ?}
-\begin{itemize}
-	\item \lstinline[style=Linux]! -problem linear-elasticity! means that we will be solving linear-elasticity problem,
-	\item \lstinline[style=Linux]! -dimension 2! means it is a 2D simulation, 
-	\item \lstinline[style=Linux]!-bodyforceconditions 1! with body force; \lstinline[style=Linux]!-dirichletconditions 1! says we have one Dirichlet border; and 
-	\item \lstinline[style=Linux]! -postprocess u! means we would like to have ParaView post processing files.
-\end{itemize}    
-
-The input properties ``$E,\nu$'' can be mentioned in \lstinline[style=Linux]! ControlParameters.edp!, change \lstinline[style=Linux]! E  = 200.e9!, and \lstinline[style=Linux]! nu = 0.3;!. The volumetric body force condition is mentioned in the same file via variable \lstinline[style=Linux]! Fbc0Fy -78480.0!, i.e ($\rho g=8\text e3\times (-9.81)=-78480.0$). In addition variable \lstinline[style=Linux]! Fbc0On 1! has to be provided in order to indicate the volume (region) for which the body force is acting, here 1 is the integer volume tag of the mesh. Dirichlet boundary conditions are also provided in \lstinline[style=Linux]! ControlParameters.edp!. To provide the clamped boundary condition the variables   \lstinline[style=Linux]! Dbc0On 2!, \lstinline[style=Linux]! Dbc0Ux 0.!, and \lstinline[style=Linux]! Dbc0Uy 0.!  are used, which means for Dirichlet border 2 (\lstinline[style=Linux]! Dbc0On 2!) where 2 is the clamped border label of the mesh  Dirichlet constrain is applied and {\lstinline[style=Linux]! Dbc0Ux 0.!, {\lstinline[style=Linux]! Dbc0Uy 0!} i.e., the clamped end condition ($u_x=u_y=0$).
-
-\textbf{Step 2: Solving}
-
-As PSD is a parallel solver, let us use  4 cores to solve the 2D bar case. To do so enter the following command:
-
-\begin{lstlisting}[style=BashInputStyle]
-PSD_Solve -np 4 Main.edp
-\end{lstlisting}
-
-Here \lstinline[style=Linux]! -np 4! denote the argument used to enter the number of cores. \lstinline[style=Linux]! PSD_Solve! is a wrapper around \lstinline[style=Linux]! FreeFem++! or \lstinline[style=Linux]! FreeFem++-mpi!.  Note that if your problem is large use more cores. PSD has been tested upto 13,000 cores, surely you will now need that many for the 2D bar problem. 
-
-\textbf{Step 3: Postprocessing}
-
-PSD allows postprocessing of results in ParaView. After the step 2 mentioned above finishes. Launch ParaView and have a look at the  \lstinline[style=Linux]! .pvd! file in the  {\lstinline[style=Linux]! VTUs_DATE_TIME! folder. 
-
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-partioned.png}
-    \end{minipage}\hspace{.1\textwidth}
-    \begin{minipage}[t][2cm][t]{0.4\textwidth}
-    \includegraphics[align=t,width=1\textwidth]{./Images/2d-bar-results.png}
-    \end{minipage}
-    \caption{2D clamped bar results. Partitioned mesh (left) and 1000X warped displacement field (right).}
-    \label{fig:2d-bar-results}
-\end{figure}
 
 
 \subsection{PSD simulation of 2D bar problem clamped at both ends \label{sec:2D-bar-clamped1}}
@@ -452,7 +403,15 @@ Launch ParaView and have a look at the  {\ttfamily .pvd} file in the  {\ttfamily
     \label{fig:mechapieceresult2}
 \end{figure}
 
-\subsubsection{Additional exercises on linear elasticity}
+\subsection{PSD linear elasticity tutorial using Mfront-PSD interface\label{sec:2d-mfront}}
+
+{
+\renewcommand{\subsection}{\subsubsection}
+\input{./tutorials/le-tutorial-4.tex}
+}
+
+
+\subsection{Additional exercises on linear elasticity}
 \subsubsection{Exercise  1}
 
 There is a solver run level flag for mesh refinement \footnote{Mesh refinement is performed after partitioning.}. This flag is called \sh{-split [int]} which splits the triangles (resp. tetrahedrons) of your mesh into  four smaller  triangles (resp. tetrahedrons). As such \sh{-split 2} will produce a mesh with 4 times the elements of the input mesh. Similarly, \sh{-split n} where $n$ is a positive integer produces $2^n$ times more elements than the input mesh. You are encouraged to use this \sh{-split} flag to produce refined meshes and check, mesh convergence of a problem, computational time, etc. Use of parallel computing is recommended. You could try it out with \sh{PSD\_Solve} or \sh{PSD\_Solve\_Seq}, for example:

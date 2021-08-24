@@ -132,7 +132,7 @@
 	numbers=left,
 	numberstyle=\tiny,
 	numbersep=3pt,
-	morekeywords={real, macro, for, int, mpirank, abs},
+	morekeywords={real, macro, for, int, mpirank, abs, FEQF2, fespace, mfrontElasticityHandler, P1, P2, string},
 	morecomment=[l]{//},
 	morecomment=[s]{/*}{*/},
 	keywordstyle=\color{magenta}\ttfamily,
@@ -144,7 +144,6 @@
 	linewidth=1.\linewidth,
 	xleftmargin=0.05\linewidth,
 	literate =
-	{"}{{\uprightquote}}1
 	{'}{{\textquotesingle}}1
 	{-}{{-}}1
 	,
@@ -160,7 +159,8 @@
 \newcommand{\assemble}{%
   \mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
 
-\newcommand{\sh}[1]{{\ttfamily{#1}}}
+%\newcommand{\sh}[1]{{\ttfamily{#1}}}
+\newcommand{\sh}[1]{{\small\sffamily{\color{blue!60}#1}}}
 
 \providecommand{\tightlist}{%
 	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
@@ -374,13 +374,13 @@ h				L2u1				L2u2				Linfu1			Linfu2
     \tableofcontents
     \pagebreak
 
-    \include{Chap1}
-    \include{Chap2}
-    \include{Chap3}
+%    \include{Chap1}
+%    \include{Chap2}
+%    \include{Chap3}
     \include{Chap4}
-    \include{Chap5}
-    \include{Chap6}
-    \include{Chap7}
+%    \include{Chap5}
+%    \include{Chap6}
+%    \include{Chap7}
         
     %\input{Chap1.tex}
     %\input{Chap2.tex}
