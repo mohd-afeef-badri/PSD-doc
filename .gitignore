@@ -10,3 +10,4 @@ Manual.pdf
 *.xml
 *.synctex.gz
 *.toc
+*.synctex(busy)

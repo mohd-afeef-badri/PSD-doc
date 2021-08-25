@@ -1,0 +1,21 @@
+\newcommand{\psd}[1]{{\small\sffamily{\color{blue!60}#1}}}
+
+
+
+
+The problem of interest is a single Dirichlet condition (clamped end
+bar) and traction loading. For this example we use Newmark-\(\beta\)
+time discretization. Additionally postrocessing is demanded for
+displacement, acceleration, and velocity (\(u,a,v\)).
+
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem elastodynamics -dirichletconditions 1 -tractionconditions 1 \
+-timediscretization newmark_beta
+\end{lstlisting}
+
+Once the step above has been performed, we solve the problem using four
+MPI processes, with the given mesh file \psd{bar-dynamic.msh}.
+
+\begin{lstlisting}[style=BashInputStyle]
+PSD_Solve -np 4 Main.edp -mesh ./../Meshes/3D/bar-dynamic.msh -v 0
+\end{lstlisting}

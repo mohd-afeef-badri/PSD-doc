@@ -1,0 +1,13 @@
+\newcommand{\psd}[1]{{\small\sffamily{\color{blue!60}#1}}}
+
+
+Single Dirichlet at the bottom and using GFP.
+
+\begin{lstlisting}[style=BashInputStyle]
+PSD_PreProcess -dimension 3 -problem soildynamics -model linear -timediscretization newmark_beta \
+-useGFP -top2vol-meshing -timediscretization newmark-beta -postprocess uav
+\end{lstlisting}
+
+\begin{lstlisting}[style=BashInputStyle]
+PSD_Solve -np 4 Main.edp -v 0 -ns -nw 
+\end{lstlisting}
