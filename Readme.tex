@@ -1,3 +1,5 @@
+
+
 PSD is a cross-platform solver built to work with Linux platforms
 (Windows comping up soon). PSD has successfully been deployed on the
 following platforms, CentOS 7/8, Ubuntu 16.04/18.04/20.04, Raspberry Pi,
@@ -6,30 +8,47 @@ following dependencies installed on your OS.
 
 \textbf{Dependencies}
 
+These can either be preinstalled by user. In that case following list
+needs to be installed, and assured that these are intercompatiable.
+
 \begin{itemize}
-\tightlist
 \item
-  \href{https://www.gnu.org/software/automake/}{automake}
+  \href{https://www.gnu.org/software/automake/}{automake} \textgreater{}
+  v2.50
 \item
-  \href{https://freefem.org/}{FreeFEM}
+  \href{https://freefem.org/}{FreeFEM} v4.10
 \item
-  \href{https://www.mcs.anl.gov/petsc/}{PETSc}
+  \href{https://www.mcs.anl.gov/petsc/}{PETSc} v3.16.1
 \item
-  \href{http://gmsh.info/}{Gmsh}
+  \href{http://gmsh.info/}{Gmsh} v4.8.4
 \item
-  \href{http://www.cplusplus.com/}{C++}
+  \href{http://www.cplusplus.com/}{C++} \textgreater{} v7
+\item
+  \href{https://www.mpich.org/}{Mpich} or
+  \href{https://www.open-mpi.org/}{Open MPI} \textgreater{} v2.8
 \item
   \href{https://git-scm.com/}{git}
 \item
-  \href{http://tfel.sourceforge.net/}{MFront} (optional)
+  \href{http://tfel.sourceforge.net/}{MFront} v3.4.0 (optional)
 \item
-  \href{https://thelfer.github.io/mgis/web/bindings-cxx.html}{MGIS}
+  \href{https://thelfer.github.io/mgis/web/bindings-cxx.html}{MGIS} v1.2
   (optional)
 \item
   \href{http://www.gnuplot.info/}{gnuplot} (optional)
 \end{itemize}
 
-\textbf{Now that I have all the dependencies what next}
+Note that PETSc and FreeFEM need to be compiled with METIS, ParMETIS,
+SLEPc, and hpddm support, in this case these form extra dependencies.
+The user in incharge of making sure that all the dependencies are met
+before installing PSD. To follow this type of installation read the
+section \emph{Installation Procedure 1: I install my own dependencies}
+
+Optionally, since PSD version 2.4 PSD can attempt to build all these
+dependencies for you. In this case, to know how this is done, please
+skip to section \emph{Installation Procedure 2: PSD installs all
+dependencies}.
+
+\paragraph{Installation Procedure 1: I install my own dependencies}
 
 \begin{itemize}
 \item
@@ -38,13 +57,6 @@ following dependencies installed on your OS.
 
 \begin{lstlisting}[language=bash]
 git clone https://gitlab.com/PsdSolver/psd_sources.git PSD-Sources
-\end{lstlisting}
-
-  \textbf{Note}: You can also use SSH protocol if your key has been
-  added to the repo in that case use
-
-\begin{lstlisting}[language=bash]
-git clone git@gitlab.com:PsdSolver/psd_sources.git
 \end{lstlisting}
 \item
   Use automake PSD within the cloned folder
@@ -56,7 +68,7 @@ autoreconf -i
   Configure PSD within the cloned folder
 
 \begin{lstlisting}[language=bash]
-./configure 
+./configure
 \end{lstlisting}
 
   \textbf{Note}: \lstinline!./configure! will install PSD in
@@ -67,19 +79,19 @@ autoreconf -i
   Remember to add \lstinline!Your/Own/Path! to your \lstinline!$PATH!
   variable, you can do so by
   \lstinline!export PATH=$PATH:Your/Own/Path!. Also
-  \lstinline!./configure! will try to look for installation of
-  \href{https://freefem.org/}{FreeFEM} and
-  \href{http://gmsh.info/}{Gmsh} in \lstinline!usr/bin/! or
+  \lstinline!./configure! will try to look for installation of FreeFEM,
+  MGIS, Mfront, and Gmsh in \lstinline!usr/bin/! or
   \lstinline!usr/local/bin/! directories. If you have these packages
   installed in some other directory this should be specified during
-  \lstinline!./configure! by using flags \lstinline!--with-FreeFEM=! and
-  \lstinline!--with-Gmsh=!. For example, if
-  \href{https://freefem.org/}{FreeFEM} is installed at
-  \lstinline!home/FreeFem/bin! and \href{http://gmsh.info/}{Gmsh} in
-  \lstinline!home/Gmsh/bin! then one should use
+  \lstinline!./configure! by using flags \lstinline!--with-FreeFEM=! ,
+  \lstinline!--with-Gmsh=!, etc. as shown below. For example
 
 \begin{lstlisting}[language=bash]
-./configure --with-FreeFEM=home/FreeFem/bin  --with-Gmsh=home/Gmsh/bin
+./configure --prefix=$HOME/Install/local \
+  --with-mgis=$HOME/Install/local/mgis   \
+  --with-mfront=$HOME/Install/local/mfront/bin/mfront  \
+  --with-FreeFEM=$HOME/Install/local/FreeFem/bin       \
+  --with-Gmsh=$HOME/Install/local/Gmsh/bin        
 \end{lstlisting}
 \item
   Make PSD directives
@@ -128,46 +140,95 @@ by the following
 R seuil=hm/splitmax/4.0/1000.0;
 \end{lstlisting}
 
-\subsubsection{Additional Installation steps for experts and
-developers}\label{additional-installation-steps-for-experts-and-developers}
+\paragraph{Installation Procedure 2: PSD installs all the dependencies}
 
 \begin{itemize}
 \item
-  Check if installation is correct
+  Go ahead and grab the latest copy of PSD. The code is hosted on GitLab
+  \href{https://gitlab.com/PsdSolver/psd_sources}{repository}.
+
+\begin{lstlisting}[language=bash]
+git clone https://gitlab.com/PsdSolver/psd_sources.git PSD-Sources
+\end{lstlisting}
+\item
+  We will install PSD and all its dependencies in folder
+  \lstinline!/home/PSDinstall! . Let us start by making it a temporary
+  environmental variable.
+
+\begin{lstlisting}[language=bash]
+export PREFIXPSD=/home/PSDinstall
+\end{lstlisting}
+\item
+  Use automake PSD within the cloned folder and configure PSD
+
+\begin{lstlisting}[language=bash]
+autoreconf -i && ./configure --prefix=$PREFIXPSD --with-dependencies=yes
+\end{lstlisting}
+
+  \textbf{Note}: we will install PSD in \lstinline!/home/PSDinstall! and
+  you would need read and write rights to perform installation in this
+  folder.
+\item
+  Make all depndencies
+
+\begin{lstlisting}[language=bash]
+cd ext && make && cd ..
+\end{lstlisting}
+\item
+  The \lstinline!PATH! and \lstinline!LSD_LIBRARY_PATH! variables need
+  to be updated. Add the following two line to your
+  \lstinline!~/.bashrc!
+
+\begin{lstlisting}[language=bash]
+export PATH=/home/PSDInstall/bin:$PATH 
+export LD_LIBRARY_PATH=/home/PSDInstall/lib:$LD_LIBRARY_PATH
+\end{lstlisting}
+
+  then do
+
+\begin{lstlisting}[language=bash]
+source ~/.bashrc
+\end{lstlisting}
+
+  \textbf{Note:} this can also be done temporarily by
+  \lstinline!source $PREFIXPSD/mfront-env.sh!. If you follow this
+  temporary approach, every time before using PSD you will need to redo
+  this command.
+\item
+  Reconfigure PSD with the installed dependencies
+
+\begin{lstlisting}[language=bash]
+./configure --prefix=$PREFIXPSD \
+  --with-mgis=$PREFIXPSD        \
+  --with-mfront=$PREFIXPSD      \
+  --with-FreeFEM=$PREFIXPSD/bin \
+  --with-Gmsh=$PREFIXPSD/bin
+\end{lstlisting}
+\item
+  Compile and install PSD
+
+\begin{lstlisting}[language=bash]
+make && make install
+\end{lstlisting}
+\item
+  Perform a check to see if everything works
 
 \begin{lstlisting}[language=bash]
 make check
 \end{lstlisting}
 \item
-  Configure PSD with MFront support
+  Install PSD tutorials
 
 \begin{lstlisting}[language=bash]
-./configure --prefix=$HOME/Install/local --with-mgis=$HOME/Install/local/mgis --with-mfront=$HOME/Install/local/mfront/bin/mfront  --with-FreeFEM=$HOME/Install/local/FreeFem/bin  --with-Gmsh=$HOME/Install/local/Gmsh/bin
+make tutorials
 \end{lstlisting}
 \end{itemize}
 
-Here in this example we assume that MFront, MGIS, Gmsh, and FreeFEM are
-installed in \lstinline!$HOME/Install/local! directory, if that is not
-the case for you please improvise or you can always ask for help from
-Linux geeks around.
+Now you should have the PSD solver installed on your machine. Note that,
+the solver will be installed at \lstinline!home/PSDInstall!. The PSD
+tutorials are installed in \lstinline!$HOME/PSD-tutorials!.
 
-\begin{itemize}
-\item
-  Update PSD to the latest version. If you would like to update your old
-  PSD source to a new one. Go to your\lstinline!PSD-Sources! folder and
-
-\begin{lstlisting}[language=bash]
-git pull origin master && ./reconfigure &&  make &&  make install
-\end{lstlisting}
-\item
-  If you would like to install a developers copy of PSD
-
-\begin{lstlisting}[language=bash]
-make install-devel
-\end{lstlisting}
-\end{itemize}
-
-\subsection{A quick sneak-peek of a typical PSD simulation}\label{psdsimulation}
+\subsection{A quick sneak-peek of a typical PSD simulation}
 
 PSD is a TUI (terminal user interface) based finite element solver.
 Parallel or sequential PSD simulations can run on Linux platforms.
@@ -237,7 +298,7 @@ vtu, and pvtu files are used for postprocessing. ASCII data files that
 to trace certain quantities of interest like reaction forces, kinetic
 energies, etc can also be outputted.
 
-\subsection{PSD flags explained}\label{psd-flags-explained}
+\subsection{PSD flags explained}
 
 These are a set of commandline flags/options that control your
 simulation. You can think of it as a way to talk to the solver. Here is
@@ -277,8 +338,8 @@ and are used to activate or deactivate any functionality of PSD.\strut
 \end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
 \lstinline![bool]!\strut
 \end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright\strut
-To activate helping message on the terminal. Gives description and list
-of available flags.\strut
+To activate helping messages. Gives description and list of available
+flags.\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.26\columnwidth}\raggedright\strut
 \lstinline!-debug!\strut
@@ -322,6 +383,13 @@ To activate time logging the different phases of the solver.\strut
 \lstinline![bool]!\strut
 \end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright\strut
 Use when using a super computer without Xterm support\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.26\columnwidth}\raggedright\strut
+\lstinline!-useMfront!\strut
+\end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
+\lstinline![bool]!\strut
+\end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright\strut
+Activate Mfornt interface for PSD.\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.26\columnwidth}\raggedright\strut
 \lstinline!-bodyforce!\strut
@@ -435,7 +503,7 @@ definitions.\strut
 \end{minipage} & \begin{minipage}[t]{0.09\columnwidth}\raggedright\strut
 \lstinline![int]!\strut
 \end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright\strut
-Number of Dirichlet points. \strut
+Number of Dirichlet points.\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.26\columnwidth}\raggedright\strut
 \lstinline!-dirichletconditions!\strut
@@ -571,6 +639,186 @@ Interested problem. Use ``linear\_elasticity'', ``damage'',
 \lstinline![sting]!\strut
 \end{minipage} & \begin{minipage}[t]{0.56\columnwidth}\raggedright\strut
 Interested model. Use ``hybrid\_phase\_field'' or ``Mazar''.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{Configuration flags}
+
+These are a set of commandline flags/options that control your PSD
+configuration via the automake ligo.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.14\columnwidth}\raggedright\strut
+\textbf{Flag}\strut
+\end{minipage} & \begin{minipage}[b]{0.39\columnwidth}\raggedright\strut
+\textbf{Description}\strut
+\end{minipage} & \begin{minipage}[b]{0.39\columnwidth}\raggedright\strut
+\textbf{Examples}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--prefix!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where you wish to install PSD.Note that you will
+need to have read and write permission for this directory.\emph{This
+flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--prefix=/usr! \lstinline!--prefix=/usr/local!
+\lstinline!--prefix=/home/install!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-FreeFEM!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where FreeFem binary has been installed. Tip, in
+your terminal \lstinline!which FreeFem++! can help you find this
+directory.\emph{This flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-FreeFEM=/usr/bin!
+\lstinline!--with-FreeFEM=/home/install/bin!
+\lstinline!--with-FreeFEM=/usr/local/bin!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-Gmsh!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where Gmsh binary has been installed. Tip, in your
+terminal \lstinline!which gmsh! can help you find
+thisdirectory.\emph{This flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-Gmsh=/usr/bin!
+\lstinline!--with-Gmsh=/home/install/bin!
+\lstinline!--with-Gmsh=/usr/local/bin!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-mgis!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where Mgis has been installed. \emph{This flag is an
+optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-mgis=/usr! \lstinline!--with-mgis=/home/install!
+\lstinline!--with-mgis=/usr/local!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-mfront!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where Mfront binary has been installed. \emph{This
+flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-mfront=/usr/bin!
+\lstinline!--with-mfront=/home/install/bin!
+\lstinline!--with-mfront=/usr/local/bin!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-dependencies!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter yes or no as an option to this flag, default is no. If yesis
+entered to this command, PSD will build and compile itsdependencies for
+you. If yes PSD will compil PETSc, FreeFEM,Mgis, MFront, Metis,
+ParMetis, Scalapack, mumps, hpddm,slepc, suitsspars, tetgen.\emph{This
+flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-dependencies=yes! \lstinline!--with-dependencies=no!
+\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\subsection{make options for PSD}
+
+Once \lstinline!./configure! runs successfully your Makefiles will be
+generated thanks to automake. Different options are available with
+\lstinline!make! command some are native to Make (still listed here,
+sorry to my linux co-geeks)
+
+​
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+\begin{minipage}[b]{0.15\columnwidth}\raggedright\strut
+\textbf{Command}\strut
+\end{minipage} & \begin{minipage}[b]{0.47\columnwidth}\raggedright\strut
+\textbf{Description}\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\raggedright\strut
+\textbf{Example}\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!make!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command responsible to compile PSD for you. This is necessary.\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!-j4!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Activates parallel make, i.e., faster compilation on 4 cores.\emph{This
+flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make -j4!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!install!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that installs PSD for you, this command should follow the
+\lstinline!make! command.\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make install! \lstinline!make install -j4!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!check!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that should follow \lstinline!make install! helps to check the
+PSD installation.\emph{This command is an optional but
+recommended}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make check!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!clean!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that cleans PSD's compilation directory.\emph{This command is an
+optional}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make clean!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!maintainer-clean!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that cleans PSD's compilation directory throughly.\emph{This
+command is an optional}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make maintainer-clean!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!tutorials!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that builds PSD tutorials in \lstinline!$HOME! directory. This
+should follow/be-used only after \lstinline!make install!.\emph{This
+command is an optional}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make tutorials!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!install-devl!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that installs developers version of PSD for you, this command
+should follow the \lstinline!make! command.\emph{This command is an
+optional}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make install-devel!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.15\columnwidth}\raggedright\strut
+\lstinline!documentation!\strut
+\end{minipage} & \begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+Command that builds documentation, in html, and pdf formats. This
+command should follow the \lstinline!make! command. Note that this needs
+pandoc installed in your system.\emph{This command is an optional}\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\raggedright\strut
+\lstinline!make documentation!\strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
