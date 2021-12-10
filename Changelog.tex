@@ -1,14 +1,66 @@
-\section{Changelog}\label{changelog}
+\section{Changelog}
 
 PSD has been maturing and evolving with time, following subsections
 present the highlights of some key changes made to each PSD version.
 
-\subsection{Rolling Release (2.3)}\label{rolling-release-2.3}
+\subsection{Rolling release (2.4)}
 
-\paragraph{Added}\label{added}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
+\item
+  New \lstinline!PsdMfrontPrintBehaviourStats()! to probe the mfront
+  file and know the input/output.
+\item
+  New variables added for \lstinline!PsdMfrontHandler()! function
+  \lstinline!mfrontStrainTensor, mfrontStateVariable,!.
+\item
+  New variables added for \lstinline!PsdMfrontHandler()! function
+  \lstinline!mfrontExternalStateVariableNames, mfrontExternalStateVariableValues,!.
+\item
+  More unit tests for mfront plugin.
+\item
+  New elasto-plastic von Mises non-linear model using mfornt. Via
+  argument \lstinline!-problem elasto_plastic! and
+  \lstinline!-model von_mises!
+\item
+  New elasto-plastic tutorial.
+\item
+  New automake variable \lstinline!--with-dependencies=yes! for
+  installing all dependencies (FreeFEM, PETSc, Gmsh, Mfront, MGISq)
+\item
+  Dependencies can now be installed by PSD.
+\end{itemize}
+
+\subsubsection{Changed}
+
+\begin{itemize}
+\tightlist
+\item
+  Moved to FreeFEM 4.10
+\item
+  Moved to PETSc 3.16.1
+\item
+  Mfront material handler has a new name:
+  \lstinline!mfrontElasticityHandler! is now
+  \lstinline!PsdMfrontHandler!
+\end{itemize}
+
+\subsubsection{Removed}
+
+\subsubsection{Bug}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.3}{2.3}
+- 2021-09-13}{2.3 - 2021-09-13}}
+
+\subsubsection{Added}
+
+\begin{itemize}
+\tightlist
+\item
+  New argument \lstinline!-useMfront! now activates the Mfront--PSD
+  coupling.
 \item
   More tests for each plugin and physics, now added in their respective
   folders.
@@ -27,16 +79,10 @@ present the highlights of some key changes made to each PSD version.
   works.
 \item
   New \lstinline!Notes! section added in the source repo, to help with
-  mathematical and algorithimic resoning.
+  mathematical and algorithmic reasoning.
 \end{itemize}
 
-\paragraph{Changed}\label{changed}
-
-\begin{itemize}
-\item
-\end{itemize}
-
-\paragraph{Bug}\label{bug}
+\subsubsection{Bug}
 
 \begin{itemize}
 \tightlist
@@ -48,9 +94,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.2}{2.2}
-- 2021-07-28}{2.2 - 2021-07-28}}\label{section}
+- 2021-07-28}{2.2 - 2021-07-28}}
 
-\subsubsection{Added}\label{added-1}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -65,7 +111,7 @@ present the highlights of some key changes made to each PSD version.
   Error mechanism to signify wrong PSD flags.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-1}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -90,9 +136,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.1}{2.1}
-- 2021-01-27}{2.1 - 2021-01-27}}\label{section-1}
+- 2021-01-27}{2.1 - 2021-01-27}}
 
-\subsubsection{Added}\label{added-2}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -126,7 +172,7 @@ present the highlights of some key changes made to each PSD version.
   Tutorials added, use \lstinline!make tutorials! to install
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-2}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -143,7 +189,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!-fastmethod!)
 \end{itemize}
 
-\subsubsection{Removed}\label{removed}
+\subsubsection{Removed}
 
 \begin{itemize}
 \tightlist
@@ -152,7 +198,7 @@ present the highlights of some key changes made to each PSD version.
   further deprecated from elsto/soildynamics)
 \end{itemize}
 
-\subsubsection{Bugs removed}\label{bugs-removed}
+\subsubsection{Bugs removed}
 
 \begin{itemize}
 \tightlist
@@ -173,9 +219,9 @@ present the highlights of some key changes made to each PSD version.
 \href{https://codev-tuleap.intra.cea.fr/plugins/git/hpcseism/freefem?a=commit\&h=20ebfbc3cc58b9f1407658543bf3b239e74bd089}{20ebfbc3cc58b9f1407658543bf3b239e74bd089})
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.0}{2.0}
-- 2020-08-18}{2.0 - 2020-08-18}}\label{section-2}
+- 2020-08-18}{2.0 - 2020-08-18}}
 
-\subsubsection{Added}\label{added-3}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -246,7 +292,7 @@ present the highlights of some key changes made to each PSD version.
   (compatible with soildynamics).
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-3}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -271,7 +317,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!ua!, \lstinline!av! or \lstinline!uav!.
 \end{itemize}
 
-\subsubsection{Removed}\label{removed-1}
+\subsubsection{Removed}
 
 \begin{itemize}
 \tightlist
@@ -301,7 +347,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!-dirichletconditions!.
 \end{itemize}
 
-\subsubsection{Bugs removed}\label{bugs-removed-1}
+\subsubsection{Bugs removed}
 
 \begin{itemize}
 \tightlist
@@ -311,9 +357,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.8}{1.8}
-- 2020-01-21}{1.8 - 2020-01-21}}\label{section-3}
+- 2020-01-21}{1.8 - 2020-01-21}}
 
-\subsubsection{Added}\label{added-4}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -328,7 +374,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!v!, \lstinline!a! , or \lstinline!uav!.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-4}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -347,9 +393,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.7}{1.7}
-- 2019-11-08}{1.7 - 2019-11-08}}\label{section-4}
+- 2019-11-08}{1.7 - 2019-11-08}}
 
-\subsubsection{Added}\label{added-5}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -371,7 +417,7 @@ present the highlights of some key changes made to each PSD version.
   New make flag for compiling on supercomputer.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-5}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -389,9 +435,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.6}{1.6}
-- 2019-06-11}{1.6 - 2019-06-11}}\label{section-5}
+- 2019-06-11}{1.6 - 2019-06-11}}
 
-\subsubsection{Added}\label{added-6}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -402,7 +448,7 @@ present the highlights of some key changes made to each PSD version.
   integrals.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-6}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -414,7 +460,7 @@ present the highlights of some key changes made to each PSD version.
   Major changes/splitting of \lstinline!.script! files.
 \end{itemize}
 
-\subsubsection{Removed}\label{removed-2}
+\subsubsection{Removed}
 
 \begin{itemize}
 \tightlist
@@ -423,7 +469,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!ControlParameters.script!.
 \end{itemize}
 
-\subsubsection{Bugs}\label{bugs}
+\subsubsection{Bugs}
 
 \begin{itemize}
 \tightlist
@@ -432,9 +478,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.5}{1.5}
-- 2019-05-29}{1.5 - 2019-05-29}}\label{section-6}
+- 2019-05-29}{1.5 - 2019-05-29}}
 
-\subsubsection{Added}\label{added-7}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -448,7 +494,7 @@ present the highlights of some key changes made to each PSD version.
   Faster sparsity pattern calculations.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-7}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -462,7 +508,7 @@ present the highlights of some key changes made to each PSD version.
   Mesh building via \lstinline!make!.
 \end{itemize}
 
-\subsubsection{Removed}\label{removed-3}
+\subsubsection{Removed}
 
 \begin{itemize}
 \tightlist
@@ -471,9 +517,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.4}{1.4}
-- 2019-05-14}{1.4 - 2019-05-14}}\label{section-7}
+- 2019-05-14}{1.4 - 2019-05-14}}
 
-\subsubsection{Added}\label{added-8}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -489,7 +535,7 @@ present the highlights of some key changes made to each PSD version.
   Introduced \lstinline!GFP! plugin support (Go Fast Plugins).
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-8}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -501,9 +547,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.3}{1.3}
-- 2019-04-08}{1.3 - 2019-04-08}}\label{section-8}
+- 2019-04-08}{1.3 - 2019-04-08}}
 
-\subsubsection{Added}\label{added-9}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -521,7 +567,7 @@ present the highlights of some key changes made to each PSD version.
   New \lstinline!-pipegnu! for GNUplot piping.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-9}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -550,9 +596,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.1}{1.2}
-- 2019-03-18}{1.2 - 2019-03-18}}\label{section-9}
+- 2019-03-18}{1.2 - 2019-03-18}}
 
-\subsubsection{Added}\label{added-10}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -578,7 +624,7 @@ present the highlights of some key changes made to each PSD version.
   \lstinline!-plot!, \lstinline!-bodyforce!, \lstinline!-lagrange!, etc.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-10}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -594,9 +640,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.1}{1.1}
-- 2019-03-04}{1.1 - 2019-03-04}}\label{section-10}
+- 2019-03-04}{1.1 - 2019-03-04}}
 
-\subsubsection{Added}\label{added-11}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -611,7 +657,7 @@ present the highlights of some key changes made to each PSD version.
   ParaView plotting activated.
 \end{itemize}
 
-\subsubsection{Changed}\label{changed-11}
+\subsubsection{Changed}
 
 \begin{itemize}
 \tightlist
@@ -625,9 +671,9 @@ present the highlights of some key changes made to each PSD version.
 \end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v1.0}{1.0}
-- 2019-02-15}{1.0 - 2019-02-15}}\label{section-11}
+- 2019-02-15}{1.0 - 2019-02-15}}
 
-\subsubsection{Added}\label{added-12}
+\subsubsection{Added}
 
 \begin{itemize}
 \tightlist
@@ -636,7 +682,7 @@ present the highlights of some key changes made to each PSD version.
   elasticity in 2D.
 \end{itemize}
 
-\subsection{Version git tags}\label{version-git-tags}
+\subsection{Version git tags}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -667,5 +713,7 @@ aee9bfec868a70b3d9974d7692bc19f9739ab7dc\tabularnewline
 8b9d84f25aedbd684eb0f06cdd4ffbbf9a60a0e2\tabularnewline
 \href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.2}{2.2} &
 5e0368f990d505d3bf1960122cb99a23e08567b0\tabularnewline
+\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.3}{2.3} &
+0744b19fbe7da6d523754092e92f3882b57f0760\tabularnewline
 \bottomrule
 \end{longtable}

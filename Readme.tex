@@ -1,52 +1,112 @@
+\subsection{PSD version 2.4}
 
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-PSD is a cross-platform solver built to work with Linux platforms
-(Windows comping up soon). PSD has successfully been deployed on the
-following platforms, CentOS 7/8, Ubuntu 16.04/18.04/20.04, Raspberry Pi,
-Fedora 32, etc. Before installing PSD please ensure that you have the
-following dependencies installed on your OS.
+PSD, acronym for Parallel Solid/Structural/Seismic Dynamics, is a finite
+elements-based solid mechanics solver with capabilities of performing
+High Performance Computing (HPC) simulations with billions of unknowns.
+The kernel of PSD is wrapped around \href{https://freefem.org/}{FreeFEM}
+for finite element discretization, and
+\href{https://www.mcs.anl.gov/petsc/}{PETSc} for linear
+algebra/Preconditioning. PSD solver contains straightforward supports
+for \emph{static} or \emph{dynamic} simulations with \emph{linear} and
+\emph{nonlinear} solid mechanics problems. Besides these
+\href{https://link.springer.com/article/10.1007/s00466-014-1109-y}{\emph{hybrid-phase
+field fracture mechanics}} models have also been incorporated within
+PSD. For dynamics the
+\href{https://hal.archives-ouvertes.fr/hal-00345290/document}{\emph{genralized-\(\alpha\)
+model}} for time discretization is used, this models enable
+straightforward use of Newmark-\(\beta\), central difference, or HHT as
+time discretization. PSD uses sate-of-the art domain-decomposition
+paradigm via
+\href{https://www.sciencedirect.com/science/article/pii/S0022407317309597}{\emph{vectorial
+finite elements}} for parallel computing and all solvers are proven to
+scale quasi-optimally. PSD has proven scalabilty uptill 24,000 cores
+with largest problem solved containing over 5 Billion unknowns.
+
+Besides the parallel suite, PSD also includes a sequential solver which
+does not require \href{https://www.mcs.anl.gov/petsc/}{PETSc}.
+
+PSD works for two and three dimensional problems only. Unstructured
+meshes (triangular for 2D and tetrahedral for 3D) are supported in
+\href{https://www.ljll.math.upmc.fr/frey/software.html}{MEDIT's}
+\lstinline!.mesh! format or \href{http://gmsh.info/}{Gmsh's}
+\lstinline!.msh! format. PSD post processing is done via
+\lstinline!.pvd! ,\lstinline!.vtk! and \lstinline!.vtu! files of the
+\href{https://www.paraview.org/}{ParaView} platform.
+
+\subsection{Installation}
+
+PSD is a cross-platform FEM solver built to work with Linux/Unix
+platforms. PSD has successfully been deployed on the following
+platforms:
+
+\begin{itemize}
+\tightlist
+\item
+  CentOS 7 / 8
+\item
+  Ubuntu 16.04 / 18.04 / 20.04
+\item
+  Raspberry Pi
+\item
+  Fedora 30 / 32
+\item
+  MacOS X Puma:10.1.5
+\end{itemize}
+
+Before installing PSD please ensure that you have the following
+dependencies installed on your OS.
 
 \textbf{Dependencies}
 
-These can either be preinstalled by user. In that case following list
-needs to be installed, and assured that these are intercompatiable.
+PSD has some essential prerequistes without which PSD will not function.
+These dependencis can either be preinstalled by user. In that case
+following list needs to be installed, and assured that these are
+intercompatiable.
 
-\begin{itemize}
-\item
-  \href{https://www.gnu.org/software/automake/}{automake} \textgreater{}
-  v2.50
-\item
-  \href{https://freefem.org/}{FreeFEM} v4.10
-\item
-  \href{https://www.mcs.anl.gov/petsc/}{PETSc} v3.16.1
-\item
-  \href{http://gmsh.info/}{Gmsh} v4.8.4
-\item
-  \href{http://www.cplusplus.com/}{C++} \textgreater{} v7
-\item
-  \href{https://www.mpich.org/}{Mpich} or
-  \href{https://www.open-mpi.org/}{Open MPI} \textgreater{} v2.8
-\item
-  \href{https://git-scm.com/}{git}
-\item
-  \href{http://tfel.sourceforge.net/}{MFront} v3.4.0 (optional)
-\item
-  \href{https://thelfer.github.io/mgis/web/bindings-cxx.html}{MGIS} v1.2
-  (optional)
-\item
-  \href{http://www.gnuplot.info/}{gnuplot} (optional)
-\end{itemize}
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+Package & Version & Essential\tabularnewline
+\midrule
+\endhead
+\href{https://www.gnu.org/software/automake/}{automake} & Version
+\textbf{2.8} or higher & YES\tabularnewline
+\href{https://freefem.org/}{FreeFEM} & Version \textbf{4.10} &
+YES\tabularnewline
+\href{https://www.mcs.anl.gov/petsc/}{PETSc} & Version \textbf{3.16.1} &
+YES\tabularnewline
+\href{http://gmsh.info/}{Gmsh} & Version \textbf{4.8} &
+YES\tabularnewline
+\href{http://www.cplusplus.com/}{C++}, C & Version \textbf{7} or Higher
+& YES\tabularnewline
+MPI & Version \textbf{2.0} or Higher (choose either
+\href{https://www.mpich.org/}{Mpich} or
+\href{https://www.open-mpi.org/}{Open MPI}) & YES\tabularnewline
+\href{https://git-scm.com/}{git} & - & YES\tabularnewline
+\href{http://tfel.sourceforge.net/}{MFront} & Version \textbf{3.4.0} &
+OPTIONAL\tabularnewline
+\href{https://thelfer.github.io/mgis/web/bindings-cxx.html}{MGIS} &
+Version \textbf{1.2} & OPTIONAL\tabularnewline
+\href{http://www.gnuplot.info/}{gnuplot} & Version \textbf{4.0} or
+Higher & OPTIONAL\tabularnewline
+& &\tabularnewline
+\bottomrule
+\end{longtable}
 
 Note that PETSc and FreeFEM need to be compiled with METIS, ParMETIS,
 SLEPc, and hpddm support, in this case these form extra dependencies.
 The user in incharge of making sure that all the dependencies are met
-before installing PSD. To follow this type of installation read the
-section \emph{Installation Procedure 1: I install my own dependencies}
+before installing PSD.
 
-Optionally, since PSD version 2.4 PSD can attempt to build all these
-dependencies for you. In this case, to know how this is done, please
-skip to section \emph{Installation Procedure 2: PSD installs all
-dependencies}.
+Generally there are two procedures of installing PSD. One where user
+takes charge and installs all the depndencies. To follow this type of
+installation read the section \emph{Installation Procedure 1: I install
+my own dependencies}Alternatively, PSD can attempt to build and compile
+FreeFEM, PETSc, Gmsh, MFront and MGIS for you. In this case, user needs
+to ensure that automake, C/C++, git, and MPI is avaliable in the system.
+To know how this type of installation is done, please skip to section
+\emph{Installation Procedure 2: PSD installs all dependencies}.
 
 \paragraph{Installation Procedure 1: I install my own dependencies}
 
@@ -294,9 +354,9 @@ PSD_Solve_Seq Main.edp -v 0 -nw
 \textbf{Step 3: Result visualization} Final step is to have a look at
 the results of the simulation. PSD can provides output results in the
 form of plots, finite element fields of interest, etc. ParaView's pvd,
-vtu, and pvtu files are used for postprocessing. ASCII data files that
-to trace certain quantities of interest like reaction forces, kinetic
-energies, etc can also be outputted.
+vtu, and pvtu files are used for postprocessing (see figure below).
+ASCII data files that to trace certain quantities of interest like
+reaction forces, kinetic energies, etc can also be outputted.
 
 \subsection{PSD flags explained}
 

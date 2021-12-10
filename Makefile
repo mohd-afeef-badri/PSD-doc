@@ -3,14 +3,18 @@ FILE = Manual
 DEP1=./Manual
 PDFLATEX=pdflatex
 
+DBIB=biblio
+
 TEXDEP=$(DEP1).tex
 
 pdf: $(FILE).pdf
 	$(PDFLATEX) $(FILE).tex
 	
-all: $(FILE).pdf
+all: $(FILE).bbl $(FILE).pdf
+
 $(FILE).pdf: $(FILE).tex $(TEXDEP) $(FILE).bbl
 	$(PDFLATEX) $(FILE).tex  && pdflatex $(FILE).tex
+
 $(FILE).bbl: $(FILE).tex $(TEXDEP) 
 	$(PDFLATEX) $(FILE) && biber $(FILE)
 	
