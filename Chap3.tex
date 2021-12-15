@@ -54,7 +54,7 @@ explicitly.}
 
 The problem to solve can be finally written as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}}~~\text{such that : }\\
  & K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -117,7 +117,7 @@ explicitly.}
 
 The problem to solve can be finally written as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+\boxed{\begin{aligned} & \text{Find} {\bu}~{\in}~{\mathcal{U}} \text{such that : }\\
  & M(\ddot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -130,7 +130,7 @@ some cases, however, it can be useful to account for damping effects
 in a more global way. This can be done by modifying the variational
 problem as follows:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} \text{such that : }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -217,8 +217,8 @@ can express $\ddot{\bu}_{n+1}$ as a function of $\bu_{n+1}$ as:
 
 Neglecting damping effects, the problem to solve is written as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
- & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -295,7 +295,7 @@ b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}=(1-\alpha_{f})b(\bv;\bt_{n+1})_
 
 The time discretized variational formulation to solve becomes:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
  & \widetilde{K}({\bu_{n+1}},\bv)=\widetilde{l}(\bv)
 \end{aligned}
 }
@@ -318,8 +318,8 @@ is the following linear form:
 
 The problem to solve is now:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
- & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad\text{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }\label{eq:variational_pb_damping_1}
 \end{equation}
@@ -376,8 +376,8 @@ Similarly, the stiffness contribution becomes:
 
 Finally, the variational problem to solve reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
- & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
+ & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad\text{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -471,7 +471,7 @@ i.e., $\bepsilon\approx\bepsilon^{h}=\bB(\bx)\bd$.
 In a standard matrix format, after spatial discretization of the displacement
 field, the problem to solve can be written in the standard form as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}} \text{such that : }\\
  & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
  & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}
 \end{aligned}
@@ -492,7 +492,7 @@ the stress and strain tensors (or between theirs rates of variation
 When Rayleigh damping is considered the problem to solve is written
 as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bd_{n+1}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}} \text{such that : }\\
  & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bC+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
  & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}\\
  & +\bC\left\{ \text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bd}_{n}+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bd}_{n}+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bd_{n}\right\} 
@@ -533,8 +533,8 @@ from the resolution of a linearized system of equations.
 
 For this purpose, the variational formulation (\ref{eq:final_varational_discr_dumping}) is first written in residual form as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{{\bu_{n+1}^{k+1}}\ensuremath{\in}\ensuremath{\mathcal{U}}} such that : }\\
- & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{{\bu_{n+1}^{k+1}}~{\in}~{\mathcal{U}}} \text{such that : }\\
+ & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad\text{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -565,8 +565,8 @@ is the tangent stiffness operator at iteration $k$.
 
 Finally, the discretized variational formulation to solve becomes:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\delta{\bu_{n+1}^{k+1}}}\ensuremath{\in\mathcal{U}_{\delta}} such that : }\\
- & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\delta{\bu_{n+1}^{k+1}}}~{\in\mathcal{U}_{\delta}} \text{such that : }\\
+ & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad\text{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -601,7 +601,7 @@ In previous equations, symbol $[|\bullet|]$ is used to denote the jump of functi
 Given the traction continuity condition (\ref{eq:paraxial_continuity_t}),
 the variational problem to solve on $\Omega$ reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu} \ensuremath{\in} \ensuremath{\mathcal{U}} such that: }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} \text{such that: }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;\bt^{E})_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }\label{eq:paraxial_varf_1}
@@ -633,8 +633,8 @@ After time discretization, equation \eqref{eq:paraxial_lin_form} becomes:
 \end{equation}
 The variational problem to solve thus reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu_{n+1}} such that : }\\
- & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad\text{\ensuremath{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find} {\bu_{n+1}} \text{such that : }\\
+ & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad\text{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -671,7 +671,7 @@ here $\dot{\bu}_{in}$ is known, whereas $\dot{\bu}$ is the unknown velocity fiel
 
 The variational equation to solve now reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find \ensuremath{\bu}\ensuremath{\in}\ensuremath{\mathcal{U}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} such that : }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;A_{0}(\dot{\bu}))_{\Sigma}\\
  & \quad\cdots-b(\bv;\bt_{E}(\dot{\bu}_{in}))_{\Sigma}+b(\bv;A_{0}(\dot{\bu}_{in}))_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
