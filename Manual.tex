@@ -3,14 +3,14 @@
 
 \usepackage[top=1in, bottom=1in, left=1.25in, right=.75in]{geometry}
 
-    \usepackage{fancyhdr}
-    \pagestyle{fancy}
-    \lhead{PSD 2.4}
-    \chead{}
-    \rhead{\fancyplain{}{\textit{\leftmark}}}
- 
- \usepackage[LGR,T1]{fontenc}
- 
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lhead{PSD 2.4}
+\chead{}
+\rhead{\fancyplain{}{\textit{\leftmark}}}
+
+\usepackage[LGR,T1]{fontenc}
+
 %\renewcommand{\familydefault}{\sfdefault}
 %\usepackage[scaled=1]{helvet}
 %\usepackage[helvet]{sfmath}
@@ -56,53 +56,53 @@
 
 \usepackage{tabularx}
 \newenvironment{conditions*}
-  {\par\vspace{\abovedisplayskip}\noindent
-   \tabularx{\columnwidth}{>{\ttfamily}l<{ \ttfamily ~~~ } @{\ttfamily} >{\raggedright\arraybackslash}X}}
-  {\endtabularx\par\vspace{\belowdisplayskip}}
+{\par\vspace{\abovedisplayskip}\noindent
+	\tabularx{\columnwidth}{>{\ttfamily}l<{ \ttfamily ~~~ } @{\ttfamily} >{\raggedright\arraybackslash}X}}
+{\endtabularx\par\vspace{\belowdisplayskip}}
 
 \lstdefinelanguage{iPython}{
-    commentstyle=\color{cyan}\ttfamily,
-    stringstyle=\color{red}\ttfamily,
-    keepspaces=true,
-    showspaces=false,
-    showstringspaces=false,
-    %
-    rulecolor=\color{ipython_frame},
-    frame=single,
-    frameround={t}{t}{t}{t},
-    framexleftmargin=6mm,
-    numbers=left,
-    numberstyle=\tiny\color{halfgray},
-    %
-    basicstyle=\scriptsize\ttfamily,
-    keywordstyle=\color{green}\ttfamily,
+	commentstyle=\color{cyan}\ttfamily,
+	stringstyle=\color{red}\ttfamily,
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	%
+	rulecolor=\color{ipython_frame},
+	frame=single,
+	frameround={t}{t}{t}{t},
+	framexleftmargin=6mm,
+	numbers=left,
+	numberstyle=\tiny\color{halfgray},
+	%
+	basicstyle=\scriptsize\ttfamily,
+	keywordstyle=\color{green}\ttfamily,
 }
 
 \lstdefinelanguage{PSD}
 {
-  % list of keywords
-  morekeywords={
-    import,
-    if,
-    while,
-    for,
-    np
-  },
-  sensitive=false, % keywords are not case-sensitive
-  morecomment=[l]{//}, % l is for line comment
-  morecomment=[s]{/*}{*/}, % s is for start and end delimiter
-  morestring=[b]" % defines that strings are enclosed in double quotes
+	% list of keywords
+	morekeywords={
+		import,
+		if,
+		while,
+		for,
+		np
+	},
+	sensitive=false, % keywords are not case-sensitive
+	morecomment=[l]{//}, % l is for line comment
+	morecomment=[s]{/*}{*/}, % s is for start and end delimiter
+	morestring=[b]" % defines that strings are enclosed in double quotes
 }
 
 \usepackage{textcomp}
 
 \lstdefinestyle{Linux}
 {
- backgroundcolor=\color{white},
- basicstyle=\scriptsize\color{black}\ttfamily,
-    frame=trbl, % draw a frame at the top, right, left and bottom of the listing
-  frameround=tttt, % make the frame round at all four corners
-  framesep=4pt, % quarter circle size of the round corners
+	backgroundcolor=\color{white},
+	basicstyle=\scriptsize\color{black}\ttfamily,
+	frame=trbl, % draw a frame at the top, right, left and bottom of the listing
+	frameround=tttt, % make the frame round at all four corners
+	framesep=4pt, % quarter circle size of the round corners
 }
 
 \def\inline{\lstinline[basicstyle=\scriptsize\color{black}\ttfamily,keywordstyle={},frame=trb,]}
@@ -126,7 +126,7 @@
 	framesep=4pt, % quarter circle size of the round corners
 }
 
-    \lstdefinestyle{CppStyle}{
+\lstdefinestyle{CppStyle}{
 	language=bash,
 	basicstyle=\small\sffamily,
 	numbers=left,
@@ -147,34 +147,37 @@
 	{'}{{\textquotesingle}}1
 	{-}{{-}}1
 	,
-    }
+}
 
 \newcommand{\backslashhh}{\char`\\}
 
 \DeclareRobustCommand{\greektext}{%
-  \fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
+	\fontencoding{LGR}\selectfont\def\encodingdefault{LGR}}
+
 \DeclareRobustCommand{\textgreek}[1]{\leavevmode{\greektext #1}}
+
 \ProvideTextCommand{\~}{LGR}[1]{\char126#1}
 
-\newcommand{\assemble}{%
-  \mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
+%\newcommand{\assemble}{%
+%	\mathop{\vcenter{\hbox{\Large\bfseries \textsf{A}}}}\displaylimits}
 
+\newcommand{\assemble}{{{\LARGE\textsf{A}}}}
 %\newcommand{\sh}[1]{{\ttfamily{#1}}}
 \newcommand{\sh}[1]{{\small\sffamily{\color{blue!60}#1}}}
 
 \providecommand{\tightlist}{%
 	\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-  
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  NEW COMMANDS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\bA}{\textbf{A}}
-\newcommand{\bM}{\textbf{M}} 
-\newcommand{\bx}{\textbf{x}} 
-\newcommand{\bb}{\textbf{b}} 
-\newcommand{\br}{\textbf{r}}
-\newcommand{\bu}{\textbf{u}}
-\newcommand{\bv}{\textbf{v}}
-\newcommand{\bt}{\boldsymbol t}
-\newcommand{\bl}{\boldsymbol f}
+%\newcommand{\bA}{\textbf{A}}
+%\newcommand{\bM}{\textbf{M}} 
+%\newcommand{\bx}{\textbf{x}} 
+%\newcommand{\bb}{\textbf{b}} 
+%\newcommand{\br}{\textbf{r}}
+%\newcommand{\bu}{\textbf{u}}
+%\newcommand{\bv}{\textbf{v}}
+%\newcommand{\bt}{\boldsymbol t}
+%\newcommand{\bl}{\boldsymbol f}
 \newcommand{\bnv}{N_{\text{v}}}
 \newcommand{\bnd}{N_{\text{DOF}}}
 \newcommand{\bnz}{N_{\text{nz}}}
@@ -183,8 +186,8 @@
 \newcommand{\bvh}{\boldsymbol v^h}
 \newcommand{\bwh}{\boldsymbol w^h}
 \newcommand{\bqh}{\boldsymbol q^h}
-\newcommand{\bz}{\textbf{z}}
-\newcommand{\bp}{\textbf{p}}
+%\newcommand{\bz}{\textbf{z}}
+%\newcommand{\bp}{\textbf{p}}
 \newcommand{\np}{N_\text{p}}
 \newcommand{\wu}{\widehat{u}}
 \newcommand{\wbu}{\widehat{\textbf{u}}}
@@ -212,71 +215,128 @@
 
 \newcommand{\eul}{\mbox{e}}
 
-\def\Tij{{T_{ij}}}
+\newcommand\Tij{{T_{ij}}}
 
-\def\bxi{\mbox{\boldmath${\xi}$}}
-\def\balpha{\mbox{\boldmath${\alpha}$}}
-\def\bepsilon{\mbox{\boldmath${\epsilon}$}}
+\newcommand\bxi{{\boldsymbol{\xi}}}
+\newcommand\balpha{{\boldsymbol{\alpha}}}
+\newcommand\bepsilon{{\boldsymbol{\epsilon}}}
 %\def\bepsilon{\mbox{\boldmath$\underline{\underline{{\epsilon}}}$}}
-\def\bkappa{\mbox{\boldmath${\kappa}$}}
-\def\bphi{\mbox{\boldmath${\phi}$}}
-\def\bsigma{\mbox{\boldmath${\sigma}$}}
+\newcommand\bkappa{{\boldsymbol{\kappa}}}
+\newcommand\bphi{{\boldsymbol{\phi}}}
+\newcommand{\bsigma}{\boldsymbol{\sigma}}
 
-\def\bA{{{\bf{A}}}}
-\def\ba{{\bf{a}}}
-\def\bB{{\bf B}}
-\def\bb{{\bf{b}}}
-\def\bC{{\bf C}}
-\def\bc{{\bf c}}
-\def\bd{{\bf d}}
-\def\bD{{{\bf{D}}}}
-\def\bE{{\bf E}}
-\def\be{{\bf e}}
-\def\be{{\bf{e}}}
-\def\bF{{\bf F}}
-\def\bfvec{{\bf{f}}}
-\def\bG{{\bf G}}
-\def\bI{{{\bf{I}}}}
-\def\bg{{\bf{g}}}
-\def\bh{{\bf h}}
-\def\bi{{\bf i}}
-\def\bH{{\bf H}}
-\def\bk{{\bf k}}
-\def\bK{{\bf K}}
-\def\bl{{\bf l}}
-\def\bL{{\bf L}}
-\def\bM{{\bf M}}
-\def\bN{{\bf N}}
-\def\bn{{\bf{n}}}
-\def\bm{{\bf m}}
-\def\b0{{\bf 0}}
-\def\b1{{\bf 1}}
-\def\bo{{\bf o}}
-\def\bX{{\bf X}}
-\def\bZ{{\bf Z}}
-\def\bx{{\bf{x}}}                   
-\def\bP{{\bf P}}
-\def\bp{{\bf p}}
-\def\bQ{{\bf Q}}
-\def\bq{{\bf q}}
-\def\br{{\bf r}}
-\def\bR{{\bf R}}
-\def\bS{{\bf S}}
-\def\bs{{\bf s}}
-\def\bT{{\bf{T}}}
-\def\bt{{\bf t}}
-\def\bU{{\bf U}}
-\def\bu{{\bf{u}}}
-\def\bV{{\bf{V}}}                   
-\def\bv{{\bf{v}}}
-\def\bw{{\bf w}}
-\def\bW{{\bf W}}
-\def\vecbx{{\bf x}}
-\def\by{{\bf y}}
-\def\bY{{\bf Y}}
-\def\bz{{\bf z}}
-\def\bY{{\bf Y}}
-\def\Id{{\bf 1}}
+%\usepackage[greek]{babel}
+
+%\usepackage{textcomp}
+%\renewcommand{\textminus}{\scalebox{0.75}[1.0]{$-$}}
+\renewcommand{\textminus}{{--}}
+%\def\bA{{{\textbf{A}}}}
+%\def\ba{{\textbf{a}}}
+%\def\bB{{\textbf B}}
+%\def\bb{{\textbf{b}}}
+%\def\bC{{\textbf C}}
+%\def\bc{{\textbf c}}
+%\def\bd{{\textbf d}}
+%\def\bD{{{\textbf{D}}}}
+%\def\bE{{\textbf E}}
+%\def\be{{\textbf e}}
+%\def\be{{\textbf{e}}}
+%\def\bF{{\bf F}}
+%\def\bfvec{{\bf{f}}}
+%\def\bG{{\textbf G}}
+%\def\bI{{{\textbf{I}}}}
+%\def\bg{{\textbf{g}}}
+%\def\bh{{\textbf h}}
+%\def\bi{{\textbf i}}
+%\def\bH{{\textbf H}}
+%\def\bk{{\textbf k}}
+%\def\bK{{\textbf K}}
+%\def\bl{{\textbf l}}
+%\def\bL{{\textbf L}}
+%\def\bM{{\textbf M}}
+%\def\bN{{\textbf N}}
+%\def\bn{{\textbf{n}}}
+%\def\bm{{\textbf m}}
+%\def\b0{{\textbf 0}}
+%\def\b1{{\textbf 1}}
+%\def\bo{{\textbf o}}
+%\def\bX{{\textbf X}}
+%\def\bZ{{\textbf Z}}
+%\def\bx{{\textbf{x}}}                   
+%\def\bP{{\textbf P}}
+%\def\bp{{\textbf p}}
+%\def\bQ{{\textbf Q}}
+%\def\bq{{\textbf q}}
+%\def\br{{\textbf r}}
+%\def\bR{{\textbf R}}
+%\def\bS{{\textbf S}}
+%\def\bs{{\textbf s}}
+%\def\bT{{\textbf{T}}}
+%\def\bt{{\textbf t}}
+%\def\bU{{\textbf U}}
+%\def\bu{{\textbf{u}}}
+%\def\bV{{\textbf{V}}}                   
+%\def\bv{{\textbf{v}}}
+%\def\bw{{\textbf w}}
+%\def\bW{{\textbf W}}
+%\def\vecbx{{\textbf x}}
+%\def\by{{\textbf y}}
+%\def\bY{{\textbf Y}}
+%\def\bz{{\textbf z}}
+%\def\bY{{\textbf Y}}
+%\def\Id{{\textbf 1}}
+
+\newcommand{\bA}{{{\textbf{A}}}}
+\newcommand{\ba}{{\textbf{a}}}
+\newcommand{\bB}{{\textbf B}}
+\newcommand{\bb}{{\textbf{b}}}
+\newcommand{\bC}{{\textbf C}}
+\newcommand{\bc}{{\textbf c}}
+\newcommand{\bd}{{\textbf d}}
+\newcommand{\bD}{{{\textbf{D}}}}
+\newcommand{\bE}{{\textbf E}}
+\newcommand{\be}{{\textbf{e}}}
+\newcommand{\bF}{{\textbf F}}
+\newcommand{\bfvec}{{\textbf{f}}}
+\newcommand{\bG}{{\textbf G}}
+\newcommand{\bI}{{{\textbf{I}}}}
+\newcommand{\bg}{{\textbf{g}}}
+\newcommand{\bh}{{\textbf h}}
+\newcommand{\bi}{{\textbf i}}
+\newcommand{\bH}{{\textbf H}}
+\newcommand{\bk}{{\textbf k}}
+\newcommand{\bK}{{\textbf K}}
+\newcommand{\bl}{{\textbf l}}
+\newcommand{\bL}{{\textbf L}}
+\newcommand{\bM}{{\textbf M}}
+\newcommand{\bN}{{\textbf N}}
+\newcommand{\bn}{{\textbf{n}}}
+\newcommand{\bmm}{{\textbf m}}
+\newcommand{\bo}{{\textbf o}}
+\newcommand{\bX}{{\textbf X}}
+\newcommand{\bZ}{{\textbf Z}}
+\newcommand{\bx}{{\textbf{x}}}                   
+\newcommand{\bP}{{\textbf P}}
+\newcommand{\bp}{{\textbf p}}
+\newcommand{\bQ}{{\textbf Q}}
+\newcommand{\bq}{{\textbf q}}
+\newcommand{\br}{{\textbf r}}
+\newcommand{\bR}{{\textbf R}}
+\newcommand{\bS}{{\textbf S}}
+\newcommand{\bs}{{\textbf s}}
+\newcommand{\bT}{{\textbf{T}}}
+\newcommand{\bt}{{\textbf t}}
+\newcommand{\bU}{{\textbf U}}
+\newcommand{\bu}{{\textbf{u}}}
+\newcommand{\bV}{{\textbf{V}}}                   
+\newcommand{\bv}{{\textbf{v}}}
+\newcommand{\bw}{{\textbf w}}
+\newcommand{\bW}{{\textbf W}}
+\newcommand{\vecbx}{{\textbf x}}
+\newcommand{\by}{{\textbf y}}
+\newcommand{\bY}{{\textbf Y}}
+\newcommand{\bz}{{\textbf z}}
+\newcommand{\Id}{{\textbf 1}}
 
 \usepackage{pgfplots}
 \usepackage{pgfplotstable} % For \pgfplotstableread
@@ -287,44 +347,44 @@
 %%% START MACRO FOR ANNOTATION OF TRIANGLE WITH SLOPE %%%.
 \newcommand{\logLogSlopeTriangle}[5]
 {
-    % #1. Relative offset in x direction.
-    % #2. Width in x direction, so xA-xB.
-    % #3. Relative offset in y direction.
-    % #4. Slope d(y)/d(log10(x)).
-    % #5. Plot options.
-
-    \pgfplotsextra
-    {
-        \pgfkeysgetvalue{/pgfplots/xmin}{\xmin}
-        \pgfkeysgetvalue{/pgfplots/xmax}{\xmax}
-        \pgfkeysgetvalue{/pgfplots/ymin}{\ymin}
-        \pgfkeysgetvalue{/pgfplots/ymax}{\ymax}
-
-        % Calculate auxilliary quantities, in relative sense.
-        \pgfmathsetmacro{\xArel}{#1}
-        \pgfmathsetmacro{\yArel}{#3}
-        \pgfmathsetmacro{\xBrel}{#1-#2}
-        \pgfmathsetmacro{\yBrel}{\yArel}
-        \pgfmathsetmacro{\xCrel}{\xArel}
-        %\pgfmathsetmacro{\yCrel}{ln(\yC/exp(\ymin))/ln(exp(\ymax)/exp(\ymin))} % REPLACE THIS EXPRESSION WITH AN EXPRESSION INDEPENDENT OF \yC TO PREVENT THE 'DIMENSION TOO LARGE' ERROR.
-
-        \pgfmathsetmacro{\lnxB}{\xmin*(1-(#1-#2))+\xmax*(#1-#2)} % in [xmin,xmax].
-        \pgfmathsetmacro{\lnxA}{\xmin*(1-#1)+\xmax*#1} % in [xmin,xmax].
-        \pgfmathsetmacro{\lnyA}{\ymin*(1-#3)+\ymax*#3} % in [ymin,ymax].
-        \pgfmathsetmacro{\lnyC}{\lnyA+#4*(\lnxA-\lnxB)}
-        \pgfmathsetmacro{\yCrel}{\lnyC-\ymin)/(\ymax-\ymin)} % THE IMPROVED EXPRESSION WITHOUT 'DIMENSION TOO LARGE' ERROR.
-
-        % Define coordinates for \draw. MIND THE 'rel axis cs' as opposed to the 'axis cs'.
-        \coordinate (A) at (rel axis cs:\xArel,\yArel);
-        \coordinate (B) at (rel axis cs:\xBrel,\yBrel);
-        \coordinate (C) at (rel axis cs:\xCrel,\yCrel);
-
-        % Draw slope triangle.
-        \draw[#5]   (A)-- node[pos=0.5,inner sep=2pt,anchor=north] {\scriptsize 1}
-                    (B)-- 
-                    (C)-- node[pos=0.5,inner sep=2pt,anchor=west] {\scriptsize #4}
-                    cycle;
-    }
+	% #1. Relative offset in x direction.
+	% #2. Width in x direction, so xA-xB.
+	% #3. Relative offset in y direction.
+	% #4. Slope d(y)/d(log10(x)).
+	% #5. Plot options.
+	
+	\pgfplotsextra
+	{
+		\pgfkeysgetvalue{/pgfplots/xmin}{\xmin}
+		\pgfkeysgetvalue{/pgfplots/xmax}{\xmax}
+		\pgfkeysgetvalue{/pgfplots/ymin}{\ymin}
+		\pgfkeysgetvalue{/pgfplots/ymax}{\ymax}
+		
+		% Calculate auxilliary quantities, in relative sense.
+		\pgfmathsetmacro{\xArel}{#1}
+		\pgfmathsetmacro{\yArel}{#3}
+		\pgfmathsetmacro{\xBrel}{#1-#2}
+		\pgfmathsetmacro{\yBrel}{\yArel}
+		\pgfmathsetmacro{\xCrel}{\xArel}
+		%\pgfmathsetmacro{\yCrel}{ln(\yC/exp(\ymin))/ln(exp(\ymax)/exp(\ymin))} % REPLACE THIS EXPRESSION WITH AN EXPRESSION INDEPENDENT OF \yC TO PREVENT THE 'DIMENSION TOO LARGE' ERROR.
+		
+		\pgfmathsetmacro{\lnxB}{\xmin*(1-(#1-#2))+\xmax*(#1-#2)} % in [xmin,xmax].
+		\pgfmathsetmacro{\lnxA}{\xmin*(1-#1)+\xmax*#1} % in [xmin,xmax].
+		\pgfmathsetmacro{\lnyA}{\ymin*(1-#3)+\ymax*#3} % in [ymin,ymax].
+		\pgfmathsetmacro{\lnyC}{\lnyA+#4*(\lnxA-\lnxB)}
+		\pgfmathsetmacro{\yCrel}{\lnyC-\ymin)/(\ymax-\ymin)} % THE IMPROVED EXPRESSION WITHOUT 'DIMENSION TOO LARGE' ERROR.
+		
+		% Define coordinates for \draw. MIND THE 'rel axis cs' as opposed to the 'axis cs'.
+		\coordinate (A) at (rel axis cs:\xArel,\yArel);
+		\coordinate (B) at (rel axis cs:\xBrel,\yBrel);
+		\coordinate (C) at (rel axis cs:\xCrel,\yCrel);
+		
+		% Draw slope triangle.
+		\draw[#5]   (A)-- node[pos=0.5,inner sep=2pt,anchor=north] {\scriptsize 1}
+		(B)-- 
+		(C)-- node[pos=0.5,inner sep=2pt,anchor=west] {\scriptsize #4}
+		cycle;
+	}
 }
 %%% END MACRO FOR ANNOTATION OF TRIANGLE WITH SLOPE %%%.
 
@@ -336,11 +396,11 @@
 \pgfplotsset{colormap={paraviewCR}{rgb(0cm)=(0,0,1) rgb(.25cm)=(0,1,1) rgb(.5cm)=(0,1,0)  rgb(.75cm)=(1,1,0) rgb(1cm)=(1,0,0)}}
 
 \begin{filecontents}{error.dat}
-h				L2u1				L2u2				Linfu1			Linfu2
-0.0102892       1.2507e-07      1.05278e-07     4.10912e-06     4.24223e-06
-0.00514461      3.51621e-08     3.02976e-08     1.53255e-06     1.51037e-06
-0.0025723       9.3285e-09      8.11649e-09     5.03167e-07     4.90303e-07
-0.00128615      2.76667e-09     2.36418e-09     1.55562e-07     1.42582e-07
+	h				L2u1				L2u2				Linfu1			Linfu2
+	0.0102892       1.2507e-07      1.05278e-07     4.10912e-06     4.24223e-06
+	0.00514461      3.51621e-08     3.02976e-08     1.53255e-06     1.51037e-06
+	0.0025723       9.3285e-09      8.11649e-09     5.03167e-07     4.90303e-07
+	0.00128615      2.76667e-09     2.36418e-09     1.55562e-07     1.42582e-07
 \end{filecontents}
 
 %\bibliography{biblio.bib}
@@ -358,38 +418,38 @@ h				L2u1				L2u2				Linfu1			Linfu2
 
 
 \includeonly{
-              Chap1,
-              Chap2,
-              Chap3,
-              Chap4,
-              Chap5,
-              Chap6,
-              Chap7
-             }
+	Chap1,
+	Chap2,
+	Chap3,
+	Chap4,
+	Chap5,
+	Chap6,
+	Chap7
+}
 
 \begin{document}
-    \maketitle
-    
-    \pagebreak
-    \tableofcontents
-    \pagebreak
-
-    \include{Chap1}
-    \include{Chap2}
-    \include{Chap3}
-    \include{Chap4}
-    \include{Chap5}
-    \include{Chap6}
-    \include{Chap7}
-        
-    %\input{Chap1.tex}
-    %\input{Chap2.tex}
-    %\input{Chap3.tex}
-    %\input{Chap4.tex}
-    %\input{Chap5.tex}
-    %\input{Chap6.tex}
-    %\input{Chap7.tex}
-    
-    \pagebreak
-    \printbibliography
+	\maketitle
+	
+	\pagebreak
+	\tableofcontents
+	\pagebreak
+	
+	\include{Chap1}
+	\include{Chap2}
+	\include{Chap3}
+	\include{Chap4}
+	\include{Chap5}
+	\include{Chap6}
+	\include{Chap7}
+	
+	%\input{Chap1.tex}
+	%\input{Chap2.tex}
+	%\input{Chap3.tex}
+	%\input{Chap4.tex}
+	%\input{Chap5.tex}
+	%\input{Chap6.tex}
+	%\input{Chap7.tex}
+	
+	\pagebreak
+	\printbibliography
 \end{document}

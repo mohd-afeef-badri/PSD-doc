@@ -2,7 +2,7 @@
 
 \section{Elastostatics}
 
-Let us consider $d$-dimensional domain $\Omega\in\mathbb{R}^{d}$ in a Euclidean referential $R(O,\be_{i})$ (with $i=1,\dots,d)$ submitted to a system of body forces $\bb$. We denote $\partial\Omega$ the boundary of $\Omega$ and indicate with $\bn=\bn(\bx)=n_{i}(\bx)\be_{i}$
+Let us consider $d$-dimensional domain $\Omega\in\mathbb{R}^{d}$ in a Euclidean referential $R(O,\be_{i})$ (with $i=1,\dots,d)$ submitted to a system of body forces $\bb$. We denote $\partial\Omega$ the boundary of $\Omega$ and indicate with $\bn = \bn(\bx) = n_{i}(\bx)\be_{i}$
 its outer normal in any point $\bx=x_{i}\be_{i}\in\partial\Omega$.
 
 The problem to solve in order to characterize the dynamics equilibrium thus consists in finding a vector-valued displacement field $\bu=\bu(\bx,t):\Omega\times[0,T]\to\mathbb{R}^{d}$
@@ -15,7 +15,7 @@ regular ``enough'' and such that:
 \bsigma\cdot\bn=\bt & (\bx,t)\in\partial_{t}\Omega\times[0,T]
 \end{cases}
 \end{equation}
-where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
+where ``${\text{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
 expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
 boundary condition) and 
 $\bt=\bt(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$
@@ -74,7 +74,7 @@ regular ``enough'' and such that:
 \dot{\bu}=\dot{\bu}_{0} & \bx\in\Omega,\,t=0
 \end{cases}
 \end{equation}
-where ``$\mathrm{\mathrm{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density,
+where ``${\text{div}}$'' denotes the divergence operator, symbol ``$\cdot$'' denotes the single contraction operation between tensors, $\rho=\rho(\bx):\Omega\to\mathbb{R}$ is the material density,
 $\ddot{\bu}=\ddot{\bu}(\bx,t)=\bu_{tt}:\Omega\times[0,T]\to\mathbb{R}^{d}$ is the acceleration field (i.e., the second time derivative of the field $\bu$) and $\bsigma=\bsigma(\bu)$ denotes a constitutive equation
 expressing the relationship between the second order Cauchy's stress tensor $\bsigma:\Omega\times[0,T]\to\mathbb{R}^{d\times d}$ and the displacement. Moreover, $\bu^{*}=\bu^{*}(\bx,t):\partial_{u}\Omega\times[0,T]\to\mathbb{R}^{d}$ is the imposed displacement field on $\partial_{u}\Omega$ (Dirichlet
 boundary condition) and 
@@ -117,7 +117,7 @@ explicitly.}
 
 The problem to solve can be finally written as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find} {\bu}~{\in}~{\mathcal{U}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~~{\bu}~{\in}~{\mathcal{U}}~~\text{such that : }\\
  & M(\ddot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -130,7 +130,7 @@ some cases, however, it can be useful to account for damping effects
 in a more global way. This can be done by modifying the variational
 problem as follows:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}}~~\text{such that : }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)+b(\bv;\bt)_{\partial_{t}\Omega}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -190,7 +190,7 @@ Furthermore, the following approximations (standard for Newmark schemes)
 for the displacement and velocity fields at time $t_{n+1}$ are used \cite{newmark1959method}:
 \begin{equation}
 \begin{aligned}{\bu_{n+1}} & =\overline{\bu}_{n+1}+\beta\,\Delta t^{2}\,\ddot{\bu}_{n+1}\\
-\dot{\bu}_{n+1} & =\dot{\overline{\bu}}_{n+1}+\gamma\,\text{\textgreek{D}}t\,\ddot{\bu}_{n+1}
+\dot{\bu}_{n+1} & =\dot{\overline{\bu}}_{n+1}+\gamma\,\Delta t\,\ddot{\bu}_{n+1}
 \end{aligned}
 \label{eq:newmmark_approximations-corr-1}
 \end{equation}
@@ -198,8 +198,8 @@ where $\overline{\bu}_{n+1}$ and $\dot{\overline{\bu}}_{n+1}$ are
 the following known contributions (predictions in predictor-corrector
 schemes):
 \begin{equation}
-\begin{aligned}\overline{\bu}_{n+1} & ={\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\\
-\dot{\overline{\bu}}_{n+1} & =\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}
+\begin{aligned}\overline{\bu}_{n+1} & ={\bu_{n}}+\Delta t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\\
+\dot{\overline{\bu}}_{n+1} & =\dot{\bu}_{n}+\Delta t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}
 \end{aligned}
 \label{eq:newmmark_approximations-pred-1}
 \end{equation}
@@ -217,7 +217,7 @@ can express $\ddot{\bu}_{n+1}$ as a function of $\bu_{n+1}$ as:
 
 Neglecting damping effects, the problem to solve is written as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}}~~\text{such that : }\\
  & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
@@ -257,7 +257,7 @@ m(\bv;\overline{\bu}_{n+1})=\int_{\Omega}\rho\overline{\bu}_{n+1}\cdot\bv\,{\rm 
 Term $m(\bv;\overline{\bu}_{n+1})$ figuring in equation (\ref{eq:M_1})
 can also be expanded as:
 \begin{equation}
-m(\bv;\overline{\bu}_{n+1})=m(\bv;{\bu_{n}})+\text{\textgreek{D}}t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)m(\bv;\ddot{\bu}_{n})
+m(\bv;\overline{\bu}_{n+1})=m(\bv;{\bu_{n}})+\Delta t\,m(\bv;\dot{\bu}_{n})+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)m(\bv;\ddot{\bu}_{n})
 \end{equation}
 As a consequence (\ref{eq:M_1}) can be rewritten as:\footnote{When summing up the terms depending on $\ddot{\bu}_{n}$, coming from
 the definition of $\overline{\bu}_{n+1}$ and from equation (\ref{eq:M_1}),
@@ -295,7 +295,7 @@ b(\bv;\bt_{n+1-\alpha_{f}})_{\partial_{t}\Omega}=(1-\alpha_{f})b(\bv;\bt_{n+1})_
 
 The time discretized variational formulation to solve becomes:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}}~~\text{such that : }\\
  & \widetilde{K}({\bu_{n+1}},\bv)=\widetilde{l}(\bv)
 \end{aligned}
 }
@@ -318,8 +318,8 @@ is the following linear form:
 
 The problem to solve is now:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
- & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad\text{{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}}~~\text{such that : }\\
+ & M(\ddot{\bu}_{n+1-\alpha_{m}},\bv)+C(\dot{\bu}_{n+1-\alpha_{f}},\bv)+K(\bu_{n+1-\alpha_{f}},\bv)=b(\bv;\bb)+b(\bv;\bt_{n+1-\alpha_{f}})_{\partial\Omega}\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }\label{eq:variational_pb_damping_1}
 \end{equation}
@@ -334,7 +334,7 @@ and \eqref{eq:newmmark_approximations-pred-1}, $\dot{\bu}_{n+1-\alpha_{f}}$ can 
 and \eqref{eq:newmmark_approximations-pred-1}, the velocity field at time $t_{n+1-\alpha_{f}}$ reads:
 \begin{equation}
 \begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =(1-\alpha_{f})\dot{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}\\
- & =(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\dot{\bu}_{n}+\gamma\,\text{\textgreek{D}}t\,(1-\alpha_{f})\ddot{\bu}_{n+1}\\
+ & =(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}+\alpha_{f}\dot{\bu}_{n}+\gamma\,\Delta t\,(1-\alpha_{f})\ddot{\bu}_{n+1}\\
  & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\dot{\overline{\bu}}_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\overline{\bu}_{n+1}+\alpha_{f}\dot{\bu}_{n}
 \end{aligned}
 \end{equation}
@@ -345,14 +345,14 @@ and \eqref{eq:newmmark_approximations-pred-1}, the velocity field at time $t_{n+
 or, using definitions (\ref{eq:newmmark_approximations-pred-1}),
 as:\footnote{Using definitions (\ref{eq:newmmark_approximations-pred-1}) one obtains:
 \begin{equation}
-\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\left[\dot{\bu}_{n}+\text{\textgreek{D}}t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}\right]-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\left[{\bu_{n}}+\text{\textgreek{D}}t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\right]+\alpha_{f}\dot{\bu}_{n}\\
- & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+\left[1-\frac{\gamma(1-\alpha_{f})}{\beta}\right]\dot{\bu}_{n}+(1-\alpha_{f})\text{\textgreek{D}}t\left\{ 1\text{\textminus}\gamma\left[1+\left(\frac{1-2\beta}{2\beta}\right)\right]\right\} \ddot{\bu}_{n}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}\\
- & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+(1-\alpha_{f})\left[\dot{\bu}_{n}+\Delta t\,(1\text{\textminus}\gamma)\ddot{\bu}_{n}\right]-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}\left[{\bu_{n}}+\Delta t\,\dot{\bu}_{n}+\Delta t^{2}\left(\frac{1}{2}\text{\textminus}\beta\right)\ddot{\bu}_{n}\right]+\alpha_{f}\dot{\bu}_{n}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}+\left[1-\frac{\gamma(1-\alpha_{f})}{\beta}\right]\dot{\bu}_{n}+(1-\alpha_{f})\Delta t\left\{ 1\text{\textminus}\gamma\left[1+\left(\frac{1-2\beta}{2\beta}\right)\right]\right\} \ddot{\bu}_{n}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}\\
+ & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}
 \end{aligned}
 \end{equation}
 }
 \begin{equation}
-\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}\end{aligned}
+\begin{aligned}\dot{\bu}_{n+1-\alpha_{f}} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bu_{n+1}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}{\bu_{n}}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bu}_{n}-\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bu}_{n}\end{aligned}
 \end{equation}
 
 
@@ -361,13 +361,13 @@ as:\footnote{Using definitions (\ref{eq:newmmark_approximations-pred-1}) one obt
 Operator $M(\dot{\bu}_{n+1-\alpha_{f}},\bv)$ reads:
 \begin{equation}
 \begin{aligned}M(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}M(\bu_{n+1},\bv)-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}m(\bv;{\bu_{n}})\\
- & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]m(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)m(\bv;\ddot{\bu}_{n})
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]m(\bv;\dot{\bu}_{n})-\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)m(\bv;\ddot{\bu}_{n})
 \end{aligned}
 \end{equation}
 Similarly, the stiffness contribution becomes:
 \begin{equation}
 \begin{aligned}K(\dot{\bu}_{n+1-\alpha_{f}},\bv) & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}K(\bu_{n+1},\bv)-\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}k(\bv;\bu_{n})\\
- & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]k(\bv;\dot{\bu}_{n})-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)k(\bv;\ddot{\bu}_{n})
+ & \quad\cdots-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]k(\bv;\dot{\bu}_{n})-\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)k(\bv;\ddot{\bu}_{n})
 \end{aligned}
 \end{equation}
 
@@ -376,8 +376,8 @@ Similarly, the stiffness contribution becomes:
 
 Finally, the variational problem to solve reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}} \text{such that : }\\
- & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad\text{{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\bu_{n+1}~{\in}~{\mathcal{U}}}~~\text{such that : }\\
+ & \widetilde{\widetilde{K}}({\bu_{n+1}},\bv)=\widetilde{\widetilde{l}}(\bv)\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -398,7 +398,7 @@ C({\bu_{n+1}},\bv)=\eta_{M}M({\bu_{n+1}},\bv)+\eta_{K}K({\bu_{n+1}},\bv)
 and $\widetilde{\widetilde{l}}(\bv) =\widetilde{\widetilde{l}}(\bv;\left\{ \bb,\bt_{n},\bt_{n+1},\bu_{n},\dot{\bu}_{n},\ddot{\bu}_{n}\right\} )$ being the following linear form:
 %
 \begin{equation}
-\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})\\
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})\\
  & \quad\cdots+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]c(\bv;\dot{\bu}_{n})+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}c(\bv;{\bu_{n}})
 \end{aligned}
 \end{equation}
@@ -432,7 +432,7 @@ becomes:
 \end{equation}
 whereas the linear form simplifies as follows:
 \begin{equation}
-\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\text{\textgreek{D}}t\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})+\left(\frac{\gamma}{\beta}-1\right)c(\bv;\dot{\bu}_{n})+\frac{\gamma}{\beta\,\Delta t}c(\bv;{\bu_{n}})\end{aligned}
+\begin{aligned}\widetilde{\widetilde{l}}(\bv) & =\widetilde{l}(\bv)+\Delta t\left(\frac{\gamma}{2\beta}-1\right)c(\bv;\ddot{\bu}_{n})+\left(\frac{\gamma}{\beta}-1\right)c(\bv;\dot{\bu}_{n})+\frac{\gamma}{\beta\,\Delta t}c(\bv;{\bu_{n}})\end{aligned}
 \end{equation}
 
 
@@ -471,7 +471,7 @@ i.e., $\bepsilon\approx\bepsilon^{h}=\bB(\bx)\bd$.
 In a standard matrix format, after spatial discretization of the displacement
 field, the problem to solve can be written in the standard form as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}}~~\text{such that : }\\
  & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
  & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}
 \end{aligned}
@@ -492,10 +492,10 @@ the stress and strain tensors (or between theirs rates of variation
 When Rayleigh damping is considered the problem to solve is written
 as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}} \text{such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bd_{n+1}}~~\text{such that : }\\
  & \left[\frac{1-\alpha_{m}}{\beta\Delta t^{2}}\bM+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bC+\left(1-\alpha_{f}\right)\bK\right]{\bd_{n+1}}\\
  & =\bfvec_{n+1-\alpha_{f}}+\bM\left[\left(\frac{1-\alpha_{m}}{2\beta}-1\right)\ddot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t}\dot{\bd}_{n}+\frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}{\bd_{n}}\right]-\alpha_{f}\bK{\bd_{n}}\\
- & +\bC\left\{ \text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bd}_{n}+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bd}_{n}+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bd_{n}\right\} 
+ & +\bC\left\{ \Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)\ddot{\bd}_{n}+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]\dot{\bd}_{n}+\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}\bd_{n}\right\} 
 \end{aligned}
 }
 \end{equation}
@@ -533,8 +533,8 @@ from the resolution of a linearized system of equations.
 
 For this purpose, the variational formulation (\ref{eq:final_varational_discr_dumping}) is first written in residual form as:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{{\bu_{n+1}^{k+1}}~{\in}~{\mathcal{U}}} \text{such that : }\\
- & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad\text{{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{{\bu_{n+1}^{k+1}}~{\in}~{\mathcal{U}}}~~\text{such that : }\\
+ & R({\bu_{n+1}^{k+1}},\bv)=\widetilde{\widetilde{K}}(\bu_{n+1}^{k+1},\bv)-\widetilde{\widetilde{l}}(\bv)=0\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -565,8 +565,8 @@ is the tangent stiffness operator at iteration $k$.
 
 Finally, the discretized variational formulation to solve becomes:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\delta{\bu_{n+1}^{k+1}}}~{\in\mathcal{U}_{\delta}} \text{such that : }\\
- & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad\text{{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find}~{\delta{\bu_{n+1}^{k+1}}}~{\in\mathcal{U}_{\delta}}~~\text{such that : }\\
+ & \left[ \frac{1-\alpha_{m}}{\beta\,\Delta t^{2}}+ \frac{\gamma\,(1-\alpha_{f})\eta_M}{\beta\,\Delta t}  \right] M(\delta{\bu_{n+1}^{k+1}},\bv) + (1-\alpha_{f})\left(\frac{\gamma}{\beta\,\Delta t}\eta_{K}+1\right)K_{d}(\delta{\bu_{n+1}^{k+1}},\bv;\bu_{n+1}^{k}) \\ & =-r(\bv;\bu_{n+1}^{k})\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -583,7 +583,7 @@ Several techniques have been proposed in the literature to introduce proper trea
 
 \subsection{Standard formulation}
 
-Paraxial approximation constitutes a local boundary condition which permits diffracting waves to be evacuated from the computational domain. To introduce the formulation, let us consider a split of the total domain $\Omega^{\infty}$ into two subdomains $\Omega$ and $\Omega^{E}$ separated by a surface $\Sigma\in\mathbb{R}^{d}$ of outer normal $\bm{}$ (pointing from $\Omega$ to $\Omega^{E}$). On surface $\Sigma$, the continuity condition of the displacement field read:
+Paraxial approximation constitutes a local boundary condition which permits diffracting waves to be evacuated from the computational domain. To introduce the formulation, let us consider a split of the total domain $\Omega^{\infty}$ into two subdomains $\Omega$ and $\Omega^{E}$ separated by a surface $\Sigma\in\mathbb{R}^{d}$ of outer normal $\bmm$ (pointing from $\Omega$ to $\Omega^{E}$). On surface $\Sigma$, the continuity condition of the displacement field read:
 \begin{equation}
 [|\bu|]=\bu-\bu^{E}=0\qquad\Sigma\times[0,T]
 \end{equation}
@@ -591,7 +591,7 @@ Paraxial approximation constitutes a local boundary condition which permits diff
 whereas the continuity of the traction vector reads:
 %
 \begin{equation}
-[|\bsigma|]\cdot\bm{}=\left(\bsigma-\bsigma^{E}\right)\cdot\bm{}=\bsigma\cdot\bm{}+\bsigma^{E}\cdot(-\bm{})=\bt+\bt^{E}=0\qquad\Sigma\times[0,T]\label{eq:paraxial_continuity_t}
+[|\bsigma|]\cdot\bmm=\left(\bsigma-\bsigma^{E}\right)\cdot\bmm=\bsigma\cdot\bmm+\bsigma^{E}\cdot(-\bmm)=\bt+\bt^{E}=0\qquad\Sigma\times[0,T]\label{eq:paraxial_continuity_t}
 \end{equation}
 
 In previous equations, symbol $[|\bullet|]$ is used to denote the jump of function $\bullet$ across surface $\Sigma$, $\bu^{E}=\bu^{E}(\bx,t):\Omega^{E}\times[0,T]\to\mathbb{R}^{d}$ is the vector-valued displacement field on $\Omega^{E}$, and $\bsigma^{E}=\bsigma^{E}(\bu^{E}):\Omega^{E}\times[0,T]\to\mathbb{R}^{d\times d}$ is the corresponding stress tensor.
@@ -601,23 +601,23 @@ In previous equations, symbol $[|\bullet|]$ is used to denote the jump of functi
 Given the traction continuity condition (\ref{eq:paraxial_continuity_t}),
 the variational problem to solve on $\Omega$ reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} \text{such that: }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}}~~\text{such that: }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;\bt^{E})_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}
 }\label{eq:paraxial_varf_1}
 \end{equation}
 Using a zeroth-order paraxial approximation, the traction vector $\bt^{E}$ can be written as:
 \begin{equation}
-\bt^{E}=A_{0}(\dot{\bu}) = \rho c_p \dot{u}_m \bm + \rho c_s \dot{\bu}_s
+\bt^{E}=A_{0}(\dot{\bu}) = \rho c_p \dot{u}_m \bmm + \rho c_s \dot{\bu}_s
 \label{eq:paraxial_lin_form}
 \end{equation}
-where $(c_p,c_s)$ are the the propagation velocities of compressional and shear waves, $\dot{u}_m = \dot{\bu} \cdot \bm$ is the velocity normal to $\Sigma$ and  $\dot{\bu}_s = \dot{\bu} - \dot{u}_m \bm$ its tangent counterpart.
+where $(c_p,c_s)$ are the the propagation velocities of compressional and shear waves, $\dot{u}_m = \dot{\bu} \cdot \bmm$ is the velocity normal to $\Sigma$ and  $\dot{\bu}_s = \dot{\bu} - \dot{u}_m \bmm$ its tangent counterpart.
 
 More in general, given a vector-valued field $\ba$ (e.g., the displacement, velocity and acceleration fields), we write:\footnote{We recall that given three Euclidean vectors $\bv \in \mathbb{R}^d$, $\bw\in \mathbb{R}^d$ and $\bz\in \mathbb{R}^d$, the dyadic product $\bv \otimes \bw \in \mathbb{R}^{d\times d}$ is the second order tensor defined by: $(\bv \otimes \bw)\cdot \bz = (\bw\cdot \bz) \bv $. In components: $(\bv \otimes \bw)_{ij}=v_i\,w_j$.}
 \begin{equation}
-    A_{0}(\ba) = \rho c_p \, (\bm \otimes \bm) \cdot \ba + \rho c_s ({\bI} - \bm \otimes \bm) \cdot \ba = \rho \left[ (c_p - c_s)\, m_i m_j + c_s \delta_{ij} \right] a_j \be_i
+    A_{0}(\ba) = \rho c_p \, (\bmm \otimes \bmm) \cdot \ba + \rho c_s ({\bI} - \bmm \otimes \bmm) \cdot \ba = \rho \left[ (c_p - c_s)\, m_i m_j + c_s \delta_{ij} \right] a_j \be_i
 \end{equation}
-where symbol $\otimes$ denotes the dyadic product between first order tensors (vectors).\footnote{Denoting $(m_x,m_y,m_z)$ the components of vector $\bm$ in the reference system $R(O,\be_x,\be_y,\be_z)$, the components of $A_{0}(\ba)$ read:
+where symbol $\otimes$ denotes the dyadic product between first order tensors (vectors).\footnote{Denoting $(m_x,m_y,m_z)$ the components of vector $\bmm$ in the reference system $R(O,\be_x,\be_y,\be_z)$, the components of $A_{0}(\ba)$ read:
 \begin{align}
     (A_{0}(\ba))_x & = \rho \left[(c_p-c_s) m_x (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_x \right] \\
     (A_{0}(\ba))_y & =  \rho \left[(c_p-c_s) m_y (m_x a_x + m_y a_y + m_z a_z) + c_s\,a_y \right] \\
@@ -628,13 +628,13 @@ where symbol $\otimes$ denotes the dyadic product between first order tensors (v
 After time discretization, equation \eqref{eq:paraxial_lin_form} becomes:
 \begin{equation}
 \begin{aligned}b(\bv;\bt^{E})_{\Sigma} & =\frac{\gamma\,(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}(\bu_{n+1}))_{\Sigma}-\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
- & \quad\cdots-\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+ & \quad\cdots-\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}-\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
 \end{aligned}
 \end{equation}
 The variational problem to solve thus reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find} {\bu_{n+1}} \text{such that : }\\
- & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad\text{{\forall\,}}\bv\in\mathcal{V}
+\boxed{\begin{aligned} & \text{Find} {\bu_{n+1}}~~\text{such that : }\\
+ & \widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)({\bu_{n+1}},\bv)=\widetilde{\widetilde{\widetilde{l}}}(\bv)\quad{{\forall\,}}\bv\in\mathcal{V}
 \end{aligned}
 }
 \end{equation}
@@ -648,7 +648,7 @@ where $\widetilde{\widetilde{\widetilde{K}}}({\bu_{n+1}},\bv)$ is:
 and $\widetilde{\widetilde{\widetilde{l}}}(\bv)$ is:
 \begin{equation}
 \begin{aligned}\widetilde{\widetilde{\widetilde{l}}}(\bv) & =\widetilde{\widetilde{l}}(\bv)+\left[\frac{\gamma(1-\alpha_{f})}{\beta}-1\right]b(\bv;A_{0}(\dot{\bu}_{n}))_{\Sigma}\\
- & \quad\cdots+\text{\textgreek{D}}t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\text{}\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
+ & \quad\cdots+\Delta t(1-\alpha_{f})\left(\frac{\gamma}{2\beta}-1\text{}\right)b(\bv;A_{0}(\ddot{\bu}_{n}))_{\Sigma}+\frac{\gamma(1-\alpha_{f})}{\beta\,\Delta t}b(\bv;A_{0}({\bu_{n}}))_{\Sigma}
 \end{aligned}
 \end{equation}
 
@@ -671,7 +671,7 @@ here $\dot{\bu}_{in}$ is known, whereas $\dot{\bu}$ is the unknown velocity fiel
 
 The variational equation to solve now reads:
 \begin{equation}
-\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}} such that : }\\
+\boxed{\begin{aligned} & \text{Find}~{\bu}~{\in}~{\mathcal{U}}~~\text{such that : }\\
  & M(\ddot{\bu},\bv)+C(\dot{\bu},\bv)+K(\bu,\bv)=b(\bv;\bb)_{\Omega}+b(\bv;\bt)_{\partial_{t}\Omega}-b(\bv;A_{0}(\dot{\bu}))_{\Sigma}\\
  & \quad\cdots-b(\bv;\bt_{E}(\dot{\bu}_{in}))_{\Sigma}+b(\bv;A_{0}(\dot{\bu}_{in}))_{\Sigma}\quad\forall\,\bv\in\mathcal{V}
 \end{aligned}

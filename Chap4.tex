@@ -5,7 +5,7 @@ Before diving into the tutorials, here are some preliminaries that will help you
 
 \begin{itemize}
     \item A PSD simulation is performed in three steps: preprocessing, solving, and postprocessing. 
-    \item Domain: denoted by $\Omega$ is a a $n$-dimensional solid body such that $\Omega \subset \mathbbm{R}^n$ with $n=2$   for 2D problems or  $n=3$ for 3D problems.
+    \item Domain: denoted by $\Omega$ is a a $n$-dimensional solid body such that $\Omega \subset \mathbb{R}^n$ with $n=2$   for 2D problems or  $n=3$ for 3D problems.
     \item Finite element mesh: denoted by $\Omega^h$ with mesh size $h$. Mesh can be triangular in 2D and tetrahedral in 3D.
     \item MPI processes for simulation: denoted by $\np$ these are the total MPI ranks that will work in parallel to solve the problem.
     \item Partitioned mesh: denoted by $\{ \Omega ^h_i \}_{i=1}^{\np}$ these are set of subdomains which are held by each MPI rank during a parallel simulation.
