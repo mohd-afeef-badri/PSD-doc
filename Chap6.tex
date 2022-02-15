@@ -1,7 +1,12 @@
 \chapter{Functions and descriptions}
 \section{Flags for PSD\_PreProcess}
 
-The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user interaction. These flags become a medium of communication between the user and the PSD solver. Three types of flags can be used i)  {\ttfamily int} type : these are integer type flags which expect an integer argument, ii) {\ttfamily string} type : these flags expect a string argument, and iii) {\ttfamily bool} type : these are boolean type flags with no argument. 
+The {\ttfamily PSD\_PreProcess} is a TUI based application, hence it heavily  relies  on command line flags for user interaction. These flags become a medium of communication between the user and the PSD solver. Three types of flags can be used 
+\begin{itemize}
+	\item {\ttfamily int} type : these are integer type flags which expect an integer argument, 
+	\item {\ttfamily string} type : these flags expect a string argument, and
+	\item {\ttfamily bool} type : these are boolean type flags with no argument.
+\end{itemize}
 
 \subsection{Integer type flags used for  PSD\_PreProcess}
 \begin{conditions*}
@@ -13,8 +18,6 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   -tractionconditions       &   Number of Neumann/traction boundaries.  Default \ttfamily 0.\\
 
-  -parmetis\_worker          &   Active when mesh partitioner is parmetis.\\
-
   -dimension                &  Dimension of problem. 2 for 2D 3 for 3D. Default 2.\\
   
   -lagrange                 &   Lagrange order used for building FE space. Default \ttfamily 1 for P1. \\
@@ -22,21 +25,21 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
 \subsection{String type flags used for  PSD\_PreProcess}
 \begin{conditions*} 
-  -timediscretization & Time discretization type. Use \ttfamily generalized-alpha | \ttfamily newmark-beta | \ttfamily hht-alpha | \ttfamily central-difference. \\	
+  -timediscretization & Time discretization type. Use \ttfamily generalized\_alpha | \ttfamily newmark\_beta | \ttfamily hht\_alpha | \ttfamily central\_difference. \\	
   
-  -nonlinearmethod & Nonlinear method type. Use \ttfamily Picard | \ttfamily Newton-Raphsons. \\ 			
+  -nonlinearmethod & Nonlinear method type. Use \ttfamily Picard | \ttfamily Newton\_Raphsons. \\ 			
 
   -partitioner & Mesh partitioner. Use \ttfamily metis | scotch | parmetis.\\
 
   -postprocess & Indicate postprocessing quantity. Use \ttfamily u | v | a | phi | uphi | uva.\\
 
-  -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force-based | displacement-based.\\
+  -doublecouple  & Soil dynamics double couple boundary condition. Use \ttfamily force\_based | displacement\_based.\\
   
-  -reactionforce  &  Reaction force calculation method. Use \ttfamily stress-based | variational-based.\\
+  -reactionforce  &  Reaction force calculation method. Use \ttfamily stress\_based | variational\_based.\\
   
-  -problem     & Interested problem. Use \ttfamily linear-elasticity | damage | elastodynamics | soildynamics.\\
+  -problem     & Interested problem. Use \ttfamily linear\_elasticity | damage | elastodynamics | soildynamics |elasto\_plastic.\\
 
-  -model       & Interested model. Use \ttfamily hybrid-phase-field | Mazar | pseudo-nonlinear.	\\		
+  -model       & Interested model. Use \ttfamily hybrid\_phase\_field | Mazar | pseudo\_nonlinear.	\\		
 
 \end{conditions*}
 \subsection{Bool type flags used for  PSD\_PreProcess}
@@ -49,7 +52,9 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
   
   -timelog      & 	  To setup time logging for various phases of the solver. \\ 
 
-  -useRCM       & 	  Mesh level renumbering via Reverse Cuthill Mckee.\\   
+  -useRCM       & 	  Mesh level renumbering via Reverse Cuthill Mckee.\\
+  
+  -useMfront    & 	  To activate MFront interface for PSD.\\  
   
   -vectorial    & 	  Generate vectorial space solver for non-linear.  \\ 
   
@@ -59,6 +64,8 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   -energydecomp &     Hybrid phase-field energy decomposition. \\ 
 
+  -constrainHPF &  To use constrain condition in hybrid phase-field model.\\
+
   -top2vol-meshing &  top-ii-vol point source meshing for soil-dynamics. \\
   
   -getreactionforce &  Extraction reactions at surface. \\ 
@@ -67,7 +74,7 @@ The {\ttfamily PSD\_PreProcess}  relies heavily on command line flags for user i
 
   -withmaterialtensor  & Use material tensor to build stiffness matrix.   \\   
   
-  -dirichletpointconditions  &  To activate pre-cracked surface Dirichlet.
+  -crackdirichletcondition   & To activate pre-cracked surface Dirichlet for damage mechanics.   \\   
    
 \end{conditions*}
   
@@ -81,10 +88,12 @@ Just like  {\ttfamily PSD\_PreProcess}, the solver in PSD {\ttfamily PSD\_Solve}
    
    -v      &  FreeFEM flag verbosity of the background FEM kernel. Default \ttfamily 1. Set 0 for no output. Values  accepted 0 to 1000\\
 
-   -split  &  FreeFEM flag to split uniformly the mesh. Default \ttfamily 1 = no splitting. Use 2 to split once. Values  accepted 2 to 12.\\
+   -split  &  Flag to split uniformly the mesh. Default \ttfamily 1 = no splitting. Use 2 to split once. Values  accepted 2 to 12.\\
 
    -ksp\_max\_it &  PETSc flag to choose  Krylov solver max iterations. Default 1000.\\    
-	
+
+   -parmetis\_worker          &   Active when mesh partitioner is parmetis.\\
+  	
 \end{conditions*}
 
 \subsection{Real type flags used for  PSD\_Solve}
