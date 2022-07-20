@@ -3,12 +3,60 @@
 PSD has been maturing and evolving with time, following subsections
 present the highlights of some key changes made to each PSD version.
 
-\subsection{Rolling release (2.4)}
+\subsection{Rolling release (2.5)}
+
+\subsubsection{Added}
+
+\subsubsection{Changed}
+
+\subsubsection{Removed}
+
+\subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.4}{2.4}
+- 2022-07-20}{2.4 - 2022-07-20}}
 
 \subsubsection{Added}
 
 \begin{itemize}
 \tightlist
+\item
+  SALOME \lstinline!.med! file support. For conversion on disk is done
+  upon reading a \lstinline!.med!
+\item
+  New \lstinline!load "medio"! enables loading of medio library for PSD
+\item
+  Function \lstinline!savemedmesh()! used for saving med file (see unit
+  test \lstinline!Test_1.edp!)
+\item
+  Function \lstinline!loadmedmesh()! used for saving med file (see unit
+  test \lstinline!Test_2.edp!)
+\item
+  Function \lstinline!getMedLabelsOnGroup()! used for getting the label
+  tag for a group (see unit test \lstinline!Test_2.edp!)
+\item
+  Additional tests for Elastodynamics, Damage Mechanics.
+\item
+  Additional validation tests in \lstinline!tests/validation! folder.
+\item
+  New argument \lstinline!-getenergies! works in soildynamics and
+  elastodynamics, can be used to get K.E, E.E, D.E, T.T.
+\item
+  New flag \lstinline!-activeplot! to activate Gnuplot plotting via
+  piping, note this replaces the \lstinline!-piegnu!.
+\item
+  New flag \lstinline!-validation! to produce valdiation test case code,
+  for now only accepts \lstinline!iwan!.
+\item
+  Support for Dirichlet Point conditions in sequential for fracture
+  mechanics.
+\item
+  New tests for checking ponint BC.
+\item
+  New Iwan law for PSD-MFront coupling.
+\item
+  PSD installation support for MacOS.
+\item
+  New macro \lstinline!perfromRCMreordering(meshObject)! to perform mesh
+  level Reverse Cuthill-Mackee algo.
 \item
   New \lstinline!PsdMfrontPrintBehaviourStats()! to probe the mfront
   file and know the input/output.
@@ -27,8 +75,11 @@ present the highlights of some key changes made to each PSD version.
 \item
   New elasto-plastic tutorial.
 \item
+  Ablity to calculate reaction forces for linear-elasticity model (use
+  \lstinline!-getreactionforce -reactionforce .....!)
+\item
   New automake variable \lstinline!--with-dependencies=yes! for
-  installing all dependencies (FreeFEM, PETSc, Gmsh, Mfront, MGISq)
+  installing all dependencies (FreeFEM, PETSc, Gmsh, Mfront, MGIS)
 \item
   Dependencies can now be installed by PSD.
 \end{itemize}
@@ -36,7 +87,9 @@ present the highlights of some key changes made to each PSD version.
 \subsubsection{Changed}
 
 \begin{itemize}
-\tightlist
+\item
+  \lstinline!startProcedure()! and \lstinline!endProcedure()! macros
+  replace \lstinline!timerBegin()! and \lstinline!timerEnd()! macros.
 \item
   Moved to FreeFEM 4.10
 \item
@@ -49,7 +102,22 @@ present the highlights of some key changes made to each PSD version.
 
 \subsubsection{Removed}
 
+\begin{itemize}
+\tightlist
+\item
+  Removed the \lstinline!-supercomp! argument, no longer needed.
+\item
+  Removed the \lstinline!-pipegnu! flag.
+\end{itemize}
+
 \subsubsection{Bug}
+
+\begin{itemize}
+\tightlist
+\item
+  Bug in \lstinline!-plotreactionforce! when used with stress-based
+  method has been removed.
+\end{itemize}
 
 \subsection{\texorpdfstring{\href{https://gitlab.com/PsdSolver/psd_sources/-/tree/v2.3}{2.3}
 - 2021-09-13}{2.3 - 2021-09-13}}

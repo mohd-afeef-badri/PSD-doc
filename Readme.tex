@@ -46,11 +46,11 @@ platforms:
 \item
   CentOS 7 / 8
 \item
-  Ubuntu 16.04 / 18.04 / 20.04
+  Ubuntu 16.04 / 18.04 / 20.04 / 22.04
 \item
   Raspberry Pi
 \item
-  Fedora 30 / 32
+  Fedora 30 / 32 / 34
 \item
   MacOS X Puma:10.1.5
 \end{itemize}
@@ -60,9 +60,9 @@ dependencies installed on your OS.
 
 \textbf{Dependencies}
 
-PSD has some essential prerequistes without which PSD will not function.
-These dependencis can either be preinstalled by user. In that case
-following list needs to be installed, and assured that these are
+PSD has some essential prerequisites without which PSD will not
+function. These dependencies can either be preinstalled by user. In that
+case following list needs to be installed, and assured that these are
 intercompatiable.
 
 \begin{longtable}[]{@{}lll@{}}
@@ -76,7 +76,7 @@ Package & Version & Essential\tabularnewline
 YES\tabularnewline
 \href{https://www.mcs.anl.gov/petsc/}{PETSc} & Version \textbf{3.16.1} &
 YES\tabularnewline
-\href{http://gmsh.info/}{Gmsh} & Version \textbf{4.8} &
+\href{http://gmsh.info/}{Gmsh} & Version \textbf{4.8.4} &
 YES\tabularnewline
 \href{http://www.cplusplus.com/}{C++}, C & Version \textbf{7} or Higher
 & YES\tabularnewline
@@ -84,6 +84,8 @@ MPI & Version \textbf{2.0} or Higher (choose either
 \href{https://www.mpich.org/}{Mpich} or
 \href{https://www.open-mpi.org/}{Open MPI}) & YES\tabularnewline
 \href{https://git-scm.com/}{git} & - & YES\tabularnewline
+\href{https://www.salome-platform.org/}{salome} & Version \textbf{9} or
+Higher & OPTIONAL\tabularnewline
 \href{http://tfel.sourceforge.net/}{MFront} & Version \textbf{3.4.0} &
 OPTIONAL\tabularnewline
 \href{https://thelfer.github.io/mgis/web/bindings-cxx.html}{MGIS} &
@@ -95,31 +97,45 @@ Higher & OPTIONAL\tabularnewline
 \end{longtable}
 
 Note that PETSc and FreeFEM need to be compiled with METIS, ParMETIS,
-SLEPc, and hpddm support, in this case these form extra dependencies.
-The user in incharge of making sure that all the dependencies are met
-before installing PSD.
+and hpddm support, in this case these form extra dependencies. The user
+in incharge of making sure that all the dependencies are met before
+installing PSD. Have a look at \lstinline!Download.MD! file which
+explains a little bit about the dependencies and also provides the
+version and the links to download the dependencies from.
 
-Generally there are two procedures of installing PSD. One where user
-takes charge and installs all the depndencies. To follow this type of
-installation read the section \emph{Installation Procedure 1: I install
-my own dependencies}Alternatively, PSD can attempt to build and compile
-FreeFEM, PETSc, Gmsh, MFront and MGIS for you. In this case, user needs
-to ensure that automake, C/C++, git, and MPI is avaliable in the system.
-To know how this type of installation is done, please skip to section
-\emph{Installation Procedure 2: PSD installs all dependencies}.
+Generally there are two procedures of installing PSD.
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Installation Procedure 1: I install my own dependencies}.
+\item
+  \emph{Installation Procedure 2: PSD installs all dependencies}.
+\end{itemize}
+
+Among the two the second one is the recommended. With \emph{Installation
+Procedure 1} user takes charge and installs all the dependencies. To
+follow this type of installation read the section \emph{Installation
+Procedure 1: I install my own dependencies}. Alternatively, PSD can
+attempt to build and compile FreeFEM, PETSc, Gmsh, MFront, and MGIS for
+you. In this case, user needs to ensure that automake, C/C++, git, and
+MPI is available in the system and that your system has an active
+internet connection. To know how this type of installation is done,
+please skip to section \emph{Installation Procedure 2: PSD installs all
+dependencies}.
 
 \paragraph{Installation Procedure 1: I install my own dependencies}
 
 \begin{itemize}
 \item
-  Go ahead and grab the latest copy of PSD. The code is hosted on GitLab
+  Grab the latest copy of PSD. The code is hosted on GitLab
   \href{https://gitlab.com/PsdSolver/psd_sources}{repository}.
 
 \begin{lstlisting}[language=bash]
 git clone https://gitlab.com/PsdSolver/psd_sources.git PSD-Sources
 \end{lstlisting}
 \item
-  Use automake PSD within the cloned folder
+  Use automake within the cloned PSD folder (\lstinline!psd_sources!)
 
 \begin{lstlisting}[language=bash]
 autoreconf -i
@@ -132,19 +148,21 @@ autoreconf -i
 \end{lstlisting}
 
   \textbf{Note}: \lstinline!./configure! will install PSD in
-  \lstinline!/usr/local/bin! and you would need sudo rights to perform
-  installation, for non sudo users or for local install consider
-  changing directory of installation. To change this directory use
-  \lstinline!--prefix=Your/Own/Path! with \lstinline!./configure!.
-  Remember to add \lstinline!Your/Own/Path! to your \lstinline!$PATH!
-  variable, you can do so by
-  \lstinline!export PATH=$PATH:Your/Own/Path!. Also
-  \lstinline!./configure! will try to look for installation of FreeFEM,
-  MGIS, Mfront, and Gmsh in \lstinline!usr/bin/! or
-  \lstinline!usr/local/bin/! directories. If you have these packages
-  installed in some other directory this should be specified during
-  \lstinline!./configure! by using flags \lstinline!--with-FreeFEM=! ,
-  \lstinline!--with-Gmsh=!, etc. as shown below. For example
+  \lstinline!/usr/local/bin! and you would need \lstinline!sudo! rights
+  (superuser) to perform installation, for non \lstinline!sudo! users or
+  for local install consider changing directory of installation. To
+  change this directory use \lstinline!--prefix=Your/Own/Path! with
+  \lstinline!./configure!. Remember to add \lstinline!Your/Own/Path! to
+  your \lstinline!$PATH! variable, you can do so by
+  \lstinline!export PATH=$PATH:Your/Own/Path!.
+\end{itemize}
+
+\textbf{Note}: \lstinline!./configure! will try to look for installation
+of FreeFEM, MGIS, Mfront, and Gmsh in your \lstinline!PATH! directories.
+If you have these packages installed in some other directory this should
+be specified during \lstinline!./configure! by using flags
+\lstinline!--with-FreeFEM=! , \lstinline!--with-Gmsh=!, etc. as shown
+below. For example
 
 \begin{lstlisting}[language=bash]
 ./configure --prefix=$HOME/Install/local \
@@ -153,12 +171,21 @@ autoreconf -i
   --with-FreeFEM=$HOME/Install/local/FreeFem/bin       \
   --with-Gmsh=$HOME/Install/local/Gmsh/bin        
 \end{lstlisting}
+
+Additionally \lstinline!--with-salome=/salome/install/dir! can be used
+for compiling PSD with SALOME support.
+
+\begin{itemize}
+\tightlist
 \item
   Make PSD directives
+\end{itemize}
 
 \begin{lstlisting}[language=bash]
 make
 \end{lstlisting}
+
+\begin{itemize}
 \item
   Install PSD
 
@@ -167,7 +194,7 @@ sudo make install
 \end{lstlisting}
 
   \textbf{Note} : You should not use \lstinline!sudo! if you have used
-  \lstinline!--prefix! during the \lstinline!./configure!
+  \lstinline!--prefix! during the \lstinline!./configure! phase.
 \item
   Install PSD tutorials
 
@@ -202,9 +229,12 @@ R seuil=hm/splitmax/4.0/1000.0;
 
 \paragraph{Installation Procedure 2: PSD installs all the dependencies}
 
+\textbf{Note}: please make sure that you are using PSD version 2.5 or
+above.
+
 \begin{itemize}
 \item
-  Go ahead and grab the latest copy of PSD. The code is hosted on GitLab
+  Grab the latest copy of PSD. The code is hosted on GitLab
   \href{https://gitlab.com/PsdSolver/psd_sources}{repository}.
 
 \begin{lstlisting}[language=bash]
@@ -219,7 +249,7 @@ git clone https://gitlab.com/PsdSolver/psd_sources.git PSD-Sources
 export PREFIXPSD=/home/PSDinstall
 \end{lstlisting}
 \item
-  Use automake PSD within the cloned folder and configure PSD
+  Use \lstinline!automake! within the cloned folder and configure PSD
 
 \begin{lstlisting}[language=bash]
 autoreconf -i && ./configure --prefix=$PREFIXPSD --with-dependencies=yes
@@ -227,9 +257,16 @@ autoreconf -i && ./configure --prefix=$PREFIXPSD --with-dependencies=yes
 
   \textbf{Note}: we will install PSD in \lstinline!/home/PSDinstall! and
   you would need read and write rights to perform installation in this
-  folder.
+  folder. \lstinline!--with-dependencies=yes! uses \lstinline!wget! and
+  internet, so make sure you are connected. To bypass the internet
+  limitation, for instance on clusters or supercomputers, users can
+  provide the tarball files \lstinline!*.tar.gz! files of the
+  dependencies within the \lstinline!/ext! folder and use the flag
+  \lstinline!--with-zipped_dependecies!.\\
+  \textbf{Note}: for CentOS7 you might have to load MPI with
+  \lstinline!module load mpi/openmpi-x86_64!
 \item
-  Make all depndencies
+  Make all dependencies
 
 \begin{lstlisting}[language=bash]
 cd ext && make && cd ..
@@ -761,6 +798,16 @@ optional flag}\strut
 \lstinline!--with-mgis=/usr/local!\strut
 \end{minipage}\tabularnewline
 \begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-salome!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter the directory where SALOME has been installed. \emph{This flag is
+an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-salome=/home/SALOME-UB22.04!
+\lstinline!--with-salome=/home/install/SALOME-UB22.04!
+\lstinline!--with-salome=/usr/local/SALOME-UB22.04!\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
 \lstinline!--with-mfront!\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
 Enter the directory where Mfront binary has been installed. \emph{This
@@ -775,12 +822,25 @@ flag is an optional flag}\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
 Enter yes or no as an option to this flag, default is no. If yesis
 entered to this command, PSD will build and compile itsdependencies for
-you. If yes PSD will compil PETSc, FreeFEM,Mgis, MFront, Metis,
+you. If yes PSD will compile PETSc, FreeFEM,Mgis, MFront, Metis,
 ParMetis, Scalapack, mumps, hpddm,slepc, suitsspars, tetgen.\emph{This
 flag is an optional flag}\strut
 \end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
 \lstinline!--with-dependencies=yes! \lstinline!--with-dependencies=no!
 \strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.14\columnwidth}\raggedright\strut
+\lstinline!--with-zipped_dependencies!\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+Enter yes or no as an option to this flag, default is no. If yesis
+entered to this command, PSD will look for \lstinline!.tar.gz! files for
+dependencies in \lstinline!ext! folder and compile themfor you. If yes
+PSD will expect \lstinline!.tar.gz! for PETSc, FreeFEM,Mgis, MFront,
+Metis, ParMetis, Scalapack, mumps, hpddm,slepc, suitsspars, tetgen from
+ext folder.\emph{This flag is an optional flag}\strut
+\end{minipage} & \begin{minipage}[t]{0.39\columnwidth}\raggedright\strut
+\lstinline!--with-zipped_dependencies=yes!
+\lstinline!--with-zipped_dependencies=no! \strut
 \end{minipage}\tabularnewline
 \bottomrule
 \end{longtable}
@@ -792,6 +852,7 @@ generated thanks to automake. Different options are available with
 \lstinline!make! command some are native to Make (still listed here,
 sorry to my linux co-geeks)
 
+​
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule
